@@ -4,6 +4,8 @@ import re
 from datetime import datetime, timezone, date
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from logic.normalize import normalize_team
@@ -18,7 +20,22 @@ from config.settings import (
 BASE_URL = "https://api.elections.kalshi.com"
 # NOTE: Kalshi production trading API is hosted on api.elections.kalshi.com.
 # api.kalshi.com does not resolve for trade-api endpoints and will cause DNS errors.
-TIMEOUT = 20
+TIMEOUT = (5, 40)
+PAGINATION_SLEEP_SEC = 0.25
+REQUEST_RETRY_ATTEMPTS = 5
+REQUEST_RETRY_BACKOFF_SEC = 1.5
+
+_retry = Retry(
+    total=REQUEST_RETRY_ATTEMPTS,
+    connect=REQUEST_RETRY_ATTEMPTS,
+    read=REQUEST_RETRY_ATTEMPTS,
+    backoff_factor=REQUEST_RETRY_BACKOFF_SEC,
+    status_forcelist=[429, 500, 502, 503, 504],
+    allowed_methods=["GET"],
+)
+SESSION = requests.Session()
+SESSION.mount("https://", HTTPAdapter(max_retries=_retry))
+SESSION.mount("http://", HTTPAdapter(max_retries=_retry))
 
 if not KALSHI_KEY_ID:
     raise RuntimeError("KALSHI_KEY_ID is not set")
@@ -65,21 +82,30 @@ def _fetch_paginated(path: str, list_key: str, limit=200, max_pages=5, params=No
         url = BASE_URL + path
         headers = kalshi_headers("GET", path)
 
-        r = requests.get(
-            url,
-            params=page_params,
-            headers=headers,
-            timeout=TIMEOUT,
-        )
-        r.raise_for_status()
+        r = None
+        for attempt in range(REQUEST_RETRY_ATTEMPTS):
+            try:
+                r = SESSION.get(
+                    url,
+                    params=page_params,
+                    headers=headers,
+                    timeout=TIMEOUT,
+                )
+                r.raise_for_status()
+                break
+            except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
+                if attempt == REQUEST_RETRY_ATTEMPTS - 1:
+                    return items
+                time.sleep(REQUEST_RETRY_BACKOFF_SEC * (attempt + 1))
 
-        data = r.json()
+        data = r.json() if r is not None else {}
         batch = data.get(list_key) or data.get("data") or []
         items.extend(batch)
 
         cursor = data.get("cursor") or data.get("next_cursor")
         if not cursor:
             break
+        time.sleep(PAGINATION_SLEEP_SEC)
 
     return items
 
@@ -178,7 +204,7 @@ def place_order(payload: dict):
     path = "/trade-api/v2/portfolio/orders"
     url = BASE_URL + path
     headers = kalshi_headers("POST", path)
-    r = requests.post(url, json=payload, headers=headers, timeout=TIMEOUT)
+    r = SESSION.post(url, json=payload, headers=headers, timeout=TIMEOUT)
     if not r.ok:
         raise RuntimeError(f"Order failed {r.status_code}: {r.text}")
     return r.json()
@@ -191,7 +217,7 @@ def get_balance():
     path = "/trade-api/v2/portfolio/balance"
     url = BASE_URL + path
     headers = kalshi_headers("GET", path)
-    r = requests.get(url, headers=headers, timeout=TIMEOUT)
+    r = SESSION.get(url, headers=headers, timeout=TIMEOUT)
     r.raise_for_status()
     return r.json()
 
@@ -203,7 +229,7 @@ def get_positions():
     path = "/trade-api/v2/portfolio/positions"
     url = BASE_URL + path
     headers = kalshi_headers("GET", path)
-    r = requests.get(url, headers=headers, timeout=TIMEOUT)
+    r = SESSION.get(url, headers=headers, timeout=TIMEOUT)
     r.raise_for_status()
     return r.json()
 
@@ -223,7 +249,7 @@ def get_orders(params=None, max_pages=10, limit=200):
         if cursor:
             page_params["cursor"] = cursor
         url = BASE_URL + path
-        r = requests.get(url, headers=headers, params=page_params, timeout=TIMEOUT)
+        r = SESSION.get(url, headers=headers, params=page_params, timeout=TIMEOUT)
         r.raise_for_status()
         data = r.json()
         batch = data.get("orders") or data.get("data") or []
@@ -249,7 +275,7 @@ def get_trades(params=None, max_pages=10, limit=200):
             if cursor:
                 page_params["cursor"] = cursor
             url = BASE_URL + path
-            r = requests.get(url, headers=headers, params=page_params, timeout=TIMEOUT)
+            r = SESSION.get(url, headers=headers, params=page_params, timeout=TIMEOUT)
             if r.status_code == 404:
                 return None
             r.raise_for_status()
@@ -274,7 +300,7 @@ def get_market_by_ticker(ticker: str) -> dict | None:
     path = f"/trade-api/v2/markets/{ticker}"
     url = BASE_URL + path
     headers = kalshi_headers("GET", path)
-    r = requests.get(url, headers=headers, timeout=TIMEOUT)
+    r = SESSION.get(url, headers=headers, timeout=TIMEOUT)
     if not r.ok:
         return None
     data = r.json()
@@ -298,9 +324,9 @@ def cancel_order(order_id: str):
         headers = kalshi_headers(method, path)
         try:
             if method == "POST":
-                r = requests.post(url, headers=headers, timeout=TIMEOUT)
+                r = SESSION.post(url, headers=headers, timeout=TIMEOUT)
             else:
-                r = requests.delete(url, headers=headers, timeout=TIMEOUT)
+                r = SESSION.delete(url, headers=headers, timeout=TIMEOUT)
         except Exception as exc:
             last_err = exc
             continue
