@@ -173,51 +173,11 @@
   "{\"bookmakers\": \"lowvig,pinnacle,fanduel\", \"markets\": \"h2h\", \"regions\": \"us,uk,eu,fr,se,au\", \"sports\": [\"basketball_ncaab\", \"basketball_wncaab\"]}": {
     "data": [
       {
-        "away_team": "Eastern Illinois Panthers",
-        "bookmakers": [
-          {
-            "key": "fanduel",
-            "last_update": "2026-02-06T03:28:57Z",
-            "markets": [
-              {
-                "key": "h2h",
-                "last_update": "2026-02-06T03:28:57Z",
-                "outcomes": [
-                  {
-                    "name": "Eastern Illinois Panthers",
-                    "price": 2500
-                  },
-                  {
-                    "name": "Tennessee St Tigers",
-                    "price": -50000
-                  }
-                ]
-              }
-            ],
-            "title": "FanDuel"
-          }
-        ],
-        "commence_time": "2026-02-06T01:30:00Z",
-        "home_team": "Tennessee St Tigers",
-        "id": "9490ad0d7da68b94eadc5a2f6d7f5ee5",
-        "sport_key": "basketball_ncaab",
-        "sport_title": "NCAAB"
-      },
-      {
         "away_team": "Morehead St Eagles",
         "bookmakers": [],
         "commence_time": "2026-02-06T01:30:00Z",
         "home_team": "SE Missouri St Redhawks",
         "id": "e052dd7b66fc17add2cc07caa669c2d6",
-        "sport_key": "basketball_ncaab",
-        "sport_title": "NCAAB"
-      },
-      {
-        "away_team": "Southern Indiana Screaming Eagles",
-        "bookmakers": [],
-        "commence_time": "2026-02-06T01:30:00Z",
-        "home_team": "Tenn-Martin Skyhawks",
-        "id": "a2e9d1ba5817f5baddbad6d1ec969901",
         "sport_key": "basketball_ncaab",
         "sport_title": "NCAAB"
       },
@@ -241,7 +201,29 @@
       },
       {
         "away_team": "Idaho Vandals",
-        "bookmakers": [],
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-06T03:44:35Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-06T03:44:34Z",
+                "outcomes": [
+                  {
+                    "name": "Idaho Vandals",
+                    "price": 1400
+                  },
+                  {
+                    "name": "Montana St Bobcats",
+                    "price": -8000
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
         "commence_time": "2026-02-06T02:02:06Z",
         "home_team": "Montana St Bobcats",
         "id": "ba5ece8ad1d11760fa0212d80ae17494",
@@ -253,19 +235,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Idaho State Bengals",
-                    "price": 305
+                    "price": 1600
                   },
                   {
                     "name": "Northern Arizona Lumberjacks",
-                    "price": -450
+                    "price": -10000
                   }
                 ]
               }
@@ -284,19 +266,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Eastern Washington Eagles",
-                    "price": -280
+                    "price": -950
                   },
                   {
                     "name": "Montana Grizzlies",
-                    "price": 210
+                    "price": 540
                   }
                 ]
               }
@@ -312,29 +294,7 @@
       },
       {
         "away_team": "N Colorado Bears",
-        "bookmakers": [
-          {
-            "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
-            "markets": [
-              {
-                "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
-                "outcomes": [
-                  {
-                    "name": "N Colorado Bears",
-                    "price": -50000
-                  },
-                  {
-                    "name": "Weber State Wildcats",
-                    "price": 2200
-                  }
-                ]
-              }
-            ],
-            "title": "FanDuel"
-          }
-        ],
+        "bookmakers": [],
         "commence_time": "2026-02-06T02:03:04Z",
         "home_team": "Weber State Wildcats",
         "id": "e8d867bcf89836e2ae7cd76b27bbdc69",
@@ -346,19 +306,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:39:20Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:39:20Z",
                 "outcomes": [
                   {
                     "name": "UT-Arlington Mavericks",
-                    "price": 225
+                    "price": 122
                   },
                   {
                     "name": "Utah Tech Trailblazers",
-                    "price": -310
+                    "price": -160
                   }
                 ]
               }
@@ -377,19 +337,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "UC Davis Aggies",
-                    "price": -320
+                    "price": -670
                   },
                   {
                     "name": "UC Santa Barbara Gauchos",
-                    "price": 235
+                    "price": 430
                   }
                 ]
               }
@@ -408,19 +368,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Memphis Tigers",
-                    "price": -310
+                    "price": -184
                   },
                   {
                     "name": "UAB Blazers",
-                    "price": 230
+                    "price": 142
                   }
                 ]
               }
@@ -429,19 +389,19 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Memphis Tigers",
-                    "price": -329
+                    "price": -290
                   },
                   {
                     "name": "UAB Blazers",
-                    "price": 268
+                    "price": 229
                   }
                 ]
               }
@@ -460,19 +420,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:42:48Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:42:48Z",
                 "outcomes": [
                   {
                     "name": "Jacksonville St Gamecocks",
-                    "price": 112
+                    "price": 220
                   },
                   {
                     "name": "Western Kentucky Hilltoppers",
-                    "price": -142
+                    "price": -280
                   }
                 ]
               }
@@ -481,19 +441,19 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Jacksonville St Gamecocks",
-                    "price": -136
+                    "price": -115
                   },
                   {
                     "name": "Western Kentucky Hilltoppers",
-                    "price": 116
+                    "price": -115
                   }
                 ]
               }
@@ -512,19 +472,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "CSU Bakersfield Roadrunners",
-                    "price": 1000
+                    "price": 1300
                   },
                   {
                     "name": "UC Irvine Anteaters",
-                    "price": -3000
+                    "price": -5000
                   }
                 ]
               }
@@ -543,19 +503,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Long Beach St 49ers",
-                    "price": 390
+                    "price": 630
                   },
                   {
                     "name": "UC San Diego Tritons",
-                    "price": -620
+                    "price": -1300
                   }
                 ]
               }
@@ -574,19 +534,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Cal Poly Mustangs",
-                    "price": 196
+                    "price": 300
                   },
                   {
                     "name": "CSU Northridge Matadors",
-                    "price": -260
+                    "price": -430
                   }
                 ]
               }
@@ -605,19 +565,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Cal Baptist Lancers",
-                    "price": -400
+                    "price": -430
                   },
                   {
                     "name": "Tarleton State Texans",
-                    "price": 285
+                    "price": 300
                   }
                 ]
               }
@@ -636,19 +596,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "CSU Fullerton Titans",
-                    "price": -200
+                    "price": -430
                   },
                   {
                     "name": "UC Riverside Highlanders",
-                    "price": 154
+                    "price": 300
                   }
                 ]
               }
@@ -657,19 +617,19 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "CSU Fullerton Titans",
-                    "price": 139
+                    "price": -201
                   },
                   {
                     "name": "UC Riverside Highlanders",
-                    "price": -187
+                    "price": 163
                   }
                 ]
               }
@@ -688,11 +648,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Davidson Wildcats",
@@ -719,11 +679,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Brown Bears",
@@ -750,11 +710,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Dayton Flyers",
@@ -781,11 +741,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Evansville Purple Aces",
@@ -812,11 +772,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Murray St Racers",
@@ -843,11 +803,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Bradley Braves",
@@ -874,11 +834,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Drake Bulldogs",
@@ -905,11 +865,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "St. John's Red Storm",
@@ -936,11 +896,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Belmont Bruins",
@@ -976,11 +936,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Alabama Crimson Tide",
@@ -1007,11 +967,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Duke Blue Devils",
@@ -1038,11 +998,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Illinois Fighting Illini",
@@ -1069,11 +1029,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Kentucky Wildcats",
@@ -1100,11 +1060,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Florida Gators",
@@ -1131,11 +1091,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "BYU Cougars",
@@ -1162,19 +1122,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:45Z",
+            "last_update": "2026-02-06T03:40:43Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:45Z",
+                "last_update": "2026-02-06T03:40:43Z",
                 "outcomes": [
                   {
                     "name": "Alabama Crimson Tide",
-                    "price": -125
+                    "price": 154
                   },
                   {
                     "name": "Ole Miss Rebels",
-                    "price": -106
+                    "price": -210
                   }
                 ]
               }
@@ -1202,19 +1162,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:45Z",
+            "last_update": "2026-02-06T03:40:43Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:45Z",
+                "last_update": "2026-02-06T03:40:43Z",
                 "outcomes": [
                   {
                     "name": "LSU Tigers",
-                    "price": 290
+                    "price": 490
                   },
                   {
                     "name": "Texas Longhorns",
-                    "price": -440
+                    "price": -900
                   }
                 ]
               }
@@ -1233,19 +1193,19 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:45Z",
+            "last_update": "2026-02-06T03:39:00Z",
             "markets": [
               {
                 "key": "h2h",
-                "last_update": "2026-02-06T03:33:45Z",
+                "last_update": "2026-02-06T03:39:00Z",
                 "outcomes": [
                   {
                     "name": "Ohio State Buckeyes",
-                    "price": -50000
+                    "price": -2000
                   },
                   {
                     "name": "Washington Huskies",
-                    "price": 2200
+                    "price": 750
                   }
                 ]
               }
@@ -1269,19 +1229,10 @@
         "sport_title": "WNCAAB"
       }
     ],
-    "ts": 1770348836.233647
+    "ts": 1770349490.678916
   },
   "{\"bookmakers\": \"lowvig,pinnacle,fanduel\", \"markets\": \"totals\", \"regions\": \"us,uk,eu,fr,se,au\", \"sports\": [\"basketball_ncaab\", \"basketball_wncaab\"]}": {
     "data": [
-      {
-        "away_team": "Eastern Illinois Panthers",
-        "bookmakers": [],
-        "commence_time": "2026-02-06T01:30:00Z",
-        "home_team": "Tennessee St Tigers",
-        "id": "9490ad0d7da68b94eadc5a2f6d7f5ee5",
-        "sport_key": "basketball_ncaab",
-        "sport_title": "NCAAB"
-      },
       {
         "away_team": "Morehead St Eagles",
         "bookmakers": [],
@@ -1292,57 +1243,25 @@
         "sport_title": "NCAAB"
       },
       {
-        "away_team": "Southern Indiana Screaming Eagles",
-        "bookmakers": [],
-        "commence_time": "2026-02-06T01:30:00Z",
-        "home_team": "Tenn-Martin Skyhawks",
-        "id": "a2e9d1ba5817f5baddbad6d1ec969901",
-        "sport_key": "basketball_ncaab",
-        "sport_title": "NCAAB"
-      },
-      {
         "away_team": "Ohio State Buckeyes",
         "bookmakers": [
           {
-            "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
-            "markets": [
-              {
-                "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
-                "outcomes": [
-                  {
-                    "name": "Over",
-                    "point": 144.5,
-                    "price": -128
-                  },
-                  {
-                    "name": "Under",
-                    "point": 144.5,
-                    "price": -104
-                  }
-                ]
-              }
-            ],
-            "title": "FanDuel"
-          },
-          {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 147.5,
-                    "price": -111
+                    "point": 148.5,
+                    "price": -115
                   },
                   {
                     "name": "Under",
-                    "point": 147.5,
-                    "price": -119
+                    "point": 148.5,
+                    "price": -115
                   }
                 ]
               }
@@ -1358,31 +1277,7 @@
       },
       {
         "away_team": "Western Illinois Leathernecks",
-        "bookmakers": [
-          {
-            "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
-            "markets": [
-              {
-                "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
-                "outcomes": [
-                  {
-                    "name": "Over",
-                    "point": 170.5,
-                    "price": -110
-                  },
-                  {
-                    "name": "Under",
-                    "point": 170.5,
-                    "price": -120
-                  }
-                ]
-              }
-            ],
-            "title": "FanDuel"
-          }
-        ],
+        "bookmakers": [],
         "commence_time": "2026-02-06T01:55:56Z",
         "home_team": "Tennessee Tech Golden Eagles",
         "id": "6c49bc9beca98f37acf059d1e6bfaabb",
@@ -1391,31 +1286,7 @@
       },
       {
         "away_team": "Idaho Vandals",
-        "bookmakers": [
-          {
-            "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
-            "markets": [
-              {
-                "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
-                "outcomes": [
-                  {
-                    "name": "Over",
-                    "point": 138.5,
-                    "price": -120
-                  },
-                  {
-                    "name": "Under",
-                    "point": 138.5,
-                    "price": -110
-                  }
-                ]
-              }
-            ],
-            "title": "FanDuel"
-          }
-        ],
+        "bookmakers": [],
         "commence_time": "2026-02-06T02:02:06Z",
         "home_team": "Montana St Bobcats",
         "id": "ba5ece8ad1d11760fa0212d80ae17494",
@@ -1424,31 +1295,7 @@
       },
       {
         "away_team": "Northern Arizona Lumberjacks",
-        "bookmakers": [
-          {
-            "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
-            "markets": [
-              {
-                "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
-                "outcomes": [
-                  {
-                    "name": "Over",
-                    "point": 150.5,
-                    "price": -120
-                  },
-                  {
-                    "name": "Under",
-                    "point": 150.5,
-                    "price": -110
-                  }
-                ]
-              }
-            ],
-            "title": "FanDuel"
-          }
-        ],
+        "bookmakers": [],
         "commence_time": "2026-02-06T02:02:12Z",
         "home_team": "Idaho State Bengals",
         "id": "762ed5e4d2aa783ae3c41d0e26274809",
@@ -1460,20 +1307,20 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 165.5,
+                    "point": 166.5,
                     "price": -118
                   },
                   {
                     "name": "Under",
-                    "point": 165.5,
+                    "point": 166.5,
                     "price": -112
                   }
                 ]
@@ -1490,31 +1337,7 @@
       },
       {
         "away_team": "N Colorado Bears",
-        "bookmakers": [
-          {
-            "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
-            "markets": [
-              {
-                "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
-                "outcomes": [
-                  {
-                    "name": "Over",
-                    "point": 165.5,
-                    "price": -120
-                  },
-                  {
-                    "name": "Under",
-                    "point": 165.5,
-                    "price": -110
-                  }
-                ]
-              }
-            ],
-            "title": "FanDuel"
-          }
-        ],
+        "bookmakers": [],
         "commence_time": "2026-02-06T02:03:04Z",
         "home_team": "Weber State Wildcats",
         "id": "e8d867bcf89836e2ae7cd76b27bbdc69",
@@ -1523,31 +1346,7 @@
       },
       {
         "away_team": "UT-Arlington Mavericks",
-        "bookmakers": [
-          {
-            "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
-            "markets": [
-              {
-                "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
-                "outcomes": [
-                  {
-                    "name": "Over",
-                    "point": 147.5,
-                    "price": -110
-                  },
-                  {
-                    "name": "Under",
-                    "point": 147.5,
-                    "price": -120
-                  }
-                ]
-              }
-            ],
-            "title": "FanDuel"
-          }
-        ],
+        "bookmakers": [],
         "commence_time": "2026-02-06T02:03:07Z",
         "home_team": "Utah Tech Trailblazers",
         "id": "d7cbfb010252bd46cc9fdf9022351a60",
@@ -1559,21 +1358,21 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 159.5,
-                    "price": -122
+                    "point": 167.5,
+                    "price": -112
                   },
                   {
                     "name": "Under",
-                    "point": 159.5,
-                    "price": -108
+                    "point": 167.5,
+                    "price": -118
                   }
                 ]
               }
@@ -1592,21 +1391,21 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 163.5,
-                    "price": -122
+                    "point": 165.5,
+                    "price": -106
                   },
                   {
                     "name": "Under",
-                    "point": 163.5,
-                    "price": -108
+                    "point": 165.5,
+                    "price": -125
                   }
                 ]
               }
@@ -1615,21 +1414,21 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 163.0,
-                    "price": -111
+                    "point": 160.0,
+                    "price": -113
                   },
                   {
                     "name": "Under",
-                    "point": 163.0,
-                    "price": -105
+                    "point": 160.0,
+                    "price": -111
                   }
                 ]
               }
@@ -1648,21 +1447,21 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:42:48Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:42:48Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 139.5,
-                    "price": -125
+                    "point": 140.5,
+                    "price": -122
                   },
                   {
                     "name": "Under",
-                    "point": 139.5,
-                    "price": -106
+                    "point": 140.5,
+                    "price": -108
                   }
                 ]
               }
@@ -1671,21 +1470,21 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 136.5,
-                    "price": -105
+                    "point": 137.5,
+                    "price": -110
                   },
                   {
                     "name": "Under",
-                    "point": 136.5,
-                    "price": -111
+                    "point": 137.5,
+                    "price": -120
                   }
                 ]
               }
@@ -1704,21 +1503,21 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 149.5,
-                    "price": -120
+                    "point": 141.5,
+                    "price": -112
                   },
                   {
                     "name": "Under",
-                    "point": 149.5,
-                    "price": -110
+                    "point": 141.5,
+                    "price": -118
                   }
                 ]
               }
@@ -1737,20 +1536,20 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 146.5,
+                    "point": 148.5,
                     "price": -120
                   },
                   {
                     "name": "Under",
-                    "point": 146.5,
+                    "point": 148.5,
                     "price": -110
                   }
                 ]
@@ -1770,21 +1569,21 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 184.5,
-                    "price": -122
+                    "point": 195.5,
+                    "price": -114
                   },
                   {
                     "name": "Under",
-                    "point": 184.5,
-                    "price": -108
+                    "point": 195.5,
+                    "price": -114
                   }
                 ]
               }
@@ -1803,20 +1602,20 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 131.5,
+                    "point": 130.5,
                     "price": -108
                   },
                   {
                     "name": "Under",
-                    "point": 131.5,
+                    "point": 130.5,
                     "price": -122
                   }
                 ]
@@ -1836,20 +1635,20 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 160.5,
+                    "point": 157.5,
                     "price": -114
                   },
                   {
                     "name": "Under",
-                    "point": 160.5,
+                    "point": 157.5,
                     "price": -114
                   }
                 ]
@@ -1859,21 +1658,21 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 157.0,
-                    "price": -119
+                    "point": 158.0,
+                    "price": -104
                   },
                   {
                     "name": "Under",
-                    "point": 157.0,
-                    "price": -111
+                    "point": 158.0,
+                    "price": -116
                   }
                 ]
               }
@@ -1892,11 +1691,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -1915,11 +1714,11 @@
           },
           {
             "key": "lowvig",
-            "last_update": "2026-02-06T03:33:00Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:00Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -1938,11 +1737,11 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -1971,11 +1770,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -1994,11 +1793,11 @@
           },
           {
             "key": "lowvig",
-            "last_update": "2026-02-06T03:33:00Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:00Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2017,11 +1816,11 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2050,11 +1849,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2073,11 +1872,11 @@
           },
           {
             "key": "lowvig",
-            "last_update": "2026-02-06T03:33:00Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:00Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2096,11 +1895,11 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2129,11 +1928,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2152,11 +1951,11 @@
           },
           {
             "key": "lowvig",
-            "last_update": "2026-02-06T03:33:00Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:00Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2175,11 +1974,11 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2208,11 +2007,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2231,20 +2030,20 @@
           },
           {
             "key": "lowvig",
-            "last_update": "2026-02-06T03:33:00Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:00Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 159.0,
+                    "point": 158.0,
                     "price": -108
                   },
                   {
                     "name": "Under",
-                    "point": 159.0,
+                    "point": 158.0,
                     "price": -108
                   }
                 ]
@@ -2254,11 +2053,11 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2287,11 +2086,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2310,20 +2109,20 @@
           },
           {
             "key": "lowvig",
-            "last_update": "2026-02-06T03:33:00Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:00Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 132.0,
+                    "point": 131.0,
                     "price": -108
                   },
                   {
                     "name": "Under",
-                    "point": 132.0,
+                    "point": 131.0,
                     "price": -108
                   }
                 ]
@@ -2333,11 +2132,11 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2366,11 +2165,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2389,11 +2188,11 @@
           },
           {
             "key": "lowvig",
-            "last_update": "2026-02-06T03:33:00Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:00Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2412,11 +2211,11 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2445,11 +2244,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2468,11 +2267,11 @@
           },
           {
             "key": "lowvig",
-            "last_update": "2026-02-06T03:33:00Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:00Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2491,11 +2290,11 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2524,11 +2323,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2547,11 +2346,11 @@
           },
           {
             "key": "lowvig",
-            "last_update": "2026-02-06T03:33:00Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:00Z",
+                "last_update": "2026-02-06T03:44:35Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2570,11 +2369,11 @@
           },
           {
             "key": "pinnacle",
-            "last_update": "2026-02-06T03:33:33Z",
+            "last_update": "2026-02-06T03:44:34Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:33Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2612,11 +2411,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2645,11 +2444,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2678,11 +2477,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2711,11 +2510,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2744,11 +2543,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2777,11 +2576,11 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:17Z",
+            "last_update": "2026-02-06T03:44:35Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:17Z",
+                "last_update": "2026-02-06T03:44:34Z",
                 "outcomes": [
                   {
                     "name": "Over",
@@ -2810,21 +2609,21 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:45Z",
+            "last_update": "2026-02-06T03:40:43Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:45Z",
+                "last_update": "2026-02-06T03:40:43Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 129.5,
-                    "price": -108
+                    "point": 126.5,
+                    "price": -118
                   },
                   {
                     "name": "Under",
-                    "point": 129.5,
-                    "price": -122
+                    "point": 126.5,
+                    "price": -112
                   }
                 ]
               }
@@ -2852,21 +2651,21 @@
         "bookmakers": [
           {
             "key": "fanduel",
-            "last_update": "2026-02-06T03:33:45Z",
+            "last_update": "2026-02-06T03:40:43Z",
             "markets": [
               {
                 "key": "totals",
-                "last_update": "2026-02-06T03:33:45Z",
+                "last_update": "2026-02-06T03:40:43Z",
                 "outcomes": [
                   {
                     "name": "Over",
-                    "point": 149.5,
-                    "price": -120
+                    "point": 144.5,
+                    "price": -130
                   },
                   {
                     "name": "Under",
-                    "point": 149.5,
-                    "price": -110
+                    "point": 144.5,
+                    "price": -102
                   }
                 ]
               }
@@ -2882,31 +2681,7 @@
       },
       {
         "away_team": "Ohio State Buckeyes",
-        "bookmakers": [
-          {
-            "key": "fanduel",
-            "last_update": "2026-02-06T03:33:45Z",
-            "markets": [
-              {
-                "key": "totals",
-                "last_update": "2026-02-06T03:33:45Z",
-                "outcomes": [
-                  {
-                    "name": "Over",
-                    "point": 129.5,
-                    "price": -130
-                  },
-                  {
-                    "name": "Under",
-                    "point": 129.5,
-                    "price": -102
-                  }
-                ]
-              }
-            ],
-            "title": "FanDuel"
-          }
-        ],
+        "bookmakers": [],
         "commence_time": "2026-02-06T02:00:00Z",
         "home_team": "Washington Huskies",
         "id": "29a3a2ee67b60138e4aa09863f6fba6c",
@@ -2923,6 +2698,6 @@
         "sport_title": "WNCAAB"
       }
     ],
-    "ts": 1770348836.609971
+    "ts": 1770349491.203212
   }
 }

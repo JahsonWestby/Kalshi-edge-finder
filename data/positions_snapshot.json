@@ -236,19 +236,6 @@
       "total_cost_shares_fp": "2.00"
     },
     {
-      "event_exposure": 35,
-      "event_exposure_dollars": "0.3500",
-      "event_ticker": "KXNCAAMBGAME-26FEB05STETBELL",
-      "fees_paid": 1,
-      "fees_paid_dollars": "0.0100",
-      "realized_pnl": 0,
-      "realized_pnl_dollars": "0.0000",
-      "total_cost": 35,
-      "total_cost_dollars": "0.3500",
-      "total_cost_shares": 1,
-      "total_cost_shares_fp": "1.00"
-    },
-    {
       "event_exposure": 48,
       "event_exposure_dollars": "0.4800",
       "event_ticker": "KXNCAAMBGAME-26FEB05TARLCBU",
@@ -457,17 +444,17 @@
       "total_cost_shares_fp": "4.00"
     },
     {
-      "event_exposure": 0,
-      "event_exposure_dollars": "0.0000",
+      "event_exposure": 42,
+      "event_exposure_dollars": "0.4200",
       "event_ticker": "KXNCAAMBGAME-26FEB07ALAAUB",
-      "fees_paid": 0,
-      "fees_paid_dollars": "0.0000",
+      "fees_paid": 1,
+      "fees_paid_dollars": "0.0100",
       "realized_pnl": 0,
       "realized_pnl_dollars": "0.0000",
-      "total_cost": 0,
-      "total_cost_dollars": "0.0000",
-      "total_cost_shares": 0,
-      "total_cost_shares_fp": "0.00"
+      "total_cost": 42,
+      "total_cost_dollars": "0.4200",
+      "total_cost_shares": 1,
+      "total_cost_shares_fp": "1.00"
     },
     {
       "event_exposure": 0,
@@ -1046,21 +1033,6 @@
       "total_traded_dollars": "0.1400"
     },
     {
-      "fees_paid": 1,
-      "fees_paid_dollars": "0.0100",
-      "last_updated_ts": "2026-02-05T21:52:37.850809Z",
-      "market_exposure": 35,
-      "market_exposure_dollars": "0.3500",
-      "position": 1,
-      "position_fp": "1.00",
-      "realized_pnl": 0,
-      "realized_pnl_dollars": "0.0000",
-      "resting_orders_count": 0,
-      "ticker": "KXNCAAMBGAME-26FEB05STETBELL-STET",
-      "total_traded": 35,
-      "total_traded_dollars": "0.3500"
-    },
-    {
       "fees_paid": 2,
       "fees_paid_dollars": "0.0200",
       "last_updated_ts": "2026-02-05T07:56:59.74121Z",
@@ -1496,19 +1468,19 @@
       "total_traded_dollars": "0.0000"
     },
     {
-      "fees_paid": 0,
-      "fees_paid_dollars": "0.0000",
-      "last_updated_ts": "2026-02-06T03:12:34.485428Z",
-      "market_exposure": 0,
-      "market_exposure_dollars": "0.0000",
-      "position": 0,
-      "position_fp": "0.00",
+      "fees_paid": 1,
+      "fees_paid_dollars": "0.0100",
+      "last_updated_ts": "2026-02-06T03:45:03.12883Z",
+      "market_exposure": 42,
+      "market_exposure_dollars": "0.4200",
+      "position": -1,
+      "position_fp": "-1.00",
       "realized_pnl": 0,
       "realized_pnl_dollars": "0.0000",
       "resting_orders_count": 0,
       "ticker": "KXNCAAMBGAME-26FEB07ALAAUB-AUB",
-      "total_traded": 0,
-      "total_traded_dollars": "0.0000"
+      "total_traded": 42,
+      "total_traded_dollars": "0.4200"
     },
     {
       "fees_paid": 0,
