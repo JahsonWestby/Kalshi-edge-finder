@@ -235,6 +235,39 @@ def get_orders(params=None, max_pages=10, limit=200):
     return {"orders": all_orders}
 
 
+def get_trades(params=None, max_pages=10, limit=200):
+    """
+    Fetch trades/fills with pagination.
+    """
+    def _fetch(path: str, list_key: str):
+        headers = kalshi_headers("GET", path)
+        all_items = []
+        cursor = None
+        base_params = dict(params or {})
+        for _ in range(max_pages):
+            page_params = {"limit": limit, **base_params}
+            if cursor:
+                page_params["cursor"] = cursor
+            url = BASE_URL + path
+            r = requests.get(url, headers=headers, params=page_params, timeout=TIMEOUT)
+            if r.status_code == 404:
+                return None
+            r.raise_for_status()
+            data = r.json()
+            batch = data.get(list_key) or data.get("data") or []
+            all_items.extend(batch)
+            cursor = data.get("cursor") or data.get("next_cursor")
+            if not cursor:
+                break
+        return all_items
+
+    # Prefer fills endpoint; fallback to trades if needed.
+    items = _fetch("/trade-api/v2/portfolio/fills", "fills")
+    if items is None:
+        items = _fetch("/trade-api/v2/portfolio/trades", "trades") or []
+    return {"trades": items}
+
+
 def get_market_by_ticker(ticker: str) -> dict | None:
     if not ticker:
         return None
@@ -593,6 +626,9 @@ def _split_matchup(title: str) -> tuple[str, str] | tuple[None, None]:
     if not title:
         return (None, None)
     clean = title.replace("Winner?", "").strip()
+    # Totals titles include suffixes like ": Total Points" – strip anything after a colon.
+    if ":" in clean:
+        clean = clean.split(":", 1)[0].strip()
     if " at " in clean:
         away, home = clean.split(" at ", 1)
         return away.strip(), home.strip()

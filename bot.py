@@ -18,6 +18,7 @@ from APIs.kalshi_api import (
     place_order,
     get_positions,
     get_orders,
+    get_trades,
     cancel_order,
     _market_game_datetime,
     get_market_by_ticker,
@@ -181,6 +182,8 @@ if QUIET_LOGS:
         "[ARB]",
         "[INFO] Odds API refresh in",
         "[INFO] Edges",
+        "[INFO] Matched rows",
+        "[INFO] Unmatched",
         "[INFO] Summary",
         "[INFO] Canceled",
         "[INFO] Cancel not found",
@@ -391,6 +394,8 @@ LEDGER_PATH = Path("data/bets_ledger.json")
 RESTING_PATH = Path("data/resting_orders.json")
 RESTING_SNAPSHOT_PATH = Path("data/resting_orders_snapshot.json")
 POSITIONS_SNAPSHOT_PATH = Path("data/positions_snapshot.json")
+FILLED_TRADES_PATH = Path("data/filled_trades.csv")
+ORDERS_LOG_PATH = Path("data/orders_log.csv")
 
 
 def load_ledger():
@@ -425,6 +430,161 @@ def save_resting_orders_snapshot(data):
 def save_positions_snapshot(data):
     POSITIONS_SNAPSHOT_PATH.parent.mkdir(parents=True, exist_ok=True)
     POSITIONS_SNAPSHOT_PATH.write_text(json.dumps(data, indent=2, sort_keys=True))
+
+
+def _append_csv_rows(path: Path, fieldnames: list[str], rows: list[dict]) -> None:
+    if not rows:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    write_header = not path.exists()
+    with path.open("a", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        if write_header:
+            writer.writeheader()
+        writer.writerows(rows)
+
+
+def _load_csv_ids(path: Path, id_field: str) -> set[str]:
+    if not path.exists():
+        return set()
+    try:
+        with path.open("r", newline="") as f:
+            reader = csv.DictReader(f)
+            return {row.get(id_field, "") for row in reader if row.get(id_field)}
+    except Exception:
+        return set()
+
+
+def _load_orders_log_by_id() -> dict[str, dict]:
+    if not ORDERS_LOG_PATH.exists():
+        return {}
+    try:
+        with ORDERS_LOG_PATH.open("r", newline="") as f:
+            reader = csv.DictReader(f)
+            return {row.get("order_id", ""): row for row in reader if row.get("order_id")}
+    except Exception:
+        return {}
+
+
+def _log_order_entry(
+    order_id: str | None,
+    market_ticker: str,
+    side: str,
+    count: float,
+    price: float,
+    edge: float | None,
+    p_true: float | None,
+    book_odds: float | None,
+    market_type: str | None,
+    total_line: float | None,
+    team: str | None,
+    event_ticker: str | None,
+) -> None:
+    if not order_id:
+        return
+    row = {
+        "timestamp": datetime.now().isoformat(),
+        "order_id": order_id,
+        "market_ticker": market_ticker,
+        "side": side,
+        "count": count,
+        "price": price,
+        "edge": round(edge, 6) if edge is not None else "",
+        "p_true": round(p_true, 6) if p_true is not None else "",
+        "book_odds": book_odds if book_odds is not None else "",
+        "market_type": market_type or "",
+        "total_line": total_line if total_line is not None else "",
+        "team": team or "",
+        "event_ticker": event_ticker or "",
+    }
+    _append_csv_rows(
+        ORDERS_LOG_PATH,
+        [
+            "timestamp",
+            "order_id",
+            "market_ticker",
+            "side",
+            "count",
+            "price",
+            "edge",
+            "p_true",
+            "book_odds",
+            "market_type",
+            "total_line",
+            "team",
+            "event_ticker",
+        ],
+        [row],
+    )
+
+
+def _log_filled_trades(trades: list[dict]) -> None:
+    if not trades:
+        return
+    existing_ids = _load_csv_ids(FILLED_TRADES_PATH, "trade_id")
+    order_meta = _load_orders_log_by_id()
+    rows = []
+    for t in trades:
+        trade_id = t.get("trade_id") or t.get("fill_id")
+        if not trade_id or trade_id in existing_ids:
+            continue
+        order_id = t.get("order_id") or ""
+        price = _norm_price(t.get("price"))
+        if price is None:
+            price = _norm_price(t.get("yes_price_dollars") or t.get("no_price_dollars"))
+        if price is None:
+            price = _norm_price(t.get("yes_price_fixed") or t.get("no_price_fixed"))
+        fee_cost = _norm_dollars(t.get("fee_cost")) or 0.0
+        count = t.get("count") or t.get("count_fp") or 0
+        try:
+            count = float(count)
+        except Exception:
+            count = 0.0
+        meta = order_meta.get(str(order_id)) or {}
+        rows.append(
+            {
+                "fill_time": t.get("created_time") or t.get("ts") or "",
+                "trade_id": trade_id,
+                "order_id": order_id,
+                "market_ticker": t.get("market_ticker") or t.get("ticker") or "",
+                "side": (t.get("side") or "").upper(),
+                "action": t.get("action") or "",
+                "count": count,
+                "price": price if price is not None else "",
+                "fee_cost": fee_cost,
+                "is_taker": t.get("is_taker"),
+                "edge_at_entry": meta.get("edge", ""),
+                "p_true_at_entry": meta.get("p_true", ""),
+                "book_odds": meta.get("book_odds", ""),
+                "market_type": meta.get("market_type", ""),
+                "total_line": meta.get("total_line", ""),
+                "team": meta.get("team", ""),
+                "event_ticker": meta.get("event_ticker", ""),
+            }
+        )
+    _append_csv_rows(
+        FILLED_TRADES_PATH,
+        [
+            "fill_time",
+            "trade_id",
+            "order_id",
+            "market_ticker",
+            "side",
+            "action",
+            "count",
+            "price",
+            "fee_cost",
+            "is_taker",
+            "edge_at_entry",
+            "p_true_at_entry",
+            "book_odds",
+            "market_type",
+            "total_line",
+            "team",
+            "event_ticker",
+        ],
+        rows,
+    )
 
 
 def _sorted_snapshot_list(items):
@@ -1606,6 +1766,7 @@ def run():
                     continue
                 totals_by_matchup.setdefault(key, []).append(m)
 
+            totals_possible = 0
             for g in totals_games:
                 matchup_key = _matchup_key(g["away"], g["home"])
                 p_over, p_under = _devig_probs(g["over_odds"], g["under_odds"])
@@ -1624,6 +1785,7 @@ def run():
                         continue
                     if _market_started(market.get("raw_market"), odds_start_by_matchup):
                         continue
+                    totals_possible += 1
                     matched.add(f"{matchup_key}:{side}:{g['total']}")
 
                     raw_market = market.get("raw_market") or {}
@@ -1704,9 +1866,9 @@ def run():
             rows.sort(key=lambda r: r[4], reverse=True)
             expected_rows = 0
             if ENABLE_MONEYLINE:
-                expected_rows += len(odds_teams) * 2
+                expected_rows += len(moneyline_candidates)
             if ENABLE_TOTALS:
-                expected_rows += len(odds_matchups) * 2
+                expected_rows += totals_possible
             print(f"[INFO] Matched rows: {len(rows)} / {expected_rows}")
             edges_found = []
             for (
@@ -1775,10 +1937,9 @@ def run():
                     not_entered.append(
                         f"{team} {side} ({', '.join(reason) if reason else 'rule'})"
                     )
-            print(f"[INFO] Unmatched moneyline teams: {len(unmatched_moneyline)}")
+            if not QUIET_LOGS:
+                print(f"[INFO] Unmatched moneyline teams: {len(unmatched_moneyline)}")
             if unmatched_moneyline:
-                sample = ", ".join(sorted(set(unmatched_moneyline))[:20])
-                print(f"[INFO] Unmatched moneyline sample: {sample}")
                 # Write full unmatched list + closest Kalshi keys for fast mapping
                 unmatched_path = "data/unmatched_teams.csv"
                 kalshi_keys = sorted(kalshi_keys_all)
@@ -1798,20 +1959,17 @@ def run():
                         while len(matches) < 3:
                             matches.append("")
                         writer.writerow([t, t, matches[0], matches[1], matches[2]])
-                print(f"[INFO] Wrote unmatched list: {unmatched_path}")
 
             if ENABLE_TOTALS:
-                print(f"[INFO] Unmatched totals: {len(unmatched_totals)}")
+                if not QUIET_LOGS:
+                    print(f"[INFO] Unmatched totals: {len(unmatched_totals)}")
                 if unmatched_totals:
-                    sample = ", ".join(sorted(set(unmatched_totals))[:20])
-                    print(f"[INFO] Unmatched totals sample: {sample}")
                     unmatched_totals_path = "data/unmatched_totals.csv"
                     with open(unmatched_totals_path, "w", newline="") as f:
                         writer = csv.writer(f)
                         writer.writerow(["matchup_key"])
                         for t in sorted(set(unmatched_totals)):
                             writer.writerow([t])
-                    print(f"[INFO] Wrote unmatched totals list: {unmatched_totals_path}")
             if not_entered:
                 print(f"[INFO] Found but not entered: {len(not_entered)}")
                 for msg in not_entered[:20]:
@@ -1890,6 +2048,7 @@ def run():
             event_team_yes = _event_team_yes_prices(kalshi_by_series)
             positions = get_positions()
             orders = {"orders": []}
+            canceled_ids = set()
             if OPEN_ORDERS_STATUS:
                 statuses = [s.strip() for s in OPEN_ORDERS_STATUS.split(",") if s.strip()]
                 for status in statuses:
@@ -1898,6 +2057,16 @@ def run():
                     orders["orders"].extend(batch)
             else:
                 orders = get_orders()
+            if TRADE_MODE == "live":
+                try:
+                    canceled = get_orders(params={"status": "canceled"})
+                    canceled_batch = canceled.get("orders") or canceled.get("data") or []
+                    for o in canceled_batch:
+                        oid = o.get("order_id") or o.get("id")
+                        if oid:
+                            canceled_ids.add(str(oid))
+                except Exception:
+                    canceled_ids = set()
             # Save sorted snapshots for inspection
             if isinstance(positions, dict):
                 positions["market_positions"] = _sorted_snapshot_list(
@@ -2067,6 +2236,8 @@ def run():
                     if TRADE_MODE == "live":
                         try:
                             cancel_order(info["order_id"])
+                            if info.get("order_id"):
+                                canceled_ids.add(str(info["order_id"]))
                             print(f"[INFO] Canceled resting (game started): {ticker} {side}")
                         except Exception as exc:
                             if "404" in str(exc):
@@ -2151,6 +2322,8 @@ def run():
                     if TRADE_MODE == "live":
                         try:
                             cancel_order(info["order_id"])
+                            if info.get("order_id"):
+                                canceled_ids.add(str(info["order_id"]))
                             if ev_mid < CANCEL_EV_BUFFER:
                                 reason = "ev"
                             elif off_market:
@@ -2272,6 +2445,9 @@ def run():
                     if has_resting and TRADE_MODE == "live":
                         try:
                             cancel_order(open_orders[(market_ticker, side)]["order_id"])
+                            canceled_ids.add(
+                                str(open_orders[(market_ticker, side)]["order_id"])
+                            )
                             print(f"[INFO] Canceled resting (game started): {market_ticker} {side}")
                         except Exception as exc:
                             if "404" in str(exc):
@@ -2343,6 +2519,9 @@ def run():
                     if has_resting and TRADE_MODE == "live":
                         try:
                             cancel_order(open_orders[(market_ticker, side)]["order_id"])
+                            canceled_ids.add(
+                                str(open_orders[(market_ticker, side)]["order_id"])
+                            )
                             print(f"[INFO] Canceled (EV<=0): {market_ticker} {side}")
                         except Exception as exc:
                             if "404" in str(exc):
@@ -2433,6 +2612,9 @@ def run():
                         if TRADE_MODE == "live":
                             try:
                                 cancel_order(open_orders[(market_ticker, side)]["order_id"])
+                                canceled_ids.add(
+                                    str(open_orders[(market_ticker, side)]["order_id"])
+                                )
                                 if ev_mid < CANCEL_EV_BUFFER:
                                     reason = "ev"
                                 elif off_market:
@@ -2498,6 +2680,9 @@ def run():
                     if TRADE_MODE == "live":
                         try:
                             cancel_order(open_orders[(market_ticker, side)]["order_id"])
+                            canceled_ids.add(
+                                str(open_orders[(market_ticker, side)]["order_id"])
+                            )
                             payload = {
                                 "ticker": market_ticker,
                                 "action": "buy",
@@ -2512,9 +2697,10 @@ def run():
                             else:
                                 payload["no_price_dollars"] = _price_to_dollars(price)
                             resp = place_order(payload)
-                            ledger[key] = {"payload": payload, "response": resp}
-                            save_ledger(ledger)
                             order_id = _extract_order_id(resp)
+                            if order_id:
+                                ledger[str(order_id)] = {"payload": payload, "response": resp}
+                                save_ledger(ledger)
                             if order_id and row.get("book_odds") is not None:
                                 resting_state.setdefault("order_book_odds", {})[
                                     str(order_id)
@@ -2530,6 +2716,20 @@ def run():
                             }
                             save_resting_state(resting_state)
                             edge_after = calculate_edge(true_prob, price, KALSHI_FEE) * 100
+                            _log_order_entry(
+                                order_id,
+                                market_ticker,
+                                side,
+                                contracts,
+                                price,
+                                edge_after / 100.0,
+                                true_prob,
+                                row.get("book_odds"),
+                                row.get("market_type"),
+                                row.get("total_line"),
+                                row.get("team"),
+                                row.get("event_ticker"),
+                            )
                             print(
                                 f"[INFO] Replaced order: {market_ticker} {side} "
                                 f"{current_price:.2f} -> {price:.2f} x{contracts} "
@@ -2598,12 +2798,13 @@ def run():
                 if TRADE_MODE == "live":
                     try:
                         resp = place_order(payload)
-                        ledger[key] = {
-                            "payload": payload,
-                            "response": resp,
-                        }
-                        save_ledger(ledger)
                         order_id = _extract_order_id(resp)
+                        if order_id:
+                            ledger[str(order_id)] = {
+                                "payload": payload,
+                                "response": resp,
+                            }
+                            save_ledger(ledger)
                         if order_id and row.get("book_odds") is not None:
                             resting_state.setdefault("order_book_odds", {})[
                                 str(order_id)
@@ -2614,6 +2815,20 @@ def run():
                             resting_state[add_key] = resting_state.get(add_key, 0) + 1
                             save_resting_state(resting_state)
                         edge_after = calculate_edge(true_prob, price, KALSHI_FEE) * 100
+                        _log_order_entry(
+                            order_id,
+                            market_ticker,
+                            side,
+                            contracts,
+                            price,
+                            edge_after / 100.0,
+                            true_prob,
+                            row.get("book_odds"),
+                            row.get("market_type"),
+                            row.get("total_line"),
+                            row.get("team"),
+                            row.get("event_ticker"),
+                        )
                         exp_profit = row.get("expected_profit")
                         exp_profit_str = f"${exp_profit:.2f}" if exp_profit is not None else "n/a"
                         price_info = ""
@@ -2671,6 +2886,10 @@ def run():
                 time.sleep(ORDER_SLEEP_SEC)
 
         if TRADE_MODE == "live":
+            if canceled_ids:
+                for oid in list(ledger.keys()):
+                    if oid in canceled_ids:
+                        ledger.pop(oid, None)
             save_ledger(ledger)
 
         if QUIET_LOGS:

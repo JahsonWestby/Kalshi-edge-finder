@@ -43,6 +43,7 @@ def normalize_team(name: str) -> str:
         "beacons", "tritons", "commodores", "rams", "hokies",
         "leathernecks", "dons", "hawks", "eagles", "screaming",
         "river", "riverhawks", "ramblers", "lakers", "flash",
+        "purple", "gators", "tar",
     }
 
     parts = n.split()
@@ -74,6 +75,7 @@ def normalize_team(name: str) -> str:
         "se missouri state": "southeast missouri state",
         "tennmartin": "tennessee martin",
         "tennmartin skyhawks": "tennessee martin",
+        "tennesseemartin": "tennessee martin",
         "unc wilmington": "unc wilmington",
         "uic": "uic",
         "uc san diego": "uc san diego",
@@ -88,6 +90,9 @@ def normalize_team(name: str) -> str:
         "loyola chi ramblers": "loyola chicago",
         "state francis pa": "st francis pa",
         "state francis pa flash": "st francis pa",
+        "evansville purple": "evansville",
+        "north carolina tar": "north carolina",
+        "florida gators": "florida",
     }
 
     key = " ".join(parts)

@@ -90,7 +90,7 @@ POLL_INTERVAL = 30
 ODDS_CACHE_TTL_SEC = 300
 ODDS_CACHE_LOG = False
 QUIET_LOGS = True
-DATE_WINDOW_DAYS = 1
+DATE_WINDOW_DAYS = 2
 
 # secrets
 KALSHI_KEY_ID = os.getenv("KALSHI_KEY_ID")  # e.g. your Kalshi API key id
