@@ -44,6 +44,9 @@ def normalize_team(name: str) -> str:
         "leathernecks", "dons", "hawks", "eagles", "screaming",
         "river", "riverhawks", "ramblers", "lakers", "flash",
         "purple", "gators", "tar",
+        "razorbacks", "seminoles", "cyclones", "jayhawks", "hurricanes",
+        "cornhuskers", "ducks", "boilermakers", "orange", "horned",
+        "frogs", "cavaliers", "deacons", "demon", "badgers",
     }
 
     parts = n.split()
