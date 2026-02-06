@@ -1,0 +1,5 @@
+nba:
+  Lakers:
+    kalshi_ticker: "NBA-LAL-WIN"
+  Celtics:
+    kalshi_ticker: "NBA-BOS-WIN"
