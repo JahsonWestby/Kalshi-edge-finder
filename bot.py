@@ -1459,6 +1459,7 @@ def run():
             _EDGE_COUNTS.clear()
             now_label = datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z")
             print(f"[INFO] Run {now_label}")
+            print(f"[INFO] Bot file: {Path(__file__).resolve()} | build=series-counts-2026-02-07")
         print("[INFO] Fetching odds + Kalshi data...")
         target_date = datetime.now().astimezone().date()
         target_date_str = target_date.isoformat()
@@ -1505,6 +1506,12 @@ def run():
             if ENABLE_TOTALS
             else []
         )
+        ncaam_markets = len(kalshi_by_series.get("KXNCAAMBGAME", {}))
+        ncaaw_markets = len(kalshi_by_series.get("KXNCAAWBGAME", {}))
+        odds_m = sum(1 for g in games if g.get("sport_key") == "basketball_ncaab")
+        odds_w = sum(1 for g in games if g.get("sport_key") == "basketball_wncaab")
+        edges_m = 0
+        edges_w = 0
         balance = parse_balance(get_balance())
         cash_available = balance["cash_available"]
         portfolio_value = balance["portfolio_value"]
@@ -2009,6 +2016,19 @@ def run():
                     if cur is None or (chosen_price == bid_price and chosen_side == cand_side):
                         best_by_implied[key] = row
                 edges_found = keep + list(best_by_implied.values())
+
+            edges_m = sum(
+                1
+                for r in edges_found
+                if r.get("market_type") == "MONEYLINE"
+                and _series_from_ticker(r.get("market_ticker")) == "KXNCAAMBGAME"
+            )
+            edges_w = sum(
+                1
+                for r in edges_found
+                if r.get("market_type") == "MONEYLINE"
+                and _series_from_ticker(r.get("market_ticker")) == "KXNCAAWBGAME"
+            )
 
             csv_path = "data/edges_found.csv"
             with open(csv_path, "w", newline="") as f:
@@ -2893,6 +2913,10 @@ def run():
             save_ledger(ledger)
 
         if QUIET_LOGS:
+            print(
+                f"[INFO] Series counts: NCAAM markets={ncaam_markets}, NCAAW markets={ncaaw_markets} "
+                f"| odds games: M={odds_m}, W={odds_w} | edges: M={edges_m}, W={edges_w}"
+            )
             print(_edge_summary_line())
             print(_skip_summary_line())
             counts = _skip_summary_counts()
@@ -2908,4 +2932,5 @@ def run():
 
 
 if __name__ == "__main__":
+    print(f"[INFO] Booting {Path(__file__).resolve()} | build=series-counts-2026-02-07")
     run()
