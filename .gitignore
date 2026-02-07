@@ -10,3 +10,7 @@ data/resting_orders_snapshot.json
 data/resting_orders.json
 data/unmatched_teams.csv
 data/unmatched_totals.csv
+data/edges_found.csv
+data/odds_cache.json
+data/unmatched_totals.csv
+.DS_Store

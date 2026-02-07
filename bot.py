@@ -3037,8 +3037,10 @@ def run():
                             if true_prob is not None and p_book is not None
                             else ""
                         )
-                        books_info = _format_books_info(row)
-                        math_info = _format_math_info(row)
+                        books_info = "" if QUIET_LOGS else _format_books_info(row)
+                        math_info = "" if QUIET_LOGS else _format_math_info(row)
+                        if QUIET_LOGS:
+                            gap_str = ""
                         print(
                             f"[INFO] Placed order: {market_ticker:<30} {side:<3} x{contracts:<3} "
                             f"| price {price:>5.2f} | edge {edge_after:>6.2f}% | exp {exp_profit_str:>8} | book {book_odds:>6}"
@@ -3082,8 +3084,10 @@ def run():
                         if true_prob is not None and p_book is not None
                         else ""
                     )
-                    books_info = _format_books_info(row)
-                    math_info = _format_math_info(row)
+                    books_info = "" if QUIET_LOGS else _format_books_info(row)
+                    math_info = "" if QUIET_LOGS else _format_math_info(row)
+                    if QUIET_LOGS:
+                        gap_str = ""
                     print(
                         f"[INFO] DRY RUN order: {market_ticker:<30} {side:<3} x{contracts:<3} "
                         f"| price {price:>5.2f} | edge {edge_after:>6.2f}% | exp {exp_profit_str:>8} | book {book_odds:>6}"
