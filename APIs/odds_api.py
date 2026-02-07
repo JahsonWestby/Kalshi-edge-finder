@@ -149,6 +149,7 @@ def get_moneyline_games(
             continue
 
         odds_by_team = {}
+        odds_by_book = {}
         books = game.get("bookmakers", [])
         if allowed_books:
             books = [b for b in books if b.get("key") in allowed_books]
@@ -157,6 +158,8 @@ def get_moneyline_games(
             books = [b for b in books if b.get("key") == "pinnacle"] or books[:1]
 
         for book in books:
+            book_key = book.get("key") or "book"
+            book_odds = {}
             for market in book.get("markets", []):
                 if market.get("key") != "h2h":
                     continue
@@ -169,7 +172,13 @@ def get_moneyline_games(
 
                     team = normalize_team(raw_name)
 
-                    odds_by_team.setdefault(team, []).append(outcome["price"])
+                    price = outcome.get("price")
+                    if price is None:
+                        continue
+                    odds_by_team.setdefault(team, []).append(price)
+                    book_odds[team] = price
+            if book_odds:
+                odds_by_book[book_key] = book_odds
 
         home_raw = game.get("home_team", "")
         away_raw = game.get("away_team", "")
@@ -189,6 +198,7 @@ def get_moneyline_games(
                     "away": away,
                     "odds_home": odds_home,
                     "odds_away": odds_away,
+                    "odds_by_book": odds_by_book,
                     "commence_time": game.get("commence_time"),
                     "sport_key": game.get("sport_key"),
                 }
@@ -250,6 +260,7 @@ def get_totals_games(
             continue
 
         totals_by_line = {}
+        totals_by_line_by_book = {}
         books = game.get("bookmakers", [])
         if allowed_books:
             books = [b for b in books if b.get("key") in allowed_books]
@@ -257,6 +268,7 @@ def get_totals_games(
             books = [b for b in books if b.get("key") == "pinnacle"] or books[:1]
 
         for book in books:
+            book_key = book.get("key") or "book"
             for market in book.get("markets", []):
                 if market.get("key") != "totals":
                     continue
@@ -276,6 +288,11 @@ def get_totals_games(
                     totals_by_line.setdefault(total_points, {"over": [], "under": []})
                     totals_by_line[total_points]["over"].append(over)
                     totals_by_line[total_points]["under"].append(under)
+                    totals_by_line_by_book.setdefault(total_points, {})
+                    totals_by_line_by_book[total_points][book_key] = {
+                        "over": over,
+                        "under": under,
+                    }
 
         if not totals_by_line:
             continue
@@ -293,6 +310,7 @@ def get_totals_games(
         under_avg = _avg(totals_by_line[best_line]["under"])
         if over_avg is None or under_avg is None:
             continue
+        totals_by_book = totals_by_line_by_book.get(best_line, {})
 
         home_raw = game.get("home_team", "")
         away_raw = game.get("away_team", "")
@@ -310,6 +328,7 @@ def get_totals_games(
                     "total": best_line,
                     "over_odds": over_avg,
                     "under_odds": under_avg,
+                    "totals_by_book": totals_by_book,
                     "commence_time": game.get("commence_time"),
                     "sport_key": game.get("sport_key"),
                 }

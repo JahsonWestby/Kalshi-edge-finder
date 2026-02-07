@@ -61,6 +61,7 @@ from config.settings import (
     MONEYLINE_SIDE_FILTER,
     USE_CHEAPEST_IMPLIED_WINNER,
     ALLOW_POSITION_ADDS,
+    MAX_PROB_GAP,
     CANCEL_EV_BUFFER,
     CANCEL_TIME_SEC,
     OFF_MARKET_CENTS,
@@ -1531,6 +1532,22 @@ def run():
             odds_teams.add(g["away"])
         for g in totals_games:
             odds_matchups.add(_matchup_key(g["away"], g["home"]))
+        odds_books_by_matchup = {}
+        for g in games:
+            key = _matchup_key(g["away"], g["home"])
+            odds_books_by_matchup[key] = g.get("odds_by_book") or {}
+        odds_game_by_matchup = {}
+        for g in games:
+            key = _matchup_key(g["away"], g["home"])
+            odds_game_by_matchup[key] = g
+        totals_books_by_key = {}
+        for g in totals_games:
+            key = _matchup_key(g["away"], g["home"])
+            totals_books_by_key[(key, g.get("total"))] = g.get("totals_by_book") or {}
+        totals_game_by_key = {}
+        for g in totals_games:
+            key = _matchup_key(g["away"], g["home"])
+            totals_game_by_key[(key, g.get("total"))] = g
 
         kalshi_keys_all = set()
         if ENABLE_MONEYLINE:
@@ -1568,6 +1585,7 @@ def run():
                 series_expected = _series_for_sport(sport_key)
                 if not series_expected:
                     continue
+                matchup_key = _matchup_key(g["away"], g["home"])
                 kalshi = kalshi_by_series.get(series_expected, {})
                 p_home, p_away = _devig_probs(g["odds_home"], g["odds_away"])
                 for team, odds_val, book_prob in (
@@ -1635,6 +1653,7 @@ def run():
                                 "market_ticker": market_ticker,
                                 "event_ticker": event_ticker,
                                 "market_type": "MONEYLINE",
+                                "matchup_key": matchup_key,
                             }
                         )
                     if (
@@ -1654,6 +1673,7 @@ def run():
                                 "market_ticker": market_ticker,
                                 "event_ticker": event_ticker,
                                 "market_type": "MONEYLINE",
+                                "matchup_key": matchup_key,
                             }
                         )
 
@@ -1761,7 +1781,7 @@ def run():
                     band,
                     "MONEYLINE",
                     None,
-                    None,
+                    row.get("matchup_key"),
                 )
             )
 
@@ -2438,6 +2458,128 @@ def run():
                             f"| profit {profit:.2f} (fees {fee_yes+fee_no:.2f})"
                         )
                         arb_orders_submitted += 2
+            def _format_books_info(row: dict) -> str:
+                market_type = row.get("market_type")
+                if market_type == "MONEYLINE":
+                    matchup_key = row.get("matchup_key")
+                    if not matchup_key:
+                        return ""
+                    books = odds_books_by_matchup.get(matchup_key) or {}
+                    if not books:
+                        return ""
+                    team = normalize_team(row.get("team") or "")
+                    if not team:
+                        return ""
+                    opponent = None
+                    for book_odds in books.values():
+                        if team in book_odds:
+                            for name in book_odds:
+                                if name != team:
+                                    opponent = name
+                                    break
+                        if opponent:
+                            break
+                    parts = []
+                    for book_key, book_odds in books.items():
+                        team_odds = book_odds.get(team)
+                        opp_odds = book_odds.get(opponent) if opponent else None
+                        if team_odds is None and opp_odds is None:
+                            continue
+                        team_str = _format_odds(team_odds) if team_odds is not None else "n/a"
+                        if opp_odds is None:
+                            parts.append(f"{book_key}:{team_str}")
+                        else:
+                            opp_str = _format_odds(opp_odds) if opp_odds is not None else "n/a"
+                            parts.append(f"{book_key}:{team_str}/{opp_str}")
+                    return f" | books {', '.join(parts)}" if parts else ""
+                if market_type == "TOTAL":
+                    matchup_key = row.get("matchup_key")
+                    total_line = row.get("total_line")
+                    if matchup_key is None or total_line is None:
+                        return ""
+                    books = totals_books_by_key.get((matchup_key, total_line)) or {}
+                    if not books:
+                        return ""
+                    parts = []
+                    for book_key, sides in books.items():
+                        over = sides.get("over")
+                        under = sides.get("under")
+                        if over is None and under is None:
+                            continue
+                        over_str = _format_odds(over) if over is not None else "n/a"
+                        under_str = _format_odds(under) if under is not None else "n/a"
+                        parts.append(f"{book_key}:O{over_str}/U{under_str}")
+                    return f" | books {', '.join(parts)}" if parts else ""
+                return ""
+
+            def _format_math_info(row: dict) -> str:
+                market_type = row.get("market_type")
+                if market_type == "MONEYLINE":
+                    matchup_key = row.get("matchup_key")
+                    if not matchup_key:
+                        return ""
+                    game = odds_game_by_matchup.get(matchup_key)
+                    if not game:
+                        return ""
+                    home = game.get("home")
+                    away = game.get("away")
+                    odds_home = game.get("odds_home")
+                    odds_away = game.get("odds_away")
+                    try:
+                        p_home_raw = american_to_prob(float(odds_home))
+                        p_away_raw = american_to_prob(float(odds_away))
+                    except Exception:
+                        return ""
+                    p_home_dev, p_away_dev = _devig_probs(odds_home, odds_away)
+                    team = normalize_team(row.get("team") or "")
+                    side = row.get("side")
+                    opp = away if team == home else home
+                    used_team = team if side == "YES" else opp
+                    odds_home_str = _format_odds(odds_home)
+                    odds_away_str = _format_odds(odds_away)
+                    if used_team == home:
+                        p_used = p_home_dev
+                    elif used_team == away:
+                        p_used = p_away_dev
+                    else:
+                        p_used = None
+                    used_str = f" used={p_used:.3f}" if p_used is not None else ""
+                    return (
+                        f" | math odds H/A={odds_home_str}/{odds_away_str} "
+                        f"raw H/A={p_home_raw:.3f}/{p_away_raw:.3f} "
+                        f"devig {home}={p_home_dev:.3f} {away}={p_away_dev:.3f} "
+                        f"used_team={used_team}{used_str}"
+                    )
+                if market_type == "TOTAL":
+                    matchup_key = row.get("matchup_key")
+                    total_line = row.get("total_line")
+                    if matchup_key is None or total_line is None:
+                        return ""
+                    game = totals_game_by_key.get((matchup_key, total_line))
+                    if not game:
+                        return ""
+                    odds_over = game.get("over_odds")
+                    odds_under = game.get("under_odds")
+                    try:
+                        p_over_raw = american_to_prob(float(odds_over))
+                        p_under_raw = american_to_prob(float(odds_under))
+                    except Exception:
+                        return ""
+                    p_over_dev, p_under_dev = _devig_probs(odds_over, odds_under)
+                    label = row.get("team") or ""
+                    side_hint = "OVER" if label.endswith(" OVER") else "UNDER" if label.endswith(" UNDER") else None
+                    p_used = p_over_dev if side_hint == "OVER" else p_under_dev if side_hint == "UNDER" else None
+                    used_str = f" used={p_used:.3f}" if p_used is not None else ""
+                    odds_over_str = _format_odds(odds_over)
+                    odds_under_str = _format_odds(odds_under)
+                    return (
+                        f" | math odds O/U={odds_over_str}/{odds_under_str} "
+                        f"raw O/U={p_over_raw:.3f}/{p_under_raw:.3f} "
+                        f"devig O={p_over_dev:.3f} U={p_under_dev:.3f} "
+                        f"used_side={side_hint}{used_str}"
+                    )
+                return ""
+
             for row in edges_found:
                 if orders_submitted >= MAX_ORDERS_PER_RUN:
                     break
@@ -2525,6 +2667,19 @@ def run():
                     true_prob = row.get("book_prob")
                 if true_prob is None:
                     print(f"[SKIP] missing p_true: {market_ticker} {side}")
+                    continue
+                book_odds_val = row.get("book_odds")
+                p_book = None
+                if book_odds_val is not None:
+                    try:
+                        p_book = american_to_prob(float(book_odds_val))
+                    except Exception:
+                        p_book = None
+                if p_book is not None and abs(true_prob - p_book) > MAX_PROB_GAP:
+                    print(
+                        f"[SKIP] prob mismatch: {market_ticker} {side} "
+                        f"p_true={true_prob:.3f} p_book={p_book:.3f} gap={abs(true_prob - p_book):.3f}"
+                    )
                     continue
                 edge_at_bid = calculate_edge(true_prob, best_bid, KALSHI_FEE)
                 if edge_at_bid < MIN_EDGE:
@@ -2868,10 +3023,26 @@ def run():
                                     f" | prices: {side} {team_norm}={price:.2f}, "
                                     f"YES {other_team}={other_price:.2f}"
                                 )
-                        book_odds = _format_odds(row.get("book_odds"))
+                        book_odds_val = row.get("book_odds")
+                        book_odds = _format_odds(book_odds_val)
+                        p_true_str = f"{true_prob:.3f}" if true_prob is not None else "n/a"
+                        p_book = None
+                        try:
+                            p_book = american_to_prob(float(book_odds_val))
+                            p_book_str = f"{p_book:.3f}"
+                        except Exception:
+                            p_book_str = "n/a"
+                        gap_str = (
+                            f" | gap={abs(true_prob - p_book):.3f}"
+                            if true_prob is not None and p_book is not None
+                            else ""
+                        )
+                        books_info = _format_books_info(row)
+                        math_info = _format_math_info(row)
                         print(
                             f"[INFO] Placed order: {market_ticker:<30} {side:<3} x{contracts:<3} "
-                            f"| edge {edge_after:>6.2f}% | exp {exp_profit_str:>8} | book {book_odds:>6}{price_info}"
+                            f"| price {price:>5.2f} | edge {edge_after:>6.2f}% | exp {exp_profit_str:>8} | book {book_odds:>6}"
+                            f" | p_true={p_true_str} | p_book={p_book_str}{gap_str}{math_info}{books_info}{price_info}"
                         )
                     except Exception as exc:
                         print(f"[WARN] Order failed: {market_ticker} {side} x{contracts} -> {exc}")
@@ -2897,10 +3068,26 @@ def run():
                     edge_after = calculate_edge(true_prob, price, KALSHI_FEE) * 100
                     exp_profit = row.get("expected_profit")
                     exp_profit_str = f"${exp_profit:.2f}" if exp_profit is not None else "n/a"
-                    book_odds = _format_odds(row.get("book_odds"))
+                    book_odds_val = row.get("book_odds")
+                    book_odds = _format_odds(book_odds_val)
+                    p_true_str = f"{true_prob:.3f}" if true_prob is not None else "n/a"
+                    p_book = None
+                    try:
+                        p_book = american_to_prob(float(book_odds_val))
+                        p_book_str = f"{p_book:.3f}"
+                    except Exception:
+                        p_book_str = "n/a"
+                    gap_str = (
+                        f" | gap={abs(true_prob - p_book):.3f}"
+                        if true_prob is not None and p_book is not None
+                        else ""
+                    )
+                    books_info = _format_books_info(row)
+                    math_info = _format_math_info(row)
                     print(
                         f"[INFO] DRY RUN order: {market_ticker:<30} {side:<3} x{contracts:<3} "
-                        f"| edge {edge_after:>6.2f}% | exp {exp_profit_str:>8} | book {book_odds:>6}{price_info}"
+                        f"| price {price:>5.2f} | edge {edge_after:>6.2f}% | exp {exp_profit_str:>8} | book {book_odds:>6}"
+                        f" | p_true={p_true_str} | p_book={p_book_str}{gap_str}{math_info}{books_info}{price_info}"
                     )
                 orders_submitted += 1
                 time.sleep(ORDER_SLEEP_SEC)

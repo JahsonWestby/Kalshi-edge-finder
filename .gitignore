@@ -1,3 +1,12 @@
 .env
 secrets/private_key.pem
 secrets/*.pem
+data/bets_ledger.json
+data/edges_found.csv
+data/odds_cache.json
+data/orders_log.csv
+data/positions_snapshot.json
+data/resting_orders_snapshot.json
+data/resting_orders.json
+data/unmatched_teams.csv
+data/unmatched_totals.csv
