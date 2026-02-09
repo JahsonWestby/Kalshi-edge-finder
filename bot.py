@@ -1744,6 +1744,42 @@ def run():
                     best_by_implied[key] = row
             moneyline_candidates = keep + list(best_by_implied.values())
 
+        if moneyline_candidates:
+            best_by_event = {}
+            for row in moneyline_candidates:
+                event_key = (
+                    row.get("event_ticker")
+                    or row.get("matchup_key")
+                    or row.get("market_ticker")
+                    or row.get("team")
+                )
+                book_prob = row.get("book_prob")
+                price = row.get("kalshi_price")
+                ev = (
+                    ev_per_dollar(book_prob, price)
+                    if isinstance(book_prob, (int, float)) and price is not None
+                    else float("-inf")
+                )
+                cur = best_by_event.get(event_key)
+                if cur is None or ev > cur["ev"]:
+                    best_by_event[event_key] = {"row": row, "ev": ev}
+
+            filtered = []
+            for row in moneyline_candidates:
+                event_key = (
+                    row.get("event_ticker")
+                    or row.get("matchup_key")
+                    or row.get("market_ticker")
+                    or row.get("team")
+                )
+                if best_by_event.get(event_key, {}).get("row") is row:
+                    filtered.append(row)
+                else:
+                    not_entered.append(
+                        f"{row.get('team')} {row.get('side')} (lower ev same event)"
+                    )
+            moneyline_candidates = filtered
+
         for row in moneyline_candidates:
             team = row.get("team")
             side = row.get("side")
