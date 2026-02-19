@@ -30,16 +30,16 @@ if _dotenv_path.exists():
             os.environ.pop(_k, None)
 
 # bankroll
-BANKROLL = 150.0
+BANKROLL = 190.0
 MAX_TRADE_SIZE = 15.0
 
 # thresholds
-MIN_EDGE = 0.0125
+MIN_EDGE = 0.015
 AGGRESSIVE_EDGE = 0.05  # 5%
 AGGRESSIVE_TICK = 0.01
 YES_NO_TIE_PREFERENCE = 0.005
 ENABLE_ARBS = True
-ARB_MIN_PROFIT = 0.01
+ARB_MIN_PROFIT = 0.10
 ARB_MAX_CONTRACTS = 10
 ARB_MAX_ORDERS_PER_RUN = 4
 MIN_VOLUME = 50
@@ -50,7 +50,7 @@ KELLY_CAP = 0.25
 MAX_TRADE_PCT = 0.10
 ASSUME_LIMIT_ORDER = True
 MAX_KALSHI_PRICE = 0.95
-TRADE_MODE = "live"  # "dry-run" or "live"
+TRADE_MODE = "dry-run"  # "dry-run" or "live"
 MAX_ORDERS_PER_RUN = 30
 POST_ONLY = True
 ORDER_SLEEP_SEC = 0.12
@@ -59,13 +59,13 @@ MAX_UPDATES_PER_MARKET = 5
 ORDER_IMPROVE_MIN = 0.01
 MAX_DOLLARS_PER_MARKET = 7.0
 MAX_DOLLARS_PER_EVENT = 7.0
-MIN_EDGE_NEW = 0.015
-MIN_EDGE_ADD = 0.02
+MIN_EDGE_NEW = 0.02
+MIN_EDGE_ADD = 0.025
 MIN_PRICE_IMPROVEMENT_ADD = 0.01
 MAX_ADDS_PER_MARKET_PER_DAY = 1
-EDGE_FAV_MIN = 0.010   # 2.0%
-EDGE_MID_MIN = 0.015 # 2.25%
-EDGE_DOG_MIN = 0.020  # 3.0%
+EDGE_FAV_MIN = 0.015   
+EDGE_MID_MIN = 0.02 
+EDGE_DOG_MIN = 0.025  
 MAX_PROB_GAP = 0.06
 USE_CHEAPEST_IMPLIED_WINNER = True
 ALLOW_POSITION_ADDS = True
@@ -100,8 +100,8 @@ KALSHI_PEM_PATH = BASE_DIR / "secrets" / "private_key.pem"
 # Odds API settings
 ODDS_API_KEY = os.getenv("ODDS_API_KEY")
 ODDS_REGIONS = "us,uk,eu,fr,se,au"
-# Sport keys (Odds API): basketball_ncaab, basketball_wncaab, americanfootball_ncaaf
-ODDS_SPORTS = ["basketball_ncaab","basketball_wncaab"]
+# Sport keys (Odds API): basketball_ncaab, basketball_wncaab, basketball_nba, americanfootball_ncaaf
+ODDS_SPORTS = ["basketball_ncaab", "basketball_wncaab", "basketball_nba"]
 ODDS_BOOKMAKERS = "lowvig,pinnacle,fanduel,bookmaker,betonlineag"
 
 # Market toggles
@@ -110,7 +110,7 @@ ENABLE_TOTALS = False
 MONEYLINE_SIDE_FILTER = "YES"  # "YES", "NO", or "ALL"
 
 # Kalshi series tickers
-KALSHI_SERIES_TICKERS = ["KXNCAAMBGAME","KXNCAAWBGAME"]
+KALSHI_SERIES_TICKERS = ["KXNCAAMBGAME", "KXNCAAWBGAME", "KXNBAGAME"]
 KALSHI_TOTALS_SERIES_TICKERS = ["KXNCAAMBTOTAL"]
 
 # totals matching

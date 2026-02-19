@@ -4079,6 +4079,6085 @@
     ],
     "ts": 1770663426.167021
   },
+  "{\"bookmakers\": \"lowvig,pinnacle,fanduel,bookmaker,betonlineag\", \"markets\": \"h2h\", \"regions\": \"us,uk,eu,fr,se,au\", \"sports\": [\"basketball_ncaab\", \"basketball_wncaab\", \"basketball_nba\"]}": {
+    "data": [
+      {
+        "away_team": "Binghamton Bearcats",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Binghamton Bearcats",
+                    "price": 245
+                  },
+                  {
+                    "name": "Bryant Bulldogs",
+                    "price": -320
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Binghamton Bearcats",
+                    "price": 231
+                  },
+                  {
+                    "name": "Bryant Bulldogs",
+                    "price": -293
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-19T23:00:00Z",
+        "home_team": "Bryant Bulldogs",
+        "id": "8cefa8db10463310c69addb02955c116",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Florida Int'l Golden Panthers",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Florida Int'l Golden Panthers",
+                    "price": 505
+                  },
+                  {
+                    "name": "Liberty Flames",
+                    "price": -700
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Florida Int'l Golden Panthers",
+                    "price": 505
+                  },
+                  {
+                    "name": "Liberty Flames",
+                    "price": -700
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Florida Int'l Golden Panthers",
+                    "price": 570
+                  },
+                  {
+                    "name": "Liberty Flames",
+                    "price": -850
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Florida Int'l Golden Panthers",
+                    "price": 480
+                  },
+                  {
+                    "name": "Liberty Flames",
+                    "price": -646
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-19T23:00:00Z",
+        "home_team": "Liberty Flames",
+        "id": "6d80b17ab30bf90edd4f992586f0fc38",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "New Hampshire Wildcats",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "New Hampshire Wildcats",
+                    "price": 188
+                  },
+                  {
+                    "name": "UMass Lowell River Hawks",
+                    "price": -230
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "New Hampshire Wildcats",
+                    "price": 163
+                  },
+                  {
+                    "name": "UMass Lowell River Hawks",
+                    "price": -201
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-19T23:00:00Z",
+        "home_team": "UMass Lowell River Hawks",
+        "id": "f5e9f9c254b4f2740e99df0fcc6f4505",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Vermont Catamounts",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "UMBC Retrievers",
+                    "price": 106
+                  },
+                  {
+                    "name": "Vermont Catamounts",
+                    "price": -128
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "UMBC Retrievers",
+                    "price": -107
+                  },
+                  {
+                    "name": "Vermont Catamounts",
+                    "price": -113
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-19T23:00:00Z",
+        "home_team": "UMBC Retrievers",
+        "id": "c89aea9b0a6d2896ecc79682e26cba7d",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Marshall Thundering Herd",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Appalachian St Mountaineers",
+                    "price": -195
+                  },
+                  {
+                    "name": "Marshall Thundering Herd",
+                    "price": 170
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Appalachian St Mountaineers",
+                    "price": -195
+                  },
+                  {
+                    "name": "Marshall Thundering Herd",
+                    "price": 170
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Appalachian St Mountaineers",
+                    "price": -194
+                  },
+                  {
+                    "name": "Marshall Thundering Herd",
+                    "price": 160
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Appalachian St Mountaineers",
+                    "price": -193
+                  },
+                  {
+                    "name": "Marshall Thundering Herd",
+                    "price": 163
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-19T23:30:00Z",
+        "home_team": "Appalachian St Mountaineers",
+        "id": "c46107e783bde770eaadd2dedb13510c",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "South Carolina Upstate Spartans",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "South Carolina Upstate Spartans",
+                    "price": 740
+                  },
+                  {
+                    "name": "Winthrop Eagles",
+                    "price": -1250
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "South Carolina Upstate Spartans",
+                    "price": 671
+                  },
+                  {
+                    "name": "Winthrop Eagles",
+                    "price": -1120
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-19T23:30:00Z",
+        "home_team": "Winthrop Eagles",
+        "id": "71fe6fb1cdc61eae114e012b6fac84ce",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Alabama St Hornets",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Alabama St Hornets",
+                    "price": 225
+                  },
+                  {
+                    "name": "Bethune-Cookman Wildcats",
+                    "price": -290
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Alabama St Hornets",
+                    "price": 194
+                  },
+                  {
+                    "name": "Bethune-Cookman Wildcats",
+                    "price": -241
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Bethune-Cookman Wildcats",
+        "id": "ca2e93ccab146a0ff6dd89cfeb618825",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Albany Great Danes",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Albany Great Danes",
+                    "price": 148
+                  },
+                  {
+                    "name": "NJIT Highlanders",
+                    "price": -184
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Albany Great Danes",
+                    "price": 157
+                  },
+                  {
+                    "name": "NJIT Highlanders",
+                    "price": -193
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "NJIT Highlanders",
+        "id": "a03bdc970e5a7382172144df37ba32a0",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Austin Peay Governors",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Austin Peay Governors",
+                    "price": -850
+                  },
+                  {
+                    "name": "North Florida Ospreys",
+                    "price": 540
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Austin Peay Governors",
+                    "price": -706
+                  },
+                  {
+                    "name": "North Florida Ospreys",
+                    "price": 483
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "North Florida Ospreys",
+        "id": "fa82a46c346f3f2e37bae898cdb95ed5",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "William & Mary Tribe",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Campbell Fighting Camels",
+                    "price": 105
+                  },
+                  {
+                    "name": "William & Mary Tribe",
+                    "price": -125
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Campbell Fighting Camels",
+                    "price": 105
+                  },
+                  {
+                    "name": "William & Mary Tribe",
+                    "price": -125
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Campbell Fighting Camels",
+                    "price": -102
+                  },
+                  {
+                    "name": "William & Mary Tribe",
+                    "price": -114
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Campbell Fighting Camels",
+                    "price": 108
+                  },
+                  {
+                    "name": "William & Mary Tribe",
+                    "price": -132
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Campbell Fighting Camels",
+        "id": "c315f579d18731f4770616d8fe8622e6",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Le Moyne Dolphins",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Central Connecticut St Blue Devils",
+                    "price": -188
+                  },
+                  {
+                    "name": "Le Moyne Dolphins",
+                    "price": 152
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Central Connecticut St Blue Devils",
+                    "price": -167
+                  },
+                  {
+                    "name": "Le Moyne Dolphins",
+                    "price": 137
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Central Connecticut St Blue Devils",
+        "id": "d6bed7820b4550fa2addb2e9bf383380",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Charleston Cougars",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Charleston Cougars",
+                    "price": -215
+                  },
+                  {
+                    "name": "North Carolina A&T Aggies",
+                    "price": 183
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Charleston Cougars",
+                    "price": -215
+                  },
+                  {
+                    "name": "North Carolina A&T Aggies",
+                    "price": 183
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Charleston Cougars",
+                    "price": -215
+                  },
+                  {
+                    "name": "North Carolina A&T Aggies",
+                    "price": 176
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Charleston Cougars",
+                    "price": -220
+                  },
+                  {
+                    "name": "North Carolina A&T Aggies",
+                    "price": 185
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "North Carolina A&T Aggies",
+        "id": "9bc8fef61acdae35fbb776b8d930781d",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Chattanooga Mocs",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Chattanooga Mocs",
+                    "price": 464
+                  },
+                  {
+                    "name": "Mercer Bears",
+                    "price": -630
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Chattanooga Mocs",
+                    "price": 464
+                  },
+                  {
+                    "name": "Mercer Bears",
+                    "price": -630
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Chattanooga Mocs",
+                    "price": 459
+                  },
+                  {
+                    "name": "Mercer Bears",
+                    "price": -611
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Chattanooga Mocs",
+                    "price": 490
+                  },
+                  {
+                    "name": "Mercer Bears",
+                    "price": -750
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Mercer Bears",
+        "id": "0c6f1d63866153110038aedd07da345c",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Fairleigh Dickinson Knights",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Chicago St Cougars",
+                    "price": 126
+                  },
+                  {
+                    "name": "Fairleigh Dickinson Knights",
+                    "price": -154
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Chicago St Cougars",
+                    "price": 118
+                  },
+                  {
+                    "name": "Fairleigh Dickinson Knights",
+                    "price": -143
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Chicago St Cougars",
+        "id": "b56f54524c8a32ac81ce70aca326dac1",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Drexel Dragons",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Drexel Dragons",
+                    "price": -110
+                  },
+                  {
+                    "name": "Northeastern Huskies",
+                    "price": -110
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Drexel Dragons",
+                    "price": -121
+                  },
+                  {
+                    "name": "Northeastern Huskies",
+                    "price": 104
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Northeastern Huskies",
+        "id": "afe645cabd6b9c9e0aee8a4c2db5f746",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Gardner-Webb Bulldogs",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Gardner-Webb Bulldogs",
+                    "price": 1600
+                  },
+                  {
+                    "name": "Radford Highlanders",
+                    "price": -6000
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Radford Highlanders",
+        "id": "789c7c0d07195f036a97acd07aa8850c",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "UNC Asheville Bulldogs",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "High Point Panthers",
+                    "price": -1300
+                  },
+                  {
+                    "name": "UNC Asheville Bulldogs",
+                    "price": 730
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "High Point Panthers",
+                    "price": -1664
+                  },
+                  {
+                    "name": "UNC Asheville Bulldogs",
+                    "price": 859
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "High Point Panthers",
+        "id": "301b670813f218d79c9acc0938038e65",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "IUPUI Jaguars",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "IUPUI Jaguars",
+                    "price": 613
+                  },
+                  {
+                    "name": "Wright St Raiders",
+                    "price": -900
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "IUPUI Jaguars",
+                    "price": 613
+                  },
+                  {
+                    "name": "Wright St Raiders",
+                    "price": -900
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "IUPUI Jaguars",
+                    "price": 590
+                  },
+                  {
+                    "name": "Wright St Raiders",
+                    "price": -839
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "IUPUI Jaguars",
+                    "price": 650
+                  },
+                  {
+                    "name": "Wright St Raiders",
+                    "price": -1100
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Wright St Raiders",
+        "id": "08e7e4ed447f1573859dfe64e966e31b",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "LIU Sharks",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "LIU Sharks",
+                    "price": -520
+                  },
+                  {
+                    "name": "St. Francis (PA) Red Flash",
+                    "price": 370
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "LIU Sharks",
+                    "price": -468
+                  },
+                  {
+                    "name": "St. Francis (PA) Red Flash",
+                    "price": 347
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "St. Francis (PA) Red Flash",
+        "id": "72e2eb5674f27efc0e97d95568351f93",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Longwood Lancers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Longwood Lancers",
+                    "price": 134
+                  },
+                  {
+                    "name": "Presbyterian Blue Hose",
+                    "price": -164
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Longwood Lancers",
+                    "price": 135
+                  },
+                  {
+                    "name": "Presbyterian Blue Hose",
+                    "price": -165
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Presbyterian Blue Hose",
+        "id": "5c15bc7b9032b64b9c7e4ccc6ba25918",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Memphis Tigers",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Memphis Tigers",
+                    "price": 361
+                  },
+                  {
+                    "name": "South Florida Bulls",
+                    "price": -465
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Memphis Tigers",
+                    "price": 361
+                  },
+                  {
+                    "name": "South Florida Bulls",
+                    "price": -465
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Memphis Tigers",
+                    "price": 365
+                  },
+                  {
+                    "name": "South Florida Bulls",
+                    "price": -490
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Memphis Tigers",
+                    "price": 344
+                  },
+                  {
+                    "name": "South Florida Bulls",
+                    "price": -435
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "South Florida Bulls",
+        "id": "d2366f2f563a7c531c08d321776b927a",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Wagner Seahawks",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Mercyhurst Lakers",
+                    "price": -250
+                  },
+                  {
+                    "name": "Wagner Seahawks",
+                    "price": 198
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Mercyhurst Lakers",
+                    "price": -231
+                  },
+                  {
+                    "name": "Wagner Seahawks",
+                    "price": 186
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Mercyhurst Lakers",
+        "id": "2beb482898d444484328e715b8b63f4f",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Monmouth Hawks",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Monmouth Hawks",
+                    "price": 252
+                  },
+                  {
+                    "name": "UNC Wilmington Seahawks",
+                    "price": -310
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Monmouth Hawks",
+                    "price": 252
+                  },
+                  {
+                    "name": "UNC Wilmington Seahawks",
+                    "price": -310
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Monmouth Hawks",
+                    "price": 270
+                  },
+                  {
+                    "name": "UNC Wilmington Seahawks",
+                    "price": -345
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Monmouth Hawks",
+                    "price": 253
+                  },
+                  {
+                    "name": "UNC Wilmington Seahawks",
+                    "price": -308
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "UNC Wilmington Seahawks",
+        "id": "8afc8e0e314fe6eddbb0e6b2b7057261",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Stonehill Skyhawks",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "New Haven Chargers",
+                    "price": -162
+                  },
+                  {
+                    "name": "Stonehill Skyhawks",
+                    "price": 132
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "New Haven Chargers",
+                    "price": -155
+                  },
+                  {
+                    "name": "Stonehill Skyhawks",
+                    "price": 127
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "New Haven Chargers",
+        "id": "5b5996f74f0c95ee96ca0f71523aaeec",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Samford Bulldogs",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Samford Bulldogs",
+                    "price": -600
+                  },
+                  {
+                    "name": "The Citadel Bulldogs",
+                    "price": 446
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Samford Bulldogs",
+                    "price": -600
+                  },
+                  {
+                    "name": "The Citadel Bulldogs",
+                    "price": 446
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Samford Bulldogs",
+                    "price": -609
+                  },
+                  {
+                    "name": "The Citadel Bulldogs",
+                    "price": 457
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Samford Bulldogs",
+                    "price": -750
+                  },
+                  {
+                    "name": "The Citadel Bulldogs",
+                    "price": 490
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "The Citadel Bulldogs",
+        "id": "d6475785249f4bcc8d6c2d9d6e074393",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Arkansas St Red Wolves",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Arkansas St Red Wolves",
+                    "price": -420
+                  },
+                  {
+                    "name": "Louisiana Ragin' Cajuns",
+                    "price": 330
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Arkansas St Red Wolves",
+                    "price": -420
+                  },
+                  {
+                    "name": "Louisiana Ragin' Cajuns",
+                    "price": 330
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Arkansas St Red Wolves",
+                    "price": -480
+                  },
+                  {
+                    "name": "Louisiana Ragin' Cajuns",
+                    "price": 360
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Arkansas St Red Wolves",
+                    "price": -404
+                  },
+                  {
+                    "name": "Louisiana Ragin' Cajuns",
+                    "price": 322
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "Louisiana Ragin' Cajuns",
+        "id": "e31f9b4e839cd65c78d1dfa11349b988",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Tenn-Martin Skyhawks",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Arkansas-Little Rock Trojans",
+                    "price": 120
+                  },
+                  {
+                    "name": "Tenn-Martin Skyhawks",
+                    "price": -140
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Arkansas-Little Rock Trojans",
+                    "price": 120
+                  },
+                  {
+                    "name": "Tenn-Martin Skyhawks",
+                    "price": -140
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Arkansas-Little Rock Trojans",
+                    "price": 116
+                  },
+                  {
+                    "name": "Tenn-Martin Skyhawks",
+                    "price": -136
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Arkansas-Little Rock Trojans",
+                    "price": 118
+                  },
+                  {
+                    "name": "Tenn-Martin Skyhawks",
+                    "price": -144
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "Arkansas-Little Rock Trojans",
+        "id": "c0b74c5c374724f36f23f902f703a396",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Cal Baptist Lancers",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Cal Baptist Lancers",
+                    "price": 330
+                  },
+                  {
+                    "name": "Utah Valley Wolverines",
+                    "price": -420
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Cal Baptist Lancers",
+                    "price": 330
+                  },
+                  {
+                    "name": "Utah Valley Wolverines",
+                    "price": -420
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Cal Baptist Lancers",
+                    "price": 300
+                  },
+                  {
+                    "name": "Utah Valley Wolverines",
+                    "price": -373
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Cal Baptist Lancers",
+                    "price": 320
+                  },
+                  {
+                    "name": "Utah Valley Wolverines",
+                    "price": -430
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "Utah Valley Wolverines",
+        "id": "eb69aec3838270bd57a84d5c2a40868e",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Central Arkansas Bears",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Central Arkansas Bears",
+                    "price": -590
+                  },
+                  {
+                    "name": "Stetson Hatters",
+                    "price": 410
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Central Arkansas Bears",
+                    "price": -532
+                  },
+                  {
+                    "name": "Stetson Hatters",
+                    "price": 386
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "Stetson Hatters",
+        "id": "c4f11cca36d498aae4fd4fd0cf2b3c01",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Georgia Southern Eagles",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Georgia Southern Eagles",
+                    "price": -110
+                  },
+                  {
+                    "name": "Georgia St Panthers",
+                    "price": -110
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Georgia Southern Eagles",
+                    "price": -106
+                  },
+                  {
+                    "name": "Georgia St Panthers",
+                    "price": -111
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "Georgia St Panthers",
+        "id": "cc930ffd188a9deabea664396ce53905",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Hampton Pirates",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Hampton Pirates",
+                    "price": 546
+                  },
+                  {
+                    "name": "Hofstra Pride",
+                    "price": -775
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Hampton Pirates",
+                    "price": 546
+                  },
+                  {
+                    "name": "Hofstra Pride",
+                    "price": -775
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Hampton Pirates",
+                    "price": 640
+                  },
+                  {
+                    "name": "Hofstra Pride",
+                    "price": -1000
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Hampton Pirates",
+                    "price": 538
+                  },
+                  {
+                    "name": "Hofstra Pride",
+                    "price": -746
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "Hofstra Pride",
+        "id": "2301791960d19bbb44234456ceaeddd6",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "UMKC Kangaroos",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "North Dakota Fighting Hawks",
+                    "price": -675
+                  },
+                  {
+                    "name": "UMKC Kangaroos",
+                    "price": 491
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "North Dakota Fighting Hawks",
+                    "price": -675
+                  },
+                  {
+                    "name": "UMKC Kangaroos",
+                    "price": 491
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "North Dakota Fighting Hawks",
+                    "price": -658
+                  },
+                  {
+                    "name": "UMKC Kangaroos",
+                    "price": 487
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "North Dakota Fighting Hawks",
+                    "price": -800
+                  },
+                  {
+                    "name": "UMKC Kangaroos",
+                    "price": 520
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "North Dakota Fighting Hawks",
+        "id": "9c531f732450a69af5476d3e7898db7c",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Texas State Bobcats",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "South Alabama Jaguars",
+                    "price": -195
+                  },
+                  {
+                    "name": "Texas State Bobcats",
+                    "price": 170
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "South Alabama Jaguars",
+                    "price": -195
+                  },
+                  {
+                    "name": "Texas State Bobcats",
+                    "price": 170
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "South Alabama Jaguars",
+                    "price": -187
+                  },
+                  {
+                    "name": "Texas State Bobcats",
+                    "price": 158
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "South Alabama Jaguars",
+                    "price": -220
+                  },
+                  {
+                    "name": "Texas State Bobcats",
+                    "price": 176
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "South Alabama Jaguars",
+        "id": "3be37a902405736cc9ab2c3a89fea4e5",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Southern Utah Thunderbirds",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Southern Utah Thunderbirds",
+                    "price": 186
+                  },
+                  {
+                    "name": "Tarleton State Texans",
+                    "price": -220
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Southern Utah Thunderbirds",
+                    "price": 186
+                  },
+                  {
+                    "name": "Tarleton State Texans",
+                    "price": -220
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Southern Utah Thunderbirds",
+                    "price": 192
+                  },
+                  {
+                    "name": "Tarleton State Texans",
+                    "price": -229
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Southern Utah Thunderbirds",
+                    "price": 186
+                  },
+                  {
+                    "name": "Tarleton State Texans",
+                    "price": -235
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "Tarleton State Texans",
+        "id": "b35b924281bf049d1b30712c9d14de0e",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Utah Tech Trailblazers",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "UT-Arlington Mavericks",
+                    "price": -205
+                  },
+                  {
+                    "name": "Utah Tech Trailblazers",
+                    "price": 177
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "UT-Arlington Mavericks",
+                    "price": -205
+                  },
+                  {
+                    "name": "Utah Tech Trailblazers",
+                    "price": 177
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "UT-Arlington Mavericks",
+                    "price": -202
+                  },
+                  {
+                    "name": "Utah Tech Trailblazers",
+                    "price": 171
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "UT-Arlington Mavericks",
+                    "price": -235
+                  },
+                  {
+                    "name": "Utah Tech Trailblazers",
+                    "price": 186
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "UT-Arlington Mavericks",
+        "id": "83b4c1b781869ed2771bea0d0147f4d5",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Alabama A&M Bulldogs",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Alabama A&M Bulldogs",
+                    "price": -118
+                  },
+                  {
+                    "name": "Florida A&M Rattlers",
+                    "price": -104
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Alabama A&M Bulldogs",
+                    "price": -114
+                  },
+                  {
+                    "name": "Florida A&M Rattlers",
+                    "price": -106
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T01:30:00Z",
+        "home_team": "Florida A&M Rattlers",
+        "id": "000fda27b1fa3ba45514753385f01418",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Texas Southern Tigers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Arkansas-Pine Bluff Golden Lions",
+                    "price": -140
+                  },
+                  {
+                    "name": "Texas Southern Tigers",
+                    "price": 112
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Arkansas-Pine Bluff Golden Lions",
+                    "price": -134
+                  },
+                  {
+                    "name": "Texas Southern Tigers",
+                    "price": 111
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T01:30:00Z",
+        "home_team": "Arkansas-Pine Bluff Golden Lions",
+        "id": "debc358394de13cfb4db76f910ffc093",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Morehead St Eagles",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Eastern Illinois Panthers",
+                    "price": 110
+                  },
+                  {
+                    "name": "Morehead St Eagles",
+                    "price": -130
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Eastern Illinois Panthers",
+                    "price": 110
+                  },
+                  {
+                    "name": "Morehead St Eagles",
+                    "price": -130
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Eastern Illinois Panthers",
+                    "price": 109
+                  },
+                  {
+                    "name": "Morehead St Eagles",
+                    "price": -127
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Eastern Illinois Panthers",
+                    "price": 116
+                  },
+                  {
+                    "name": "Morehead St Eagles",
+                    "price": -142
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:30:00Z",
+        "home_team": "Eastern Illinois Panthers",
+        "id": "ea1389479073b479a5fa422504f91267",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Lindenwood Lions",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Lindenwood Lions",
+                    "price": 155
+                  },
+                  {
+                    "name": "Tennessee St Tigers",
+                    "price": -177
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Lindenwood Lions",
+                    "price": 155
+                  },
+                  {
+                    "name": "Tennessee St Tigers",
+                    "price": -177
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Lindenwood Lions",
+                    "price": 161
+                  },
+                  {
+                    "name": "Tennessee St Tigers",
+                    "price": -190
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Lindenwood Lions",
+                    "price": 164
+                  },
+                  {
+                    "name": "Tennessee St Tigers",
+                    "price": -205
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:30:00Z",
+        "home_team": "Tennessee St Tigers",
+        "id": "8b088393c1c36832d7e76246d2f4d603",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Prairie View Panthers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Miss Valley St Delta Devils",
+                    "price": 390
+                  },
+                  {
+                    "name": "Prairie View Panthers",
+                    "price": -550
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Miss Valley St Delta Devils",
+                    "price": 368
+                  },
+                  {
+                    "name": "Prairie View Panthers",
+                    "price": -502
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T01:30:00Z",
+        "home_team": "Miss Valley St Delta Devils",
+        "id": "9a57ed918762fe85259b6b2ef81ad3fd",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "SIU-Edwardsville Cougars",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "SIU-Edwardsville Cougars",
+                    "price": -130
+                  },
+                  {
+                    "name": "Tennessee Tech Golden Eagles",
+                    "price": 110
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "SIU-Edwardsville Cougars",
+                    "price": -130
+                  },
+                  {
+                    "name": "Tennessee Tech Golden Eagles",
+                    "price": 110
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "SIU-Edwardsville Cougars",
+                    "price": -120
+                  },
+                  {
+                    "name": "Tennessee Tech Golden Eagles",
+                    "price": 103
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "SIU-Edwardsville Cougars",
+                    "price": -138
+                  },
+                  {
+                    "name": "Tennessee Tech Golden Eagles",
+                    "price": 112
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:30:00Z",
+        "home_team": "Tennessee Tech Golden Eagles",
+        "id": "dae999db26b5d4a63c8baf7ac04675fc",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Southern Indiana Screaming Eagles",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Southern Indiana Screaming Eagles",
+                    "price": -140
+                  },
+                  {
+                    "name": "Western Illinois Leathernecks",
+                    "price": 120
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Southern Indiana Screaming Eagles",
+                    "price": -140
+                  },
+                  {
+                    "name": "Western Illinois Leathernecks",
+                    "price": 120
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Southern Indiana Screaming Eagles",
+                    "price": -138
+                  },
+                  {
+                    "name": "Western Illinois Leathernecks",
+                    "price": 118
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Southern Indiana Screaming Eagles",
+                    "price": -154
+                  },
+                  {
+                    "name": "Western Illinois Leathernecks",
+                    "price": 126
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:30:00Z",
+        "home_team": "Western Illinois Leathernecks",
+        "id": "23e41a7125ad780263e4862a63017e64",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "CSU Northridge Matadors",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Northridge Matadors",
+                    "price": 180
+                  },
+                  {
+                    "name": "UC Santa Barbara Gauchos",
+                    "price": -210
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Northridge Matadors",
+                    "price": 180
+                  },
+                  {
+                    "name": "UC Santa Barbara Gauchos",
+                    "price": -210
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Northridge Matadors",
+                    "price": 198
+                  },
+                  {
+                    "name": "UC Santa Barbara Gauchos",
+                    "price": -245
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Northridge Matadors",
+                    "price": 188
+                  },
+                  {
+                    "name": "UC Santa Barbara Gauchos",
+                    "price": -224
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T02:00:00Z",
+        "home_team": "UC Santa Barbara Gauchos",
+        "id": "2d77a24c3e71205ae076a2fe346dbdf2",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "South Dakota Coyotes",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Denver Pioneers",
+                    "price": -280
+                  },
+                  {
+                    "name": "South Dakota Coyotes",
+                    "price": 230
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Denver Pioneers",
+                    "price": -280
+                  },
+                  {
+                    "name": "South Dakota Coyotes",
+                    "price": 230
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Denver Pioneers",
+                    "price": -290
+                  },
+                  {
+                    "name": "South Dakota Coyotes",
+                    "price": 239
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Denver Pioneers",
+                    "price": -310
+                  },
+                  {
+                    "name": "South Dakota Coyotes",
+                    "price": 240
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T02:00:00Z",
+        "home_team": "Denver Pioneers",
+        "id": "340eba9b3e6ee673344f5a1719f130a7",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Montana Grizzlies",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Idaho State Bengals",
+                    "price": 115
+                  },
+                  {
+                    "name": "Montana Grizzlies",
+                    "price": -135
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Idaho State Bengals",
+                    "price": 115
+                  },
+                  {
+                    "name": "Montana Grizzlies",
+                    "price": -135
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Idaho State Bengals",
+                    "price": 106
+                  },
+                  {
+                    "name": "Montana Grizzlies",
+                    "price": -123
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Idaho State Bengals",
+                    "price": 104
+                  },
+                  {
+                    "name": "Montana Grizzlies",
+                    "price": -128
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T02:00:00Z",
+        "home_team": "Idaho State Bengals",
+        "id": "c09c12e533c810cc13a016709af3ca6c",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Idaho Vandals",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Idaho Vandals",
+                    "price": 150
+                  },
+                  {
+                    "name": "Portland St Vikings",
+                    "price": -171
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Idaho Vandals",
+                    "price": 150
+                  },
+                  {
+                    "name": "Portland St Vikings",
+                    "price": -171
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Idaho Vandals",
+                    "price": 136
+                  },
+                  {
+                    "name": "Portland St Vikings",
+                    "price": -160
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Idaho Vandals",
+                    "price": 152
+                  },
+                  {
+                    "name": "Portland St Vikings",
+                    "price": -184
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T02:00:00Z",
+        "home_team": "Portland St Vikings",
+        "id": "a21189bae24d823a1df3612e037327db",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Montana St Bobcats",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Montana St Bobcats",
+                    "price": -103
+                  },
+                  {
+                    "name": "Weber State Wildcats",
+                    "price": -117
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Montana St Bobcats",
+                    "price": -103
+                  },
+                  {
+                    "name": "Weber State Wildcats",
+                    "price": -117
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Montana St Bobcats",
+                    "price": -111
+                  },
+                  {
+                    "name": "Weber State Wildcats",
+                    "price": -105
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Montana St Bobcats",
+                    "price": -105
+                  },
+                  {
+                    "name": "Weber State Wildcats",
+                    "price": -115
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T02:00:00Z",
+        "home_team": "Weber State Wildcats",
+        "id": "bd71b8980ff0e3210e4bad2bcbd83d4c",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Tulane Green Wave",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "North Texas Mean Green",
+                    "price": -293
+                  },
+                  {
+                    "name": "Tulane Green Wave",
+                    "price": 240
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "North Texas Mean Green",
+                    "price": -293
+                  },
+                  {
+                    "name": "Tulane Green Wave",
+                    "price": 240
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "North Texas Mean Green",
+                    "price": -300
+                  },
+                  {
+                    "name": "Tulane Green Wave",
+                    "price": 240
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "North Texas Mean Green",
+                    "price": -263
+                  },
+                  {
+                    "name": "Tulane Green Wave",
+                    "price": 218
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T02:00:00Z",
+        "home_team": "North Texas Mean Green",
+        "id": "2e58ad66b0928c724931995a7dc133f7",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "CSU Bakersfield Roadrunners",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Bakersfield Roadrunners",
+                    "price": 241
+                  },
+                  {
+                    "name": "UC Riverside Highlanders",
+                    "price": -295
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Bakersfield Roadrunners",
+                    "price": 241
+                  },
+                  {
+                    "name": "UC Riverside Highlanders",
+                    "price": -295
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Bakersfield Roadrunners",
+                    "price": 245
+                  },
+                  {
+                    "name": "UC Riverside Highlanders",
+                    "price": -310
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Bakersfield Roadrunners",
+                    "price": 219
+                  },
+                  {
+                    "name": "UC Riverside Highlanders",
+                    "price": -264
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T03:00:00Z",
+        "home_team": "UC Riverside Highlanders",
+        "id": "4de283551975b1cc10859e3f93fd5e54",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "UC Davis Aggies",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Fullerton Titans",
+                    "price": -115
+                  },
+                  {
+                    "name": "UC Davis Aggies",
+                    "price": -105
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Fullerton Titans",
+                    "price": -115
+                  },
+                  {
+                    "name": "UC Davis Aggies",
+                    "price": -105
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Fullerton Titans",
+                    "price": -118
+                  },
+                  {
+                    "name": "UC Davis Aggies",
+                    "price": 101
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "CSU Fullerton Titans",
+                    "price": -122
+                  },
+                  {
+                    "name": "UC Davis Aggies",
+                    "price": 102
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T03:00:00Z",
+        "home_team": "CSU Fullerton Titans",
+        "id": "bec5df77490ec2ba324147879ccf46bc",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Eastern Washington Eagles",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Eastern Washington Eagles",
+                    "price": -145
+                  },
+                  {
+                    "name": "Sacramento St Hornets",
+                    "price": 125
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Eastern Washington Eagles",
+                    "price": -145
+                  },
+                  {
+                    "name": "Sacramento St Hornets",
+                    "price": 125
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Eastern Washington Eagles",
+                    "price": -152
+                  },
+                  {
+                    "name": "Sacramento St Hornets",
+                    "price": 126
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Eastern Washington Eagles",
+                    "price": -154
+                  },
+                  {
+                    "name": "Sacramento St Hornets",
+                    "price": 131
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T03:00:00Z",
+        "home_team": "Sacramento St Hornets",
+        "id": "5bf436acac95a57462ef045324beb7df",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "UC Irvine Anteaters",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Long Beach St 49ers",
+                    "price": 203
+                  },
+                  {
+                    "name": "UC Irvine Anteaters",
+                    "price": -245
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Long Beach St 49ers",
+                    "price": 203
+                  },
+                  {
+                    "name": "UC Irvine Anteaters",
+                    "price": -245
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Long Beach St 49ers",
+                    "price": 220
+                  },
+                  {
+                    "name": "UC Irvine Anteaters",
+                    "price": -275
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:32Z",
+                "outcomes": [
+                  {
+                    "name": "Long Beach St 49ers",
+                    "price": 216
+                  },
+                  {
+                    "name": "UC Irvine Anteaters",
+                    "price": -260
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T03:00:00Z",
+        "home_team": "Long Beach St 49ers",
+        "id": "4eddd0b98195415f06e63646b1f472db",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Cal Poly Mustangs",
+        "bookmakers": [
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Cal Poly Mustangs",
+                    "price": 534
+                  },
+                  {
+                    "name": "Hawai'i Rainbow Warriors",
+                    "price": -750
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T19:59:59Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T19:59:58Z",
+                "outcomes": [
+                  {
+                    "name": "Cal Poly Mustangs",
+                    "price": 534
+                  },
+                  {
+                    "name": "Hawai'i Rainbow Warriors",
+                    "price": -750
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Cal Poly Mustangs",
+                    "price": 530
+                  },
+                  {
+                    "name": "Hawai'i Rainbow Warriors",
+                    "price": -780
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:32Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:31Z",
+                "outcomes": [
+                  {
+                    "name": "Cal Poly Mustangs",
+                    "price": 530
+                  },
+                  {
+                    "name": "Hawai'i Rainbow Warriors",
+                    "price": -732
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T04:59:00Z",
+        "home_team": "Hawai'i Rainbow Warriors",
+        "id": "f3e5243f040512aad702d7d90d03ceb7",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Akron Zips",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Akron Zips",
+                    "price": -1200
+                  },
+                  {
+                    "name": "Ball State Cardinals",
+                    "price": 720
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T23:30:00Z",
+        "home_team": "Ball State Cardinals",
+        "id": "76433b1e442d6b37bdfbd5690444fbe8",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Princeton Tigers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Brown Bears",
+                    "price": -125
+                  },
+                  {
+                    "name": "Princeton Tigers",
+                    "price": 104
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T00:00:00Z",
+        "home_team": "Brown Bears",
+        "id": "84dce22358492795d7b52e603a40311a",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Canisius Golden Griffins",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Canisius Golden Griffins",
+                    "price": -102
+                  },
+                  {
+                    "name": "Rider Broncs",
+                    "price": -118
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T00:00:00Z",
+        "home_team": "Rider Broncs",
+        "id": "c728d0d98b87d93d4b0b7f46f7d316f4",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Milwaukee Panthers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Detroit Mercy Titans",
+                    "price": -137
+                  },
+                  {
+                    "name": "Milwaukee Panthers",
+                    "price": 114
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T00:00:00Z",
+        "home_team": "Detroit Mercy Titans",
+        "id": "a326c540b7eed72959d76ffce5b71313",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Sacred Heart Pioneers",
+        "bookmakers": [],
+        "commence_time": "2026-02-21T00:00:00Z",
+        "home_team": "Fairfield Stags",
+        "id": "88171b96e547a86de319508e8aca0db8",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Green Bay Phoenix",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Green Bay Phoenix",
+                    "price": 260
+                  },
+                  {
+                    "name": "Oakland Golden Grizzlies",
+                    "price": -330
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T00:00:00Z",
+        "home_team": "Oakland Golden Grizzlies",
+        "id": "76cbf71b34fed6b8281d1733ca5795a1",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Saint Peter's Peacocks",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Iona Gaels",
+                    "price": -118
+                  },
+                  {
+                    "name": "Saint Peter's Peacocks",
+                    "price": -102
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T00:00:00Z",
+        "home_team": "Iona Gaels",
+        "id": "5799f4a59901d27d25770c9cd45caaa9",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Marist Red Foxes",
+        "bookmakers": [],
+        "commence_time": "2026-02-21T00:00:00Z",
+        "home_team": "Manhattan Jaspers",
+        "id": "dd6508c126337c167813b82cec36db23",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Niagara Purple Eagles",
+        "bookmakers": [],
+        "commence_time": "2026-02-21T00:00:00Z",
+        "home_team": "Mt. St. Mary's Mountaineers",
+        "id": "a01e5cfff8390b72e1c92db56d343617",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "VCU Rams",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Saint Louis Billikens",
+                    "price": -465
+                  },
+                  {
+                    "name": "VCU Rams",
+                    "price": 360
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T00:00:00Z",
+        "home_team": "Saint Louis Billikens",
+        "id": "294a3be7935d2299b2ec9bf86fd8647f",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Indiana Hoosiers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Indiana Hoosiers",
+                    "price": 470
+                  },
+                  {
+                    "name": "Purdue Boilermakers",
+                    "price": -670
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T01:00:00Z",
+        "home_team": "Purdue Boilermakers",
+        "id": "00cc939853d91359b6563d7736a738d0",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Siena Saints",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Merrimack Warriors",
+                    "price": -192
+                  },
+                  {
+                    "name": "Siena Saints",
+                    "price": 158
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T01:00:00Z",
+        "home_team": "Merrimack Warriors",
+        "id": "01bcf3d49aa62c6094be6cc62f3da5a3",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Bowling Green Falcons",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Bowling Green Falcons",
+                    "price": 300
+                  },
+                  {
+                    "name": "Miami (OH) RedHawks",
+                    "price": -385
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T01:30:00Z",
+        "home_team": "Miami (OH) RedHawks",
+        "id": "9bf12ac4d3aa75cedec752c8ef1cd433",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Tennessee Volunteers",
+        "bookmakers": [],
+        "commence_time": "2026-02-21T19:00:00Z",
+        "home_team": "Vanderbilt Commodores",
+        "id": "9cffa8af82de83bc1a833c59a345b49e",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Arizona Wildcats",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Arizona Wildcats",
+                    "price": 195
+                  },
+                  {
+                    "name": "Houston Cougars",
+                    "price": -240
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T20:00:36Z",
+        "home_team": "Houston Cougars",
+        "id": "d03c1f3471b8a44da4188c16f41a7207",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Michigan Wolverines",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Duke Blue Devils",
+                    "price": 146
+                  },
+                  {
+                    "name": "Michigan Wolverines",
+                    "price": -176
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T23:30:17Z",
+        "home_team": "Duke Blue Devils",
+        "id": "2ef11f6ff54d5aed0b1c13e388b786f9",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Kentucky Wildcats",
+        "bookmakers": [],
+        "commence_time": "2026-02-22T01:30:00Z",
+        "home_team": "Auburn Tigers",
+        "id": "9352976338e210f049415faab8666755",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "Iowa State Cyclones",
+        "bookmakers": [],
+        "commence_time": "2026-02-22T03:30:00Z",
+        "home_team": "BYU Cougars",
+        "id": "282639cb35a85482a44dcc2e20999de9",
+        "sport_key": "basketball_ncaab",
+        "sport_title": "NCAAB"
+      },
+      {
+        "away_team": "California Golden Bears",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "California Golden Bears",
+                    "price": -210
+                  },
+                  {
+                    "name": "Florida St Seminoles",
+                    "price": 154
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-19T23:00:00Z",
+        "home_team": "Florida St Seminoles",
+        "id": "26b77bd579836f304e6c60bface2b599",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Georgia Tech Yellow Jackets",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Georgia Tech Yellow Jackets",
+                    "price": -900
+                  },
+                  {
+                    "name": "Pittsburgh Panthers",
+                    "price": 490
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-19T23:00:00Z",
+        "home_team": "Pittsburgh Panthers",
+        "id": "448b7d416e785b2a9c109743d12f04ec",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "North Carolina Tar Heels",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "North Carolina Tar Heels",
+                    "price": -275
+                  },
+                  {
+                    "name": "Virginia Tech Hokies",
+                    "price": 198
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-19T23:00:00Z",
+        "home_team": "Virginia Tech Hokies",
+        "id": "aa0766288db96bfca1be95a310470ada",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Notre Dame Fighting Irish",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Notre Dame Fighting Irish",
+                    "price": -5000
+                  },
+                  {
+                    "name": "Wake Forest Demon Deacons",
+                    "price": 1200
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-19T23:00:00Z",
+        "home_team": "Wake Forest Demon Deacons",
+        "id": "1d5557411dc5feaa0e55adeedfa70580",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Oklahoma Sooners",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Georgia Bulldogs",
+                    "price": 198
+                  },
+                  {
+                    "name": "Oklahoma Sooners",
+                    "price": -275
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-19T23:30:00Z",
+        "home_team": "Georgia Bulldogs",
+        "id": "f461c576f1db0650f1bf253f59df015f",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Texas A&M Aggies",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Tennessee Volunteers",
+                    "price": -5000
+                  },
+                  {
+                    "name": "Texas A&M Aggies",
+                    "price": 1200
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-19T23:30:00Z",
+        "home_team": "Tennessee Volunteers",
+        "id": "c653382f56c6f27210868adce479a432",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "NC State Wolfpack",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Duke Blue Devils",
+                    "price": -490
+                  },
+                  {
+                    "name": "NC State Wolfpack",
+                    "price": 320
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Duke Blue Devils",
+        "id": "f327d01bdd56efcb13c85caa6abd7bd6",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Iowa Hawkeyes",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Iowa Hawkeyes",
+                    "price": -2000
+                  },
+                  {
+                    "name": "Purdue Boilermakers",
+                    "price": 800
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Purdue Boilermakers",
+        "id": "3391c4358d062c6797c5be4b882d6b21",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Texas Longhorns",
+        "bookmakers": [],
+        "commence_time": "2026-02-20T00:30:00Z",
+        "home_team": "Arkansas Razorbacks",
+        "id": "5fd2169bdd8753cc7e36b572143523e8",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Auburn Tigers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Auburn Tigers",
+                    "price": 174
+                  },
+                  {
+                    "name": "Missouri Tigers",
+                    "price": -240
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T00:30:00Z",
+        "home_team": "Missouri Tigers",
+        "id": "c11c1249054cba7a2f100874cf3da238",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Boston College Eagles",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Boston College Eagles",
+                    "price": 178
+                  },
+                  {
+                    "name": "SMU Mustangs",
+                    "price": -245
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T00:30:00Z",
+        "home_team": "SMU Mustangs",
+        "id": "48430e4c04f3188727be0b7aa76fb5df",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Florida Gators",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Florida Gators",
+                    "price": 260
+                  },
+                  {
+                    "name": "Mississippi St Bulldogs",
+                    "price": -380
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T00:30:00Z",
+        "home_team": "Mississippi St Bulldogs",
+        "id": "9b9bcb155cd09f9ef410c9dc6298a1ce",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Stanford Cardinal",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Miami Hurricanes",
+                    "price": -132
+                  },
+                  {
+                    "name": "Stanford Cardinal",
+                    "price": 100
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:00:00Z",
+        "home_team": "Miami Hurricanes",
+        "id": "c4aa22d33b8032eb81d4fca43ff1fc6a",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "South Carolina Gamecocks",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Alabama Crimson Tide",
+                    "price": 700
+                  },
+                  {
+                    "name": "South Carolina Gamecocks",
+                    "price": -1800
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T01:30:00Z",
+        "home_team": "Alabama Crimson Tide",
+        "id": "854d8870594ff5fb66aa2feec5a7f53e",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "LSU Tigers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "LSU Tigers",
+                    "price": -600
+                  },
+                  {
+                    "name": "Ole Miss Rebels",
+                    "price": 370
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T02:00:00Z",
+        "home_team": "Ole Miss Rebels",
+        "id": "2dac0c4d9dc5d81218d833f9f68b3036",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Nebraska Cornhuskers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "Nebraska Cornhuskers",
+                    "price": 134
+                  },
+                  {
+                    "name": "Oregon Ducks",
+                    "price": -180
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T02:00:00Z",
+        "home_team": "Oregon Ducks",
+        "id": "4fc6a169ae6d4f8b9ec8362a91b8262b",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Wisconsin Badgers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "USC Trojans",
+                    "price": -20000
+                  },
+                  {
+                    "name": "Wisconsin Badgers",
+                    "price": 1700
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T02:00:00Z",
+        "home_team": "USC Trojans",
+        "id": "b3d925dec6fd01cfd3878a668f6b1221",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Washington Huskies",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:25Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:25Z",
+                "outcomes": [
+                  {
+                    "name": "UCLA Bruins",
+                    "price": -50000
+                  },
+                  {
+                    "name": "Washington Huskies",
+                    "price": 2000
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-20T03:00:00Z",
+        "home_team": "UCLA Bruins",
+        "id": "ac734a51e1f9f9d6c5156cf81b276596",
+        "sport_key": "basketball_wncaab",
+        "sport_title": "WNCAAB"
+      },
+      {
+        "away_team": "Indiana Pacers",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Indiana Pacers",
+                    "price": -126
+                  },
+                  {
+                    "name": "Washington Wizards",
+                    "price": 108
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Indiana Pacers",
+                    "price": -128
+                  },
+                  {
+                    "name": "Washington Wizards",
+                    "price": 112
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Indiana Pacers",
+                    "price": -130
+                  },
+                  {
+                    "name": "Washington Wizards",
+                    "price": 110
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Indiana Pacers",
+                    "price": -126
+                  },
+                  {
+                    "name": "Washington Wizards",
+                    "price": 114
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:00:00Z",
+        "home_team": "Washington Wizards",
+        "id": "c93f72cb146ef69c7bd4a79f03481123",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Atlanta Hawks",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Atlanta Hawks",
+                    "price": -102
+                  },
+                  {
+                    "name": "Philadelphia 76ers",
+                    "price": -116
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Atlanta Hawks",
+                    "price": -103
+                  },
+                  {
+                    "name": "Philadelphia 76ers",
+                    "price": -113
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Atlanta Hawks",
+                    "price": -105
+                  },
+                  {
+                    "name": "Philadelphia 76ers",
+                    "price": -115
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Atlanta Hawks",
+                    "price": -101
+                  },
+                  {
+                    "name": "Philadelphia 76ers",
+                    "price": -109
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:10:00Z",
+        "home_team": "Philadelphia 76ers",
+        "id": "d647541d42648749f3bde601547fa1be",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Brooklyn Nets",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Brooklyn Nets",
+                    "price": 750
+                  },
+                  {
+                    "name": "Cleveland Cavaliers",
+                    "price": -1200
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Brooklyn Nets",
+                    "price": 708
+                  },
+                  {
+                    "name": "Cleveland Cavaliers",
+                    "price": -1028
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Brooklyn Nets",
+                    "price": 686
+                  },
+                  {
+                    "name": "Cleveland Cavaliers",
+                    "price": -1050
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Brooklyn Nets",
+                    "price": 714
+                  },
+                  {
+                    "name": "Cleveland Cavaliers",
+                    "price": -993
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:10:00Z",
+        "home_team": "Cleveland Cavaliers",
+        "id": "24a92d49df82923f29b3e9cda4d57446",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Houston Rockets",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Charlotte Hornets",
+                    "price": 154
+                  },
+                  {
+                    "name": "Houston Rockets",
+                    "price": -184
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Charlotte Hornets",
+                    "price": 162
+                  },
+                  {
+                    "name": "Houston Rockets",
+                    "price": -185
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Charlotte Hornets",
+                    "price": 161
+                  },
+                  {
+                    "name": "Houston Rockets",
+                    "price": -185
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Charlotte Hornets",
+                    "price": 159
+                  },
+                  {
+                    "name": "Houston Rockets",
+                    "price": -178
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:10:00Z",
+        "home_team": "Charlotte Hornets",
+        "id": "97031eee2ea39d890bf5046a1c57c7a7",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Detroit Pistons",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Detroit Pistons",
+                    "price": 134
+                  },
+                  {
+                    "name": "New York Knicks",
+                    "price": -158
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Detroit Pistons",
+                    "price": 138
+                  },
+                  {
+                    "name": "New York Knicks",
+                    "price": -157
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Detroit Pistons",
+                    "price": 137
+                  },
+                  {
+                    "name": "New York Knicks",
+                    "price": -157
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Detroit Pistons",
+                    "price": 140
+                  },
+                  {
+                    "name": "New York Knicks",
+                    "price": -156
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T00:40:00Z",
+        "home_team": "New York Knicks",
+        "id": "0ea61c4bb159036d242d6aa077216586",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Toronto Raptors",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Chicago Bulls",
+                    "price": 200
+                  },
+                  {
+                    "name": "Toronto Raptors",
+                    "price": -245
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Chicago Bulls",
+                    "price": 188
+                  },
+                  {
+                    "name": "Toronto Raptors",
+                    "price": -219
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Chicago Bulls",
+                    "price": 186
+                  },
+                  {
+                    "name": "Toronto Raptors",
+                    "price": -220
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Chicago Bulls",
+                    "price": 202
+                  },
+                  {
+                    "name": "Toronto Raptors",
+                    "price": -230
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T01:10:00Z",
+        "home_team": "Chicago Bulls",
+        "id": "537f72a12ccf54596ce42c638bacb485",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Phoenix Suns",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Phoenix Suns",
+                    "price": 235
+                  },
+                  {
+                    "name": "San Antonio Spurs",
+                    "price": -290
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Phoenix Suns",
+                    "price": 237
+                  },
+                  {
+                    "name": "San Antonio Spurs",
+                    "price": -282
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Phoenix Suns",
+                    "price": 234
+                  },
+                  {
+                    "name": "San Antonio Spurs",
+                    "price": -285
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Phoenix Suns",
+                    "price": 244
+                  },
+                  {
+                    "name": "San Antonio Spurs",
+                    "price": -282
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T01:40:00Z",
+        "home_team": "San Antonio Spurs",
+        "id": "d34f8e76f10dd65a684c9bd6301e667e",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Boston Celtics",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Boston Celtics",
+                    "price": -225
+                  },
+                  {
+                    "name": "Golden State Warriors",
+                    "price": 188
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Boston Celtics",
+                    "price": -223
+                  },
+                  {
+                    "name": "Golden State Warriors",
+                    "price": 191
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Boston Celtics",
+                    "price": -225
+                  },
+                  {
+                    "name": "Golden State Warriors",
+                    "price": 189
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Boston Celtics",
+                    "price": -213
+                  },
+                  {
+                    "name": "Golden State Warriors",
+                    "price": 188
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T03:10:00Z",
+        "home_team": "Golden State Warriors",
+        "id": "7bb1dc8e7e0b6a77195533729951d187",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Orlando Magic",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Orlando Magic",
+                    "price": -370
+                  },
+                  {
+                    "name": "Sacramento Kings",
+                    "price": 295
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Orlando Magic",
+                    "price": -345
+                  },
+                  {
+                    "name": "Sacramento Kings",
+                    "price": 285
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Orlando Magic",
+                    "price": -350
+                  },
+                  {
+                    "name": "Sacramento Kings",
+                    "price": 280
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Orlando Magic",
+                    "price": -346
+                  },
+                  {
+                    "name": "Sacramento Kings",
+                    "price": 293
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T03:10:00Z",
+        "home_team": "Sacramento Kings",
+        "id": "fc4ef6fdb917bca80f99940665442e96",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Denver Nuggets",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Denver Nuggets",
+                    "price": -180
+                  },
+                  {
+                    "name": "Los Angeles Clippers",
+                    "price": 152
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          },
+          {
+            "key": "lowvig",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Denver Nuggets",
+                    "price": -185
+                  },
+                  {
+                    "name": "Los Angeles Clippers",
+                    "price": 162
+                  }
+                ]
+              }
+            ],
+            "title": "LowVig.ag"
+          },
+          {
+            "key": "betonlineag",
+            "last_update": "2026-02-19T20:00:29Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:29Z",
+                "outcomes": [
+                  {
+                    "name": "Denver Nuggets",
+                    "price": -185
+                  },
+                  {
+                    "name": "Los Angeles Clippers",
+                    "price": 161
+                  }
+                ]
+              }
+            ],
+            "title": "BetOnline.ag"
+          },
+          {
+            "key": "pinnacle",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Denver Nuggets",
+                    "price": -177
+                  },
+                  {
+                    "name": "Los Angeles Clippers",
+                    "price": 158
+                  }
+                ]
+              }
+            ],
+            "title": "Pinnacle"
+          }
+        ],
+        "commence_time": "2026-02-20T03:40:00Z",
+        "home_team": "Los Angeles Clippers",
+        "id": "13c088a4f279e674bf80e4cb06d231a9",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Utah Jazz",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Memphis Grizzlies",
+                    "price": -172
+                  },
+                  {
+                    "name": "Utah Jazz",
+                    "price": 144
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T00:10:00Z",
+        "home_team": "Memphis Grizzlies",
+        "id": "fde066653cf72796682157aeae55c1e3",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Dallas Mavericks",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Dallas Mavericks",
+                    "price": 440
+                  },
+                  {
+                    "name": "Minnesota Timberwolves",
+                    "price": -590
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T00:40:00Z",
+        "home_team": "Minnesota Timberwolves",
+        "id": "8b76ff37aae273884a7ea6ce7f8d1aa6",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      },
+      {
+        "away_team": "Milwaukee Bucks",
+        "bookmakers": [
+          {
+            "key": "fanduel",
+            "last_update": "2026-02-19T20:00:30Z",
+            "markets": [
+              {
+                "key": "h2h",
+                "last_update": "2026-02-19T20:00:30Z",
+                "outcomes": [
+                  {
+                    "name": "Milwaukee Bucks",
+                    "price": 142
+                  },
+                  {
+                    "name": "New Orleans Pelicans",
+                    "price": -168
+                  }
+                ]
+              }
+            ],
+            "title": "FanDuel"
+          }
+        ],
+        "commence_time": "2026-02-21T01:10:00Z",
+        "home_team": "New Orleans Pelicans",
+        "id": "2007c2367cb16289e11f34463016e147",
+        "sport_key": "basketball_nba",
+        "sport_title": "NBA"
+      }
+    ],
+    "ts": 1771531236.915781
+  },
   "{\"bookmakers\": \"lowvig,pinnacle,fanduel,bookmaker,betonlineag\", \"markets\": \"h2h\", \"regions\": \"us,uk,eu,fr,se,au\", \"sports\": [\"basketball_ncaab\", \"basketball_wncaab\"]}": {
     "data": [
       {

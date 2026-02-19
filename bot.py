@@ -288,6 +288,7 @@ def _series_for_sport(sport_key: str | None) -> str | None:
     mapping = {
         "basketball_ncaab": "KXNCAAMBGAME",
         "basketball_wncaab": "KXNCAAWBGAME",
+        "basketball_nba": "KXNBAGAME",
     }
     return mapping.get(sport_key)
 
@@ -1541,10 +1542,13 @@ def run():
                 print("[INFO] Kalshi NCAAW sample: (none)")
         ncaam_markets = len(kalshi_by_series.get("KXNCAAMBGAME", {}))
         ncaaw_markets = len(kalshi_by_series.get("KXNCAAWBGAME", {}))
+        nba_markets = len(kalshi_by_series.get("KXNBAGAME", {}))
         odds_m = sum(1 for g in games if g.get("sport_key") == "basketball_ncaab")
         odds_w = sum(1 for g in games if g.get("sport_key") == "basketball_wncaab")
+        odds_nba = sum(1 for g in games if g.get("sport_key") == "basketball_nba")
         edges_m = 0
         edges_w = 0
+        edges_nba = 0
         balance = parse_balance(get_balance())
         cash_available = balance["cash_available"]
         portfolio_value = balance["portfolio_value"]
@@ -1977,8 +1981,15 @@ def run():
                 if r[13] == "MONEYLINE"
                 and _series_from_ticker(r[10]) == "KXNCAAWBGAME"
             }
+            matched_nba_teams = {
+                normalize_team(r[0])
+                for r in rows
+                if r[13] == "MONEYLINE"
+                and _series_from_ticker(r[10]) == "KXNBAGAME"
+            }
             print(
-                f"[INFO] Matched teams (moneyline): M={len(matched_m_teams)}, W={len(matched_w_teams)}"
+                f"[INFO] Matched teams (moneyline): M={len(matched_m_teams)}, "
+                f"W={len(matched_w_teams)}, NBA={len(matched_nba_teams)}"
             )
             if not QUIET_LOGS:
                 matched_m = sum(
@@ -1993,7 +2004,16 @@ def run():
                     if r[13] == "MONEYLINE"
                     and _series_from_ticker(r[10]) == "KXNCAAWBGAME"
                 )
-                print(f"[INFO] Matched moneyline games: M={matched_m}, W={matched_w}")
+                matched_nba = sum(
+                    1
+                    for r in rows
+                    if r[13] == "MONEYLINE"
+                    and _series_from_ticker(r[10]) == "KXNBAGAME"
+                )
+                print(
+                    f"[INFO] Matched moneyline games: M={matched_m}, W={matched_w}, "
+                    f"NBA={matched_nba}"
+                )
             edges_found = []
             for (
                 team,
@@ -2145,6 +2165,12 @@ def run():
                 for r in edges_found
                 if r.get("market_type") == "MONEYLINE"
                 and _series_from_ticker(r.get("market_ticker")) == "KXNCAAWBGAME"
+            )
+            edges_nba = sum(
+                1
+                for r in edges_found
+                if r.get("market_type") == "MONEYLINE"
+                and _series_from_ticker(r.get("market_ticker")) == "KXNBAGAME"
             )
 
             csv_path = "data/edges_found.csv"
@@ -3202,10 +3228,15 @@ def run():
 
         if QUIET_LOGS:
             print(
-                f"[INFO] Series counts: NCAAM markets={ncaam_markets}, NCAAW markets={ncaaw_markets} "
-                f"| odds games: M={odds_m}, W={odds_w} | edges: M={edges_m}, W={edges_w}"
+                f"[INFO] Series counts: NCAAM markets={ncaam_markets}, "
+                f"NCAAW markets={ncaaw_markets}, NBA markets={nba_markets} "
+                f"| odds games: M={odds_m}, W={odds_w}, NBA={odds_nba} "
+                f"| edges: M={edges_m}, W={edges_w}, NBA={edges_nba}"
             )
-            print(f"[INFO] Debug counts: odds_w={odds_w}, ncaaw_markets={ncaaw_markets}")
+            print(
+                f"[INFO] Debug counts: odds_w={odds_w}, ncaaw_markets={ncaaw_markets}, "
+                f"odds_nba={odds_nba}, nba_markets={nba_markets}"
+            )
             print(_edge_summary_line())
             print(_skip_summary_line())
             counts = _skip_summary_counts()
