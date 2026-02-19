@@ -1576,6 +1576,21 @@
     {
       "fees_paid": 0,
       "fees_paid_dollars": "0.0000",
+      "last_updated_ts": "2026-02-19T20:15:27.864796Z",
+      "market_exposure": 0,
+      "market_exposure_dollars": "0.0000",
+      "position": 0,
+      "position_fp": "0.00",
+      "realized_pnl": 0,
+      "realized_pnl_dollars": "0.0000",
+      "resting_orders_count": 0,
+      "ticker": "KXNCAAWBGAME-26FEB19LSUMISS-MISS",
+      "total_traded": 0,
+      "total_traded_dollars": "0.0000"
+    },
+    {
+      "fees_paid": 0,
+      "fees_paid_dollars": "0.0000",
       "last_updated_ts": "2026-02-19T19:45:06.367739Z",
       "market_exposure": 0,
       "market_exposure_dollars": "0.0000",

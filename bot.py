@@ -49,6 +49,7 @@ from config.settings import (
     ORDER_IMPROVE_MIN,
     MAX_DOLLARS_PER_MARKET,
     MAX_DOLLARS_PER_EVENT,
+    MAX_DOLLARS_PER_EVENT_TOTALS,
     MIN_EDGE_NEW,
     MIN_EDGE_ADD,
     MIN_PRICE_IMPROVEMENT_ADD,
@@ -73,6 +74,7 @@ from config.settings import (
     MAX_REPLACE_DRIFT,
     ALLOW_TRUE_HEDGE,
     TOTALS_LINE_TOLERANCE,
+    TOTALS_MIN_EDGE,
     GAME_START_CANCEL_MIN,
     OPEN_ORDERS_STATUS,
     DATE_WINDOW_DAYS,
@@ -2036,6 +2038,8 @@ def run():
                 if edge <= 0 or contracts <= 0:
                     continue
                 min_edge_dyn = _min_edge_for_prob(book_prob)
+                if market_type == "TOTAL":
+                    min_edge_dyn = max(min_edge_dyn, TOTALS_MIN_EDGE)
                 if edge >= min_edge_dyn:
                     print(
                         f"{team} | {side} | {_format_odds(odds_val)} | p={book_prob:.3f} {band} | "
@@ -3045,8 +3049,13 @@ def run():
                 event_key = row.get("event_ticker") or market_ticker
                 event_dollars = positions_by_event.get(event_key, 0.0)
                 event_dollars += open_order_dollars_by_event.get(event_key, 0.0)
-                if event_dollars >= MAX_DOLLARS_PER_EVENT:
-                    print(f"[SKIP] event cap ${MAX_DOLLARS_PER_EVENT:.2f}: {event_key}")
+                event_cap = (
+                    MAX_DOLLARS_PER_EVENT_TOTALS
+                    if row.get("market_type") == "TOTAL"
+                    else MAX_DOLLARS_PER_EVENT
+                )
+                if event_dollars >= event_cap:
+                    print(f"[SKIP] event cap ${event_cap:.2f}: {event_key}")
                     continue
 
                 if existing_pos and existing_pos.get("count", 0) > 0:
