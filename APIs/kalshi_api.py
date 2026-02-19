@@ -93,10 +93,21 @@ def _fetch_paginated(path: str, list_key: str, limit=200, max_pages=5, params=No
                 )
                 r.raise_for_status()
                 break
-            except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
+            except requests.exceptions.RetryError as exc:
+                print(f"[WARN] Kalshi retries exhausted: {exc}")
+                return items
+            except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as exc:
                 if attempt == REQUEST_RETRY_ATTEMPTS - 1:
+                    print(f"[WARN] Kalshi request failed after retries: {exc}")
                     return items
                 time.sleep(REQUEST_RETRY_BACKOFF_SEC * (attempt + 1))
+            except requests.exceptions.HTTPError as exc:
+                status = r.status_code if r is not None else "unknown"
+                print(f"[WARN] Kalshi HTTP error {status}: {exc}")
+                return items
+            except requests.exceptions.RequestException as exc:
+                print(f"[WARN] Kalshi request error: {exc}")
+                return items
 
         data = r.json() if r is not None else {}
         batch = data.get(list_key) or data.get("data") or []
