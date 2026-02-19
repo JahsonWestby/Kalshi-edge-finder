@@ -42,10 +42,10 @@ ENABLE_ARBS = True
 ARB_MIN_PROFIT = 0.01
 ARB_MAX_CONTRACTS = 10
 ARB_MAX_ORDERS_PER_RUN = 4
-MIN_VOLUME = 100
+MIN_VOLUME = 50
 KALSHI_FEE = 0.00
 KALSHI_PRICE_MODE = "bid"  # "trade", "ask", "mid", or "bid"
-KELLY_FRAC = 0.125
+KELLY_FRAC = 0.2
 KELLY_CAP = 0.25
 MAX_TRADE_PCT = 0.10
 ASSUME_LIMIT_ORDER = True
@@ -82,13 +82,13 @@ CANCEL_NOT_COMPETITIVE_EV = 0.01    # only cancel if EV not strong
 REPLACE_EDGE_BUFFER = 0.005
 MAX_REPLACE_DRIFT = 0.05
 ALLOW_TRUE_HEDGE = True
-GAME_START_CANCEL_MIN = 1
+GAME_START_CANCEL_MIN = 5
 OPEN_ORDERS_STATUS = "open,resting,active"
 RESTING_CANCEL_GRACE_SEC = 0
 
 # timing
 POLL_INTERVAL = 30
-ODDS_CACHE_TTL_SEC = 300
+ODDS_CACHE_TTL_SEC = 200
 ODDS_CACHE_LOG = False
 QUIET_LOGS = True
 DATE_WINDOW_DAYS = 2
@@ -102,7 +102,7 @@ ODDS_API_KEY = os.getenv("ODDS_API_KEY")
 ODDS_REGIONS = "us,uk,eu,fr,se,au"
 # Sport keys (Odds API): basketball_ncaab, basketball_wncaab, americanfootball_ncaaf
 ODDS_SPORTS = ["basketball_ncaab","basketball_wncaab"]
-ODDS_BOOKMAKERS = "lowvig,pinnacle,fanduel"
+ODDS_BOOKMAKERS = "lowvig,pinnacle,fanduel,bookmaker,betonlineag"
 
 # Market toggles
 ENABLE_MONEYLINE = True
@@ -114,4 +114,4 @@ KALSHI_SERIES_TICKERS = ["KXNCAAMBGAME","KXNCAAWBGAME"]
 KALSHI_TOTALS_SERIES_TICKERS = ["KXNCAAMBTOTAL"]
 
 # totals matching
-TOTALS_LINE_TOLERANCE = 1.0
+TOTALS_LINE_TOLERANCE = 0.1
