@@ -1,16 +1,156 @@
-matchup_key,total
-loyola chicago@davidson,139.5
-brown@yale,139.5
-dayton@vcu,149.0
-evansville purple@valparaiso,135.5
-murray state@southern illinois,159.5
-bradley@northern iowa,131.5
-drake@illinois state,143.5
-uconn@st johns,144.5
-belmont@uic,150.5
-alabama@auburn,174.5
-duke@north carolina tar,152.5
-illinois@michigan state,143.5
-tennessee@kentucky,143.5
-florida gators@texas am,164.5
-houston@byu,149.5
+matchup_key,total,closest_kalshi_line,line_diff
+creighton@st johns,155.5,156.5,1
+east carolina@charlotte,145.0,145.5,0.5
+florida@ole miss,150.5,151.5,1
+north carolina central@howard,144.0,145.5,1.5
+loyola chicago@saint josephs,141.5,141.5,0
+wake forest@virginia tech,151.5,152.5,1
+rutgers@minnesota,133.5,134.5,1
+florida state@clemson,143.5,142.5,1
+university at albany@umbc,145.0,,
+georgia southern@appalachian state,147.5,146.5,1
+binghamton@umass lowell,146.0,145.5,0.5
+chattanooga@the citadel,143.0,142.5,0.5
+cincinnati@kansas,138.5,139.5,1
+marshall@coastal carolina,153.5,153.5,0
+texas state@louisiana,136.0,137.5,1.5
+western carolina@vmi,154.0,155.5,1.5
+mississippi state@south carolina,151.5,151.5,0
+north carolina@syracuse,154.0,153.5,0.5
+navy@army,138.5,137.5,1
+xavier musketeers@butler,159.5,,
+central arkansas@florida gulf coast,151.5,151.5,0
+central connecticut state@chicago state,139.5,138.5,1
+loyola md@colgate,152.0,,
+dartmouth@columbia,151.0,150.5,0.5
+harvard@cornell,154.5,155.5,1
+davidson@fordham,131.0,131.5,0.5
+duquesne@dayton,148.5,148.5,0
+delaware@middle tennessee,137.0,136.5,0.5
+hofstra@northeastern,146.5,145.5,1
+liu@mercyhurst,135.5,134.5,1
+le moyne@stonehill,139.0,139.5,0.5
+samford@mercer,156.0,157.5,1.5
+umkc kangaroos@north dakota state,148.0,,
+pennsylvania@yale,152.0,,
+siu edwardsville@tennessee state,143.5,143.5,0
+wagner@st francis pa,151.5,150.5,1
+tennessee@vanderbilt,150.5,149.5,1
+penn state@nebraska,148.5,148.5,0
+miami oh@virginia,146.0,,
+notre dame@pittsburgh,138.0,138.5,0.5
+georgia tech@louisville,166.0,166.5,0.5
+rhode island@la salle,136.0,135.5,0.5
+kansas state@texas tech,157.5,156.5,1
+unlv@air force,152.0,152.5,0.5
+arkansas state@le moyne,164.5,,
+missouri state@florida international,155.5,154.5,1
+north dakota@south dakota state,151.5,151.5,0
+ohio@northern illinois,150.5,151.5,1
+old dominion@southern miss,147.5,147.5,0
+west georgia@queens university,161.5,162.5,1
+valparaiso@uic,139.0,140.5,1.5
+utah valley@ut arlington,140.0,139.5,0.5
+arizona@houston,142.0,,
+washington@maryland,145.0,146.5,1.5
+james madison@georgia state,143.0,144.5,1.5
+jacksonville state@sam houston,149.5,149.5,0
+north florida@stetson,162.5,161.5,1
+texas@georgia,162.5,161.5,1
+oklahoma state@colorado,163.0,163.5,0.5
+southern utah@abilene christian,145.5,144.5,1
+jackson state@alcorn state,148.5,147.5,1
+missouri@arkansas,159.5,,
+southeast missouri state@little rock,143.5,143.5,0
+san jose state@boise state,144.5,144.5,0
+unc wilmington@campbell,151.0,151.5,0.5
+monmouth@charleston,148.5,149.5,1
+longwood@charleston southern,154.0,155.5,1.5
+delaware state@morgan state,147.5,146.5,1
+east tennessee state@unc greensboro,148.5,,
+evansville@murray state,154.0,154.5,0.5
+hampton@stony brook,135.5,135.5,0
+winthrop@high point,165.0,165.5,0.5
+western kentucky@liberty,147.5,146.5,1
+lindenwood@tennessee tech,153.0,153.5,0.5
+maine@new hampshire,137.5,136.5,1
+south carolina state@norfolk state,145.5,146.5,1
+troy@south alabama,143.0,144.5,1.5
+boston college@smu,151.0,151.5,0.5
+oregon@usc,148.0,147.5,0.5
+arizona state@baylor,157.5,157.5,0
+maryland eastern shore@coppin state,128.5,128.5,0
+southern indiana@eastern illinois,133.0,133.5,0.5
+houston christian@northwestern state,134.5,134.5,0
+morehead state@western illinois,144.5,145.5,1
+presbyterian@usc upstate,142.0,142.5,0.5
+radford@unc asheville,149.0,148.5,0.5
+ut rio grande valley@louisiana,135.5,,
+western michigan@central michigan,151.0,152.5,1.5
+eastern michigan@toledo,146.5,145.5,1
+eastern washington@portland state,146.0,146.5,0.5
+louisiana tech@kennesaw state,148.0,147.5,0.5
+north alabama@lipscomb,148.0,147.5,0.5
+utah tech@tarleton state,141.5,140.5,1
+uc davis@uc riverside,149.0,149.5,0.5
+west virginia@tcu,131.5,130.5,1
+alabama am@bethunecookman,143.5,144.5,1
+uconn@villanova,140.5,140.5,0
+alabama state@florida am,143.5,143.5,0
+buffalo@massachusetts,156.5,,
+san diego state@colorado state,137.5,137.5,0
+state thomas mn@denver,167.0,,
+incarnate word@east texas am,146.0,146.5,0.5
+grambling state@southern utah,144.0,,
+montana state@idaho state,144.5,144.5,0
+loyola marymount@san diego,150.5,149.5,1
+texas southern@mississippi valley state,145.0,144.5,0.5
+nicholls state@stephen f austin,146.5,145.5,1
+southern illinois@northern iowa,132.0,131.5,0.5
+state bonaventure@richmond,149.5,150.5,1
+temple@wichita state,142.5,141.5,1
+stanford@california,148.5,147.5,1
+alabama@lsu,172.0,172.5,0.5
+georgetown@seton hall,136.5,135.5,1
+prairie view am@arkansas pine bluff,158.5,158.5,0
+michigan@duke,151.5,151.5,0
+austin peay@jacksonville,141.0,141.5,0.5
+eastern kentucky@bellarmine,155.5,154.5,1
+north carolina at@elon,153.0,154.5,1.5
+new haven@fairleigh dickinson,123.5,,
+furman paladins@wofford,152.0,,
+new orleans@lamar,146.0,146.5,0.5
+vermont@njit,142.0,141.5,0.5
+indiana state sycamores@belmont,157.0,,
+illinois state@bradley,144.0,144.5,0.5
+new mexico@fresno state,155.0,155.5,0.5
+wyoming@grand canyon,145.5,146.5,1
+illinois@ucla,146.0,145.5,0.5
+texas am@mcneese,139.5,,
+northern arizona@northern colorado,149.0,148.5,0.5
+south dakota@oral roberts,150.5,149.5,1
+pepperdine@oregon state,147.5,148.5,1
+providence@depaul,154.0,155.5,1.5
+kentucky@auburn,157.0,156.5,0.5
+texas am@oklahoma,164.5,165.5,1
+cal state northridge@long beach state,158.0,158.5,0.5
+pacific@gonzaga,145.0,144.5,0.5
+utep@new mexico state,141.5,140.5,1
+ucf@utah,154.5,153.5,1
+cal state fullerton@cal state bakersfield,159.5,159.5,0
+montana@weber state,152.5,153.5,1
+uc santa barbara@hawaii,147.5,146.5,1
+idaho@sacramento state,164.0,163.5,0.5
+utah state@nevada,148.5,149.5,1
+portland@seattle,138.0,138.5,0.5
+saint marys@washington state,149.5,150.5,1
+santa clara@san francisco,157.0,157.5,0.5
+uc san diego@uc irvine,143.0,142.5,0.5
+iowa state@byu,154.0,155.5,1.5
+orlando@phoenix,219.5,,
+philadelphia@new orleans,232.5,,
+detroit@chicago,233.0,,
+memphis@miami,234.5,,
+sacramento@san antonio,230.5,,
+houston@new york k,217.5,,
+fils@alcaraz,21.5,,

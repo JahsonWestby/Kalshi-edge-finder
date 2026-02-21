@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import sys
 import csv
+import difflib
 
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
@@ -12,12 +13,32 @@ if str(ROOT) not in sys.path:
 
 from APIs.odds_api import get_moneyline_games, get_totals_games
 from APIs.kalshi_api import get_kalshi_markets, get_kalshi_totals_markets
+from logic.normalize import normalize_team, normalize_player, normalize_nba_team
 from config.settings import DATE_WINDOW_DAYS
 
 SERIES_BY_SPORT = {
     "basketball_ncaab": "KXNCAAMBGAME",
     "basketball_wncaab": "KXNCAAWBGAME",
+    "basketball_nba": "KXNBAGAME",
 }
+
+
+def _series_for_sport(sport_key: str | None) -> str | None:
+    if not sport_key:
+        return None
+    if sport_key.startswith("tennis_atp_"):
+        return "KXATPMATCH"
+    if sport_key.startswith("tennis_wta_"):
+        return "KXWTAMATCH"
+    return SERIES_BY_SPORT.get(sport_key)
+
+
+def _normalize_for_series(series: str, name: str) -> str:
+    if series in {"KXATPMATCH", "KXATPGAME", "KXWTAMATCH", "KXWTAGAME"}:
+        return normalize_player(name)
+    if series == "KXNBAGAME":
+        return normalize_nba_team(name)
+    return normalize_team(name)
 
 
 def _matchup_key(away: str, home: str) -> str:
@@ -57,10 +78,12 @@ def main() -> None:
 
     odds_by_series: dict[str, set[str]] = {}
     for g in games:
-        series = SERIES_BY_SPORT.get(g.get("sport_key"))
+        series = _series_for_sport(g.get("sport_key"))
         if not series:
             continue
-        odds_by_series.setdefault(series, set()).update({g["home"], g["away"]})
+        home = _normalize_for_series(series, g["home"])
+        away = _normalize_for_series(series, g["away"])
+        odds_by_series.setdefault(series, set()).update({home, away})
 
     kalshi_by_series = get_kalshi_markets(
         target_date=target_date,
@@ -70,16 +93,37 @@ def main() -> None:
     kalshi_teams = {s: set(v.keys()) for s, v in kalshi_by_series.items()}
 
     rows = []
+    kalshi_keys_all = {s: sorted(v.keys()) for s, v in kalshi_by_series.items()}
     for series, odds_teams in odds_by_series.items():
         missing = sorted(t for t in odds_teams if t not in kalshi_teams.get(series, set()))
         print(f"[INFO] {series}: odds={len(odds_teams)} kalshi={len(kalshi_teams.get(series, set()))} missing={len(missing)}")
         for t in missing:
-            rows.append({"series": series, "odds_team": t})
+            matches = difflib.get_close_matches(t, kalshi_keys_all.get(series, []), n=3, cutoff=0.6)
+            while len(matches) < 3:
+                matches.append("")
+            rows.append(
+                {
+                    "series": series,
+                    "odds_team": t,
+                    "closest_kalshi_1": matches[0],
+                    "closest_kalshi_2": matches[1],
+                    "closest_kalshi_3": matches[2],
+                }
+            )
 
     out_path = ROOT / args.out
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=["series", "odds_team"])
+        writer = csv.DictWriter(
+            f,
+            fieldnames=[
+                "series",
+                "odds_team",
+                "closest_kalshi_1",
+                "closest_kalshi_2",
+                "closest_kalshi_3",
+            ],
+        )
         writer.writeheader()
         writer.writerows(rows)
     print(f"[INFO] Wrote unmatched teams: {out_path}")

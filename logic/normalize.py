@@ -235,6 +235,7 @@ def normalize_nba_team(name: str) -> str:
         "philadelphia sixers": "philadelphia",
         "phoenix": "phoenix",
         "phoenix suns": "phoenix",
+        "suns": "phoenix",
         "portland": "portland",
         "portland trail blazers": "portland",
         "sacramento": "sacramento",

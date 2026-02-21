@@ -720,13 +720,40 @@ def get_kalshi_markets(
                 if not (start_date <= dt_local.date() <= end_date):
                     continue
 
+        series = m.get("series_ticker") or ""
+        if not series:
+            ticker = m.get("ticker") or ""
+            series = ticker.split("-", 1)[0] if "-" in ticker else ticker
+        if not series:
+            continue
         team_key = m.get("yes_sub_title") or m.get("subtitle") or ""
         team_key = _normalize_abbrev(team_key)
         team_name = ""
 
         title = m.get("title") or ""
         away, home = _split_matchup(title)
-        if away and home:
+        if series in {"KXATPMATCH", "KXATPGAME", "KXWTAMATCH", "KXWTAGAME"} and away and home:
+            code = ""
+            ticker = m.get("ticker") or ""
+            if "-" in ticker:
+                code = _normalize_abbrev(ticker.rsplit("-", 1)[-1])
+            if not code:
+                code = team_key
+            away_last = normalize_player(away)
+            home_last = normalize_player(home)
+            away_keys = _team_code_variants(away_last)
+            home_keys = _team_code_variants(home_last)
+            if code in away_keys:
+                team_name = away
+            elif code in home_keys:
+                team_name = home
+            elif team_key in away_keys:
+                team_name = away
+            elif team_key in home_keys:
+                team_name = home
+            else:
+                team_name = away
+        elif away and home:
             away_keys = _team_code_variants(away)
             home_keys = _team_code_variants(home)
             if team_key in away_keys:
@@ -738,13 +765,6 @@ def get_kalshi_markets(
                 team_name = home
         else:
             team_name = team_key
-
-        series = m.get("series_ticker") or ""
-        if not series:
-            ticker = m.get("ticker") or ""
-            series = ticker.split("-", 1)[0] if "-" in ticker else ticker
-        if not series:
-            continue
         if series in {"KXATPMATCH", "KXATPGAME", "KXWTAMATCH", "KXWTAGAME"}:
             norm = normalize_player(team_name)
         elif series == "KXNBAGAME":

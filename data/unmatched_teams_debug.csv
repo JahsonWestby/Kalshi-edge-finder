@@ -1,4 +1,11 @@
-series,odds_team
-KXNCAAMBGAME,evansville purple
-KXNCAAMBGAME,florida gators
-KXNCAAMBGAME,north carolina tar
+series,odds_team,closest_kalshi_1,closest_kalshi_2,closest_kalshi_3
+KXNCAAMBGAME,albany,alabama,albany at umbc,
+KXNCAAMBGAME,fairleigh dickinson,,,
+KXNCAAMBGAME,furman paladins,,,
+KXNCAAMBGAME,indiana state sycamores,indiana state,,
+KXNCAAMBGAME,massachusetts,,,
+KXNCAAMBGAME,miami oh,miami fl,,
+KXNCAAMBGAME,pennsylvania,,,
+KXNCAAMBGAME,umbc,,,
+KXNCAAMBGAME,umkc kangaroos,,,
+KXNCAAMBGAME,xavier musketeers,,,
