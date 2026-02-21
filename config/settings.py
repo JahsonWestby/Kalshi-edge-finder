@@ -101,8 +101,28 @@ KALSHI_PEM_PATH = BASE_DIR / "secrets" / "private_key.pem"
 # Odds API settings
 ODDS_API_KEY = os.getenv("ODDS_API_KEY")
 ODDS_REGIONS = "us,uk,eu,fr,se,au"
-# Sport keys (Odds API): basketball_ncaab, basketball_wncaab, basketball_nba, americanfootball_ncaaf
-ODDS_SPORTS = ["basketball_ncaab", "basketball_wncaab", "basketball_nba"]
+# Sport keys (Odds API): basketball_ncaab, basketball_wncaab, basketball_nba, tennis_atp_*, americanfootball_ncaaf
+ODDS_SPORTS = [
+    "basketball_ncaab",
+    "basketball_wncaab",
+    "basketball_nba",
+    "tennis_atp_aus_open_singles",
+    "tennis_atp_canadian_open",
+    "tennis_atp_china_open",
+    "tennis_atp_cincinnati_open",
+    "tennis_atp_dubai",
+    "tennis_atp_french_open",
+    "tennis_atp_indian_wells",
+    "tennis_atp_italian_open",
+    "tennis_atp_madrid_open",
+    "tennis_atp_miami_open",
+    "tennis_atp_monte_carlo_masters",
+    "tennis_atp_paris_masters",
+    "tennis_atp_qatar_open",
+    "tennis_atp_shanghai_masters",
+    "tennis_atp_us_open",
+    "tennis_atp_wimbledon",
+]
 ODDS_BOOKMAKERS = "lowvig,pinnacle,fanduel,bookmaker,betonlineag"
 
 # Market toggles
@@ -111,7 +131,7 @@ ENABLE_TOTALS = True
 MONEYLINE_SIDE_FILTER = "YES"  # "YES", "NO", or "ALL"
 
 # Kalshi series tickers
-KALSHI_SERIES_TICKERS = ["KXNCAAMBGAME", "KXNCAAWBGAME", "KXNBAGAME"]
+KALSHI_SERIES_TICKERS = ["KXNCAAMBGAME", "KXNCAAWBGAME", "KXNBAGAME", "KXATPMATCH"]
 KALSHI_TOTALS_SERIES_TICKERS = ["KXNCAAMBTOTAL"]
 
 # totals matching

@@ -155,3 +155,99 @@ def normalize_team(name: str) -> str:
         key = "cal state " + key[4:]
 
     return key
+
+
+def normalize_player(name: str) -> str:
+    if not name:
+        return ""
+    n = name.lower().strip()
+    n = re.sub(r"[^\w\s]", "", n)
+    parts = [p for p in n.split() if p not in {"jr", "sr", "ii", "iii", "iv"}]
+    if not parts:
+        return ""
+    particles = {"de", "del", "da", "di", "van", "von", "der", "den", "la", "le", "du", "st", "saint", "san"}
+    last_tokens = [parts[-1]]
+    i = len(parts) - 2
+    while i >= 0 and parts[i] in particles:
+        last_tokens.insert(0, parts[i])
+        i -= 1
+    return " ".join(last_tokens)
+
+
+def normalize_nba_team(name: str) -> str:
+    if not name:
+        return ""
+    n = name.lower().strip()
+    n = re.sub(r"[^\w\s]", "", n)
+    n = re.sub(r"\s+", " ", n).strip()
+    aliases = {
+        "atlanta": "atlanta",
+        "atlanta hawks": "atlanta",
+        "boston": "boston",
+        "boston celtics": "boston",
+        "brooklyn": "brooklyn",
+        "brooklyn nets": "brooklyn",
+        "charlotte": "charlotte",
+        "charlotte hornets": "charlotte",
+        "chicago": "chicago",
+        "chicago bulls": "chicago",
+        "cleveland": "cleveland",
+        "cleveland cavaliers": "cleveland",
+        "dallas": "dallas",
+        "dallas mavericks": "dallas",
+        "denver": "denver",
+        "denver nuggets": "denver",
+        "detroit": "detroit",
+        "detroit pistons": "detroit",
+        "golden state": "golden state",
+        "golden state warriors": "golden state",
+        "houston": "houston",
+        "houston rockets": "houston",
+        "indiana": "indiana",
+        "indiana pacers": "indiana",
+        "los angeles c": "los angeles c",
+        "los angeles clippers": "los angeles c",
+        "la clippers": "los angeles c",
+        "l a clippers": "los angeles c",
+        "los angeles l": "los angeles l",
+        "los angeles lakers": "los angeles l",
+        "la lakers": "los angeles l",
+        "memphis": "memphis",
+        "memphis grizzlies": "memphis",
+        "miami": "miami",
+        "miami heat": "miami",
+        "milwaukee": "milwaukee",
+        "milwaukee bucks": "milwaukee",
+        "minnesota": "minnesota",
+        "minnesota timberwolves": "minnesota",
+        "new orleans": "new orleans",
+        "new orleans pelicans": "new orleans",
+        "new york": "new york k",
+        "new york knicks": "new york k",
+        "ny knicks": "new york k",
+        "new york k": "new york k",
+        "oklahoma city": "oklahoma city",
+        "okc": "oklahoma city",
+        "orlando": "orlando",
+        "orlando magic": "orlando",
+        "philadelphia": "philadelphia",
+        "philadelphia 76ers": "philadelphia",
+        "philadelphia sixers": "philadelphia",
+        "phoenix": "phoenix",
+        "phoenix suns": "phoenix",
+        "portland": "portland",
+        "portland trail blazers": "portland",
+        "sacramento": "sacramento",
+        "sacramento kings": "sacramento",
+        "san antonio": "san antonio",
+        "san antonio spurs": "san antonio",
+        "toronto": "toronto",
+        "toronto raptors": "toronto",
+        "utah": "utah",
+        "utah jazz": "utah",
+        "washington": "washington",
+        "washington wizards": "washington",
+    }
+    if n in aliases:
+        return aliases[n]
+    return n

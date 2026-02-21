@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from datetime import datetime, timezone, date
 from zoneinfo import ZoneInfo
-from logic.normalize import normalize_team
+from logic.normalize import normalize_team, normalize_player, normalize_nba_team
 from config.settings import (
     ODDS_API_KEY,
     ODDS_SPORTS,
@@ -114,7 +114,7 @@ def get_moneyline_games(
     date_window_days: int = 0,
 ):
     """
-    Fetch NCAAB moneyline odds from Pinnacle for a target local date.
+    Fetch moneyline odds from the Odds API for a target local date.
 
     Returns:
     [
@@ -314,8 +314,16 @@ def get_totals_games(
 
         home_raw = game.get("home_team", "")
         away_raw = game.get("away_team", "")
-        home = normalize_team(home_raw)
-        away = normalize_team(away_raw)
+        sport_key = game.get("sport_key") or ""
+        if sport_key.startswith("tennis_"):
+            home = normalize_player(home_raw)
+            away = normalize_player(away_raw)
+        elif sport_key == "basketball_nba":
+            home = normalize_nba_team(home_raw)
+            away = normalize_nba_team(away_raw)
+        else:
+            home = normalize_team(home_raw)
+            away = normalize_team(away_raw)
         if home and away:
             key = (away, home, best_line, game.get("commence_time"))
             if key in seen:

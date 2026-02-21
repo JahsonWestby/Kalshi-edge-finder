@@ -8,7 +8,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
-from logic.normalize import normalize_team
+from logic.normalize import normalize_team, normalize_player, normalize_nba_team
 from config.settings import (
     KALSHI_KEY_ID,
     KALSHI_PEM_PATH,
@@ -663,6 +663,8 @@ def _split_matchup(title: str) -> tuple[str, str] | tuple[None, None]:
     if not title:
         return (None, None)
     clean = title.replace("Winner?", "").strip()
+    # Tennis-style titles: "Will X win the A vs B : Round match?"
+    clean = re.sub(r"^Will .*? win the ", "", clean, flags=re.IGNORECASE)
     # Totals titles include suffixes like ": Total Points" – strip anything after a colon.
     if ":" in clean:
         clean = clean.split(":", 1)[0].strip()
@@ -737,15 +739,19 @@ def get_kalshi_markets(
         else:
             team_name = team_key
 
-        norm = normalize_team(team_name)
-        if not norm:
-            continue
-
         series = m.get("series_ticker") or ""
         if not series:
             ticker = m.get("ticker") or ""
             series = ticker.split("-", 1)[0] if "-" in ticker else ticker
         if not series:
+            continue
+        if series in {"KXATPMATCH", "KXATPGAME", "KXWTAMATCH", "KXWTAGAME"}:
+            norm = normalize_player(team_name)
+        elif series == "KXNBAGAME":
+            norm = normalize_nba_team(team_name)
+        else:
+            norm = normalize_team(team_name)
+        if not norm:
             continue
         result.setdefault(series, {})
         result[series][norm] = {

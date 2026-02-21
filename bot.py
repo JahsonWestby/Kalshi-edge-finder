@@ -24,7 +24,7 @@ from APIs.kalshi_api import (
     get_market_by_ticker,
 )
 from logic.probability import american_to_prob
-from logic.normalize import normalize_team
+from logic.normalize import normalize_team, normalize_player, normalize_nba_team
 from logic.edge_calc import calculate_edge
 from strategy.entry import should_enter
 from alerts import alert_edge
@@ -292,6 +292,8 @@ def _series_for_sport(sport_key: str | None) -> str | None:
         "basketball_wncaab": "KXNCAAWBGAME",
         "basketball_nba": "KXNBAGAME",
     }
+    if sport_key.startswith("tennis_atp_"):
+        return "KXATPMATCH"
     return mapping.get(sport_key)
 
 
@@ -303,6 +305,26 @@ def _series_from_ticker(ticker: str | None) -> str:
 
 def _matchup_key(away: str, home: str) -> str:
     return f"{normalize_team(away)}@{normalize_team(home)}"
+
+
+def _matchup_key_for_sport(away: str, home: str, sport_key: str | None) -> str:
+    if sport_key and sport_key.startswith("tennis_"):
+        return f"{normalize_player(away)}@{normalize_player(home)}"
+    if sport_key == "basketball_nba":
+        return f"{normalize_nba_team(away)}@{normalize_nba_team(home)}"
+    return _matchup_key(away, home)
+
+
+def _odds_counts_by_sport(games: list[dict]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for g in games:
+        key = g.get("sport_key") or "unknown"
+        if key.startswith("tennis_atp_"):
+            key = "tennis_atp"
+        elif key.startswith("tennis_wta_"):
+            key = "tennis_wta"
+        counts[key] = counts.get(key, 0) + 1
+    return counts
 
 
 def _find_totals_market(
@@ -346,12 +368,12 @@ def _parse_commence_time(ts: str | None) -> datetime | None:
 def _odds_start_times(games: list[dict]) -> dict:
     out = {}
     for g in games:
-        key = _matchup_key(g["away"], g["home"])
+        key = _matchup_key_for_sport(g["away"], g["home"], g.get("sport_key"))
         dt = _parse_commence_time(g.get("commence_time"))
         if key and dt:
             out[key] = dt
             # Also store reversed order to handle "vs" titles where home/away is unclear.
-            rev_key = _matchup_key(g["home"], g["away"])
+            rev_key = _matchup_key_for_sport(g["home"], g["away"], g.get("sport_key"))
             out[rev_key] = dt
     return out
 
@@ -628,18 +650,38 @@ def _order_key(market_ticker: str, side: str, target_date: str) -> str:
     return f"{market_ticker}:{side}:{target_date}"
 
 
+def _series_from_market(market: dict) -> str:
+    series = (market or {}).get("series_ticker") or ""
+    if not series:
+        ticker = (market or {}).get("ticker") or ""
+        series = ticker.split("-", 1)[0] if "-" in ticker else ticker
+    return series
+
+
+def _normalize_name_for_series(name: str | None, series: str) -> str | None:
+    if not name:
+        return None
+    if series in {"KXATPMATCH", "KXATPGAME", "KXWTAMATCH", "KXWTAGAME"}:
+        return normalize_player(name)
+    if series == "KXNBAGAME":
+        return normalize_nba_team(name)
+    return normalize_team(name)
+
+
 def _matchup_teams(market: dict) -> tuple[str | None, str | None]:
     title = (market or {}).get("title") or ""
     clean = re.sub(r"\bWinner\??\b", "", title, flags=re.IGNORECASE).strip()
+    clean = re.sub(r"^Will .*? win the ", "", clean, flags=re.IGNORECASE)
     # Strip totals suffix like ": Total Points"
     if ":" in clean:
         clean = clean.split(":", 1)[0].strip()
+    series = _series_from_market(market)
     if " at " in clean:
         away, home = clean.split(" at ", 1)
-        return _clean_team_name(away), _clean_team_name(home)
+        return _normalize_name_for_series(_clean_team_name(away), series), _normalize_name_for_series(_clean_team_name(home), series)
     if " vs " in clean:
         t1, t2 = clean.split(" vs ", 1)
-        return _clean_team_name(t1), _clean_team_name(t2)
+        return _normalize_name_for_series(_clean_team_name(t1), series), _normalize_name_for_series(_clean_team_name(t2), series)
     return None, None
 
 
@@ -647,19 +689,20 @@ def _clean_team_name(name: str | None) -> str | None:
     if not name:
         return None
     cleaned = name.strip().strip(":-?.,")
-    return normalize_team(cleaned)
+    return cleaned
 
 
 def _implied_winner(team: str, side: str, market: dict) -> str | None:
     title = (market or {}).get("title", "").lower()
     if "total" in title or "over" in title or "under" in title:
         return None
-    team_norm = normalize_team(team)
+    series = _series_from_market(market)
+    team_norm = _normalize_name_for_series(team, series)
     if side == "YES":
         return team_norm
     away, home = _matchup_teams(market)
-    away_norm = normalize_team(away) if away else None
-    home_norm = normalize_team(home) if home else None
+    away_norm = _normalize_name_for_series(away, series) if away else None
+    home_norm = _normalize_name_for_series(home, series) if home else None
     if team_norm == away_norm:
         return home_norm
     if team_norm == home_norm:
@@ -1486,6 +1529,9 @@ def run():
                 f"{g['away']} at {g['home']}" for g in games[:5]
             )
             print(f"[INFO] Odds moneyline sample: {sample_games}")
+            counts = _odds_counts_by_sport(games)
+            counts_str = ", ".join(f"{k}={v}" for k, v in sorted(counts.items()))
+            print(f"[INFO] Odds moneyline counts: {counts_str}")
         if totals_games:
             sample_totals = ", ".join(
                 f"{g['away']} at {g['home']} {g['total']}" for g in totals_games[:5]
@@ -1572,11 +1618,11 @@ def run():
             odds_matchups.add(_matchup_key(g["away"], g["home"]))
         odds_books_by_matchup = {}
         for g in games:
-            key = _matchup_key(g["away"], g["home"])
+            key = _matchup_key_for_sport(g["away"], g["home"], g.get("sport_key"))
             odds_books_by_matchup[key] = g.get("odds_by_book") or {}
         odds_game_by_matchup = {}
         for g in games:
-            key = _matchup_key(g["away"], g["home"])
+            key = _matchup_key_for_sport(g["away"], g["home"], g.get("sport_key"))
             odds_game_by_matchup[key] = g
         totals_books_by_key = {}
         for g in totals_games:
@@ -1623,7 +1669,7 @@ def run():
                 series_expected = _series_for_sport(sport_key)
                 if not series_expected:
                     continue
-                matchup_key = _matchup_key(g["away"], g["home"])
+                matchup_key = _matchup_key_for_sport(g["away"], g["home"], sport_key)
                 kalshi = kalshi_by_series.get(series_expected, {})
                 p_home, p_away = _devig_probs(g["odds_home"], g["odds_away"])
                 for team, odds_val, book_prob in (
