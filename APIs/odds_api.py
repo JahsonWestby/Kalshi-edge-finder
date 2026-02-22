@@ -5,6 +5,8 @@ from pathlib import Path
 from datetime import datetime, timezone, date
 from zoneinfo import ZoneInfo
 from logic.normalize import normalize_team, normalize_player, normalize_nba_team
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from config.settings import (
     ODDS_API_KEY,
     ODDS_SPORTS,
@@ -17,6 +19,19 @@ import re
 
 ODDS_API_URL = "https://api.the-odds-api.com/v4/sports/{sport}/odds"
 CACHE_PATH = Path("data/odds_cache.json")
+ODDS_TIMEOUT = (5, 20)
+
+_odds_retry = Retry(
+    total=3,
+    connect=3,
+    read=3,
+    backoff_factor=1.0,
+    status_forcelist=[429, 500, 502, 503, 504],
+    allowed_methods=["GET"],
+)
+SESSION = requests.Session()
+SESSION.mount("https://", HTTPAdapter(max_retries=_odds_retry))
+SESSION.mount("http://", HTTPAdapter(max_retries=_odds_retry))
 
 
 def _cache_key(markets: str) -> str:
@@ -84,15 +99,19 @@ def _fetch_odds_data(markets: str):
     data = []
     for sport in ODDS_SPORTS:
         url = ODDS_API_URL.format(sport=sport)
-        r = requests.get(url, params=params, timeout=10)
-        if r.status_code == 429:
-            time.sleep(1.5)
-            r = requests.get(url, params=params, timeout=10)
-        if r.status_code == 404:
-            # Sport not supported by this API key/provider
+        try:
+            r = SESSION.get(url, params=params, timeout=ODDS_TIMEOUT)
+            if r.status_code == 429:
+                time.sleep(1.5)
+                r = SESSION.get(url, params=params, timeout=ODDS_TIMEOUT)
+            if r.status_code == 404:
+                # Sport not supported by this API key/provider
+                continue
+            r.raise_for_status()
+            data.extend(r.json())
+        except requests.exceptions.RequestException as exc:
+            print(f"[WARN] Odds API request failed for {sport}: {exc}")
             continue
-        r.raise_for_status()
-        data.extend(r.json())
 
     if ODDS_CACHE_TTL_SEC and ODDS_CACHE_TTL_SEC > 0:
         try:
@@ -105,6 +124,15 @@ def _fetch_odds_data(markets: str):
         if ODDS_CACHE_LOG:
             print(f"[INFO] Odds API cache refresh: {markets}")
 
+    if not data and CACHE_PATH.exists():
+        try:
+            cache = json.loads(CACHE_PATH.read_text())
+            entry = cache.get(cache_key)
+            if entry and entry.get("data"):
+                print("[WARN] Odds API empty response; using cached data.")
+                return entry.get("data", [])
+        except Exception:
+            pass
     return data
 
 

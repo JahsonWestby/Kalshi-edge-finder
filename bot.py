@@ -1761,6 +1761,40 @@ def run():
                             }
                         )
 
+        if moneyline_candidates:
+            for row in moneyline_candidates:
+                matchup_key = row.get("matchup_key")
+                team = row.get("team")
+                side = row.get("side")
+                game = odds_game_by_matchup.get(matchup_key) if matchup_key else None
+                if not game:
+                    continue
+                p_home, p_away = _devig_probs(game["odds_home"], game["odds_away"])
+                if team == game.get("home"):
+                    p_team = p_home
+                    p_opp = p_away
+                    odds_team = game.get("odds_home")
+                    odds_opp = game.get("odds_away")
+                elif team == game.get("away"):
+                    p_team = p_away
+                    p_opp = p_home
+                    odds_team = game.get("odds_away")
+                    odds_opp = game.get("odds_home")
+                else:
+                    continue
+                row["p_team"] = p_team
+                row["p_opp"] = p_opp
+                row["odds_team"] = odds_team
+                row["odds_opp"] = odds_opp
+                if side == "YES":
+                    row["p_true"] = p_team
+                    row["book_prob"] = p_team
+                    row["odds_val"] = odds_team
+                else:
+                    row["p_true"] = p_opp
+                    row["book_prob"] = p_opp
+                    row["odds_val"] = odds_opp
+
         if USE_CHEAPEST_IMPLIED_WINNER and moneyline_candidates:
             market_map = _market_by_ticker(kalshi_by_series)
             best_by_implied = {}
@@ -1805,7 +1839,9 @@ def run():
                     or row.get("market_ticker")
                     or row.get("team")
                 )
-                book_prob = row.get("book_prob")
+                book_prob = row.get("p_true")
+                if book_prob is None:
+                    book_prob = row.get("book_prob")
                 price = row.get("kalshi_price")
                 ev = (
                     ev_per_dollar(book_prob, price)
@@ -1837,11 +1873,14 @@ def run():
             side = row.get("side")
             odds_val = row.get("odds_val")
             kalshi_price = row.get("kalshi_price")
-            book_prob = row.get("book_prob")
+            book_prob = row.get("p_true")
+            if book_prob is None:
+                book_prob = row.get("book_prob")
             volume = row.get("volume") or 0
             contracts_available = row.get("contracts_available") or 10**9
             market_ticker = row.get("market_ticker")
             event_ticker = row.get("event_ticker")
+            matchup_key = row.get("matchup_key")
 
             if not _moneyline_side_allowed(side):
                 continue
