@@ -1916,10 +1916,12 @@ def run():
             totals_possible = 0
             for g in totals_games:
                 matchup_key = _matchup_key(g["away"], g["home"])
-                p_over, p_under = _devig_probs(g["over_odds"], g["under_odds"])
-                for side, odds_val, book_prob in (
-                    ("OVER", g["over_odds"], p_over),
-                    ("UNDER", g["under_odds"], p_under),
+                odds_over = g["over_odds"]
+                odds_under = g["under_odds"]
+                p_over, p_under = _devig_probs(odds_over, odds_under)
+                for side, odds_val, book_prob, opp_odds_val, opp_book_prob in (
+                    ("OVER", odds_over, p_over, odds_under, p_under),
+                    ("UNDER", odds_under, p_under, odds_over, p_over),
                 ):
                     market = _find_totals_market(
                         totals_by_matchup.get(matchup_key, []),
@@ -1937,73 +1939,76 @@ def run():
 
                     raw_market = market.get("raw_market") or {}
                     yes_bid = _norm_price(raw_market.get("yes_bid"))
-                    kalshi_price = yes_bid
-                    if kalshi_price is None:
-                        kalshi_price = market.get("price")
-                    if kalshi_price is None or kalshi_price > MAX_KALSHI_PRICE:
-                        continue
-                    if yes_bid is None:
-                        continue
+                    no_bid = _norm_price(raw_market.get("no_bid"))
                     volume = market.get("volume") or 0
-                    implied = american_to_prob(odds_val)
-                    if not (0.01 <= book_prob <= 0.99):
-                        not_entered.append(f"{matchup_key} {side} (p_true out of bounds)")
-                        continue
-                    if abs(implied - book_prob) > 0.35:
-                        not_entered.append(f"{matchup_key} {side} (p_true mismatch)")
-                        continue
-                    if volume < MIN_VOLUME:
-                        not_entered.append(f"{matchup_key} {side} (vol<{MIN_VOLUME})")
-                        continue
                     market_ticker = market.get("ticker")
                     event_ticker = market.get("event_ticker")
-                    band = _prob_band(book_prob)
-                    edge = calculate_edge(book_prob, kalshi_price, KALSHI_FEE)
-                    ev_per_dollar_val = ev_per_dollar(book_prob, kalshi_price)
-                    contracts = (
-                        stake_size(
-                            bankroll,
-                            book_prob,
-                            kalshi_price,
-                            10**9,
-                            is_limit_order=ASSUME_LIMIT_ORDER,
-                            kelly_frac=KELLY_FRAC,
-                            max_pct=MAX_TRADE_PCT,
+
+                    for order_side, price, p_true, odds_for_p in (
+                        ("YES", yes_bid, book_prob, odds_val),
+                        ("NO", no_bid, opp_book_prob, opp_odds_val),
+                    ):
+                        if price is None:
+                            continue
+                        if price > MAX_KALSHI_PRICE:
+                            continue
+                        implied = american_to_prob(odds_for_p)
+                        if not (0.01 <= p_true <= 0.99):
+                            not_entered.append(f"{matchup_key} {side} {order_side} (p_true out of bounds)")
+                            continue
+                        if abs(implied - p_true) > 0.35:
+                            not_entered.append(f"{matchup_key} {side} {order_side} (p_true mismatch)")
+                            continue
+                        if volume < MIN_VOLUME:
+                            not_entered.append(f"{matchup_key} {side} {order_side} (vol<{MIN_VOLUME})")
+                            continue
+                        band = _prob_band(p_true)
+                        edge = calculate_edge(p_true, price, KALSHI_FEE)
+                        ev_per_dollar_val = ev_per_dollar(p_true, price)
+                        contracts = (
+                            stake_size(
+                                bankroll,
+                                p_true,
+                                price,
+                                10**9,
+                                is_limit_order=ASSUME_LIMIT_ORDER,
+                                kelly_frac=KELLY_FRAC,
+                                max_pct=MAX_TRADE_PCT,
+                            )
+                            if bankroll is not None
+                            else 0
                         )
-                        if bankroll is not None
-                        else 0
-                    )
-                    if kalshi_price < 0.08:
-                        contracts = min(contracts, 5)
-                    if ev_per_dollar_val > 0.25:
-                        contracts = int(contracts * 0.5)
-                    exp_profit = (
-                        expected_profit_per_contract(
-                            book_prob, kalshi_price, ASSUME_LIMIT_ORDER
+                        if price < 0.08:
+                            contracts = min(contracts, 5)
+                        if ev_per_dollar_val > 0.25:
+                            contracts = int(contracts * 0.5)
+                        exp_profit = (
+                            expected_profit_per_contract(
+                                p_true, price, ASSUME_LIMIT_ORDER
+                            )
+                            * contracts
                         )
-                        * contracts
-                    )
-                    label = f"{g['away']} at {g['home']} total {g['total']} {side}"
-                    totals_rows.append(
-                        (
-                            label,
-                            "YES",
-                            odds_val,
-                            kalshi_price,
-                            edge,
-                            volume,
-                            book_prob,
-                            contracts,
-                            exp_profit,
-                            ev_per_dollar_val,
-                            market_ticker,
-                            event_ticker,
-                            band,
-                            "TOTAL",
-                            g["total"],
-                            matchup_key,
+                        label = f"{g['away']} at {g['home']} total {g['total']} {side}"
+                        totals_rows.append(
+                            (
+                                label,
+                                order_side,
+                                odds_for_p,
+                                price,
+                                edge,
+                                volume,
+                                p_true,
+                                contracts,
+                                exp_profit,
+                                ev_per_dollar_val,
+                                market_ticker,
+                                event_ticker,
+                                band,
+                                "TOTAL",
+                                g["total"],
+                                matchup_key,
+                            )
                         )
-                    )
 
         rows = moneyline_rows + totals_rows
 
@@ -2742,6 +2747,8 @@ def run():
                     label = row.get("team") or ""
                     side_hint = "OVER" if label.endswith(" OVER") else "UNDER" if label.endswith(" UNDER") else None
                     p_used = p_over_dev if side_hint == "OVER" else p_under_dev if side_hint == "UNDER" else None
+                    if p_used is not None and row.get("side") == "NO":
+                        p_used = 1 - p_used
                     used_str = f" used={p_used:.3f}" if p_used is not None else ""
                     odds_over_str = _format_odds(odds_over)
                     odds_under_str = _format_odds(odds_under)
