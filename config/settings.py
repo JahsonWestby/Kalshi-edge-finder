@@ -50,7 +50,7 @@ KELLY_CAP = 0.25
 MAX_TRADE_PCT = 0.10
 ASSUME_LIMIT_ORDER = True
 MAX_KALSHI_PRICE = 0.95
-TRADE_MODE = "dry-run"  # "dry-run" or "live"
+TRADE_MODE = "live"  # "dry-run" or "live"
 MAX_ORDERS_PER_RUN = 30
 POST_ONLY = True
 ORDER_SLEEP_SEC = 0.12
@@ -89,7 +89,7 @@ RESTING_CANCEL_GRACE_SEC = 0
 
 # timing
 POLL_INTERVAL = 30
-ODDS_CACHE_TTL_SEC = 200
+ODDS_CACHE_TTL_SEC = 400
 ODDS_CACHE_LOG = False
 QUIET_LOGS = True
 DATE_WINDOW_DAYS = 2
@@ -106,22 +106,6 @@ ODDS_SPORTS = [
     "basketball_ncaab",
     "basketball_wncaab",
     "basketball_nba",
-    "tennis_atp_aus_open_singles",
-    "tennis_atp_canadian_open",
-    "tennis_atp_china_open",
-    "tennis_atp_cincinnati_open",
-    "tennis_atp_dubai",
-    "tennis_atp_french_open",
-    "tennis_atp_indian_wells",
-    "tennis_atp_italian_open",
-    "tennis_atp_madrid_open",
-    "tennis_atp_miami_open",
-    "tennis_atp_monte_carlo_masters",
-    "tennis_atp_paris_masters",
-    "tennis_atp_qatar_open",
-    "tennis_atp_shanghai_masters",
-    "tennis_atp_us_open",
-    "tennis_atp_wimbledon",
 ]
 ODDS_BOOKMAKERS = "lowvig,pinnacle,fanduel,bookmaker,betonlineag"
 
@@ -136,4 +120,4 @@ KALSHI_TOTALS_SERIES_TICKERS = ["KXNCAAMBTOTAL"]
 
 # totals matching
 TOTALS_LINE_TOLERANCE = 0.1
-TOTALS_MIN_EDGE = 0.03
+TOTALS_MIN_EDGE = 0.04
