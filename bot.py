@@ -73,6 +73,11 @@ from config.settings import (
     REPLACE_EDGE_BUFFER,
     MAX_REPLACE_DRIFT,
     ALLOW_TRUE_HEDGE,
+    HEDGE_POLICY,
+    HEDGE_MIN_LOCKED_PROFIT_DOLLARS,
+    HEDGE_MIN_LOCKED_PROFIT_PCT_BR,
+    HEDGE_ALLOW_EXPOSURE_REDUCE,
+    HEDGE_MAX_OPPOSITE_CONTRACTS,
     TOTALS_LINE_TOLERANCE,
     TOTALS_MIN_EDGE,
     GAME_START_CANCEL_MIN,
@@ -207,14 +212,14 @@ def kalshi_fee_per_contract(price: float) -> float:
     return math.ceil(0.07 * price * (1 - price) * 100) / 100
 
 
-def expected_profit_per_contract(book_prob: float, price: float, is_limit_order: bool) -> float:
+def expected_profit_per_contract(p_true: float, price: float, is_limit_order: bool) -> float:
     fee = 0 if is_limit_order else kalshi_fee_per_contract(price)
-    return book_prob * (1 - price - fee) - (1 - book_prob) * price
+    return p_true * (1 - price - fee) - (1 - p_true) * price
 
 
-def ev_per_dollar(book_prob: float, kalshi_price: float) -> float:
-    # EV per $ risked: (q*(1-p) - (1-q)*p)/p where q=book_prob, p=kalshi_price
-    q = book_prob
+def ev_per_dollar(p_true: float, kalshi_price: float) -> float:
+    # EV per $ risked: (q*(1-p) - (1-q)*p)/p where q=p_true, p=kalshi_price
+    q = p_true
     p = kalshi_price
     if p <= 0:
         return 0.0
@@ -388,20 +393,22 @@ def _prob_band(p_true: float) -> str:
 
 def stake_size(
     bankroll,
-    book_prob,
+    p_true,
     kalshi_price,
     contracts_available,
     is_limit_order=True,
     kelly_frac=0.125,
     max_pct=0.10,
 ):
+    # Note: price_eff = price + fee is an approximation; exact Kelly under fees
+    # would use explicit win/loss payoffs.
     fee = 0 if (is_limit_order and POST_ONLY) else kalshi_fee_per_contract(kalshi_price)
     effective_price = kalshi_price + fee
     if effective_price <= 0:
         return 0
 
     b = (1 / effective_price) - 1
-    p = book_prob
+    p = p_true
     q = 1 - p
 
     kelly = (b * p - q) / b
@@ -868,7 +875,7 @@ def _positions_exposure(
         market = market_map.get(ticker)
         # infer team if present
         team = p.get("team") or p.get("team_name") or ticker_to_team.get(ticker) or ""
-        implied = _implied_winner(normalize_team(team), side, market) if team else None
+        implied = _implied_winner(team, side, market) if team else None
         key = (ticker, implied, side)
         exposures.add(key)
     return exposures
@@ -1033,7 +1040,7 @@ def _orders_exposure(
             continue
         market = market_map.get(ticker)
         team = o.get("team") or o.get("team_name") or ticker_to_team.get(ticker) or ""
-        implied = _implied_winner(normalize_team(team), side, market) if team else None
+        implied = _implied_winner(team, side, market) if team else None
         key = (ticker, implied, side)
         exposures.add(key)
     return exposures
@@ -1048,6 +1055,279 @@ def _event_implied_map(exposures: set, market_map: dict) -> dict:
         event = market.get("event_ticker") or ticker
         out.setdefault(event, set()).add(implied)
     return out
+
+
+def _is_totals_ticker(ticker: str, market: dict | None = None) -> bool:
+    series = _series_from_ticker(ticker)
+    if "TOTAL" in series:
+        return True
+    title = (market or {}).get("title", "").lower()
+    return "total" in title or "over" in title or "under" in title
+
+
+def _fee_per_contract(price: float | None, source: str | None = None) -> float:
+    if price is None:
+        return 0.0
+    if source == "order" and POST_ONLY:
+        return 0.0
+    if ASSUME_LIMIT_ORDER and POST_ONLY:
+        return 0.0
+    return kalshi_fee_per_contract(price)
+
+
+def _build_hedge_state(positions: dict, orders: dict, market_map: dict, ticker_to_team: dict):
+    holdings = []
+    holdings.extend(_holdings_from_positions(positions, market_map, ticker_to_team))
+    holdings.extend(_holdings_from_orders(orders, market_map, ticker_to_team))
+
+    event_teams: dict[str, set[str]] = {}
+    for t, m in market_map.items():
+        ev_key = (m or {}).get("event_ticker") or t
+        away, home = _matchup_teams(m or {})
+        if away and home:
+            event_teams.setdefault(ev_key, set()).update({away, home})
+
+    event_implied: dict[str, dict[str, dict]] = {}
+    market_sides: dict[str, dict[str, dict]] = {}
+    for h in holdings:
+        ticker = h.get("ticker")
+        side = h.get("side")
+        team = h.get("team")
+        event_key = h.get("event_ticker") or ticker
+        count = h.get("count") or 0.0
+        price = h.get("price")
+        fees = h.get("fees")
+        if not ticker or not side or count <= 0:
+            continue
+        market = market_map.get(ticker) or {}
+        is_totals = _is_totals_ticker(ticker, market)
+        fee_per = 0.0
+        if fees and count:
+            fee_per = float(fees) / float(count)
+        else:
+            fee_per = _fee_per_contract(price, h.get("source"))
+        cost_per = None if price is None else (float(price) + float(fee_per))
+
+        if is_totals:
+            entry = market_sides.setdefault(ticker, {}).setdefault(
+                side, {"count": 0.0, "cost_total": 0.0}
+            )
+            entry["count"] += float(count)
+            if cost_per is not None:
+                entry["cost_total"] += cost_per * float(count)
+            continue
+
+        series = _series_from_market(market)
+        team_norm = _normalize_name_for_series(team, series) if team else None
+        implied = _implied_winner(team_norm, side, market) if team_norm else None
+        if implied is None:
+            entry = market_sides.setdefault(ticker, {}).setdefault(
+                side, {"count": 0.0, "cost_total": 0.0}
+            )
+            entry["count"] += float(count)
+            if cost_per is not None:
+                entry["cost_total"] += cost_per * float(count)
+            continue
+        if implied is None and side == "YES" and team_norm:
+            implied = team_norm
+        if implied is None and side == "NO":
+            teams_set = event_teams.get(event_key) or set()
+            if team_norm:
+                others = [t for t in teams_set if t and t != team_norm]
+                if len(others) == 1:
+                    implied = others[0]
+        if not implied:
+            continue
+
+        entry = event_implied.setdefault(event_key, {}).setdefault(
+            implied, {"count": 0.0, "cost_total": 0.0}
+        )
+        entry["count"] += float(count)
+        if cost_per is not None:
+            entry["cost_total"] += cost_per * float(count)
+
+    for ev, outcomes in event_implied.items():
+        if len(outcomes) >= 2:
+            print(
+                f"[WARN] conflicting exposure detected: game_key={ev} outcomes={sorted(outcomes.keys())}"
+            )
+    return {"event_implied": event_implied, "market_sides": market_sides}
+
+
+def _avg_cost(entry: dict) -> float | None:
+    count = entry.get("count") or 0.0
+    total = entry.get("cost_total") or 0.0
+    if count <= 0 or total <= 0:
+        return None
+    return total / count
+
+
+def _hedge_threshold(bankroll: float | None) -> float:
+    if HEDGE_MIN_LOCKED_PROFIT_DOLLARS is not None:
+        return float(HEDGE_MIN_LOCKED_PROFIT_DOLLARS)
+    if bankroll is not None:
+        return float(bankroll) * float(HEDGE_MIN_LOCKED_PROFIT_PCT_BR)
+    return 0.0
+
+
+def _hedge_gate(
+    row: dict,
+    price: float,
+    contracts: int,
+    market: dict | None,
+    hedge_state: dict,
+    bankroll: float | None,
+    existing_implied: set | None = None,
+):
+    policy = (HEDGE_POLICY or "arb_only").lower()
+    market_ticker = row.get("market_ticker")
+    side = row.get("side")
+    event_key = row.get("event_ticker") or market_ticker
+    market_type = row.get("market_type")
+
+    if not market_ticker or not side:
+        return True, ""
+
+    candidate_fee = _fee_per_contract(price, "order")
+    candidate_cost = price + candidate_fee
+
+    # Totals or single-ticker YES/NO: opposite side in same market_ticker is a hedge.
+    if market_type == "TOTAL":
+        existing = hedge_state.get("market_sides", {}).get(market_ticker, {})
+        opp_side = "NO" if side == "YES" else "YES"
+        opp_entry = existing.get(opp_side)
+        if not opp_entry:
+            return True, ""
+        opp_cost = _avg_cost(opp_entry)
+        opp_count = opp_entry.get("count") or 0.0
+        return _evaluate_hedge_decision(
+            policy,
+            event_key,
+            side,
+            opp_side,
+            candidate_cost,
+            contracts,
+            opp_cost,
+            opp_count,
+            bankroll,
+        )
+
+    # Moneyline: implied winner hedge check by event.
+    implied = _implied_winner(row.get("team"), side, market or {})
+    if not implied:
+        existing = hedge_state.get("market_sides", {}).get(market_ticker, {})
+        opp_side = "NO" if side == "YES" else "YES"
+        opp_entry = existing.get(opp_side)
+        if not opp_entry:
+            return True, ""
+        opp_cost = _avg_cost(opp_entry)
+        opp_count = opp_entry.get("count") or 0.0
+        return _evaluate_hedge_decision(
+            policy,
+            event_key,
+            side,
+            opp_side,
+            candidate_cost,
+            contracts,
+            opp_cost,
+            opp_count,
+            bankroll,
+        )
+    existing = hedge_state.get("event_implied", {}).get(event_key, {})
+    opp_candidates = {k: v for k, v in existing.items() if k != implied}
+    if existing_implied:
+        for implied_other in existing_implied:
+            if implied_other != implied and implied_other not in opp_candidates:
+                opp_candidates[implied_other] = {"count": 0.0, "cost_total": 0.0}
+    if not opp_candidates:
+        return True, ""
+    # Choose the best opposite entry (lowest avg cost).
+    best_key = None
+    best_cost = None
+    best_entry = None
+    for key, entry in opp_candidates.items():
+        cost = _avg_cost(entry)
+        if cost is None:
+            continue
+        if best_cost is None or cost < best_cost:
+            best_cost = cost
+            best_key = key
+            best_entry = entry
+    if best_entry is None:
+        # No priced opposite exposure; treat as hedge without arb proof.
+        return _evaluate_hedge_decision(
+            policy,
+            event_key,
+            implied,
+            ",".join(sorted(opp_candidates.keys())),
+            candidate_cost,
+            contracts,
+            None,
+            0.0,
+            bankroll,
+        )
+    return _evaluate_hedge_decision(
+        policy,
+        event_key,
+        implied,
+        best_key,
+        candidate_cost,
+        contracts,
+        best_cost,
+        best_entry.get("count") or 0.0,
+        bankroll,
+    )
+
+
+def _evaluate_hedge_decision(
+    policy: str,
+    event_key: str | None,
+    implied: str | None,
+    opp: str | None,
+    candidate_cost: float,
+    contracts: int,
+    opp_cost: float | None,
+    opp_count: float,
+    bankroll: float | None,
+):
+    label = f"event={event_key} implied={implied} opp={opp}"
+    if policy == "off":
+        return False, f"[SKIP] hedge_policy_off: {label}"
+
+    locked_per = None
+    locked_total = None
+    if opp_cost is not None:
+        locked_per = 1 - (candidate_cost + opp_cost)
+        hedgeable = min(float(contracts), float(opp_count))
+        if HEDGE_MAX_OPPOSITE_CONTRACTS > 0:
+            hedgeable = min(hedgeable, float(HEDGE_MAX_OPPOSITE_CONTRACTS))
+        locked_total = locked_per * hedgeable
+
+    if policy == "arb_only":
+        if opp_cost is None or locked_per is None:
+            return False, f"[SKIP] hedge_no_price: {label}"
+        if locked_per <= 0:
+            return False, f"[SKIP] hedge_not_arb: {label} locked_per={locked_per:.4f}"
+        if HEDGE_MAX_OPPOSITE_CONTRACTS == 0 and contracts > opp_count:
+            return False, f"[SKIP] hedge_pair_mismatch: {label} opp={opp_count:g}"
+        if HEDGE_MAX_OPPOSITE_CONTRACTS > 0 and contracts > HEDGE_MAX_OPPOSITE_CONTRACTS:
+            return False, f"[SKIP] hedge_cap: {label} cap={HEDGE_MAX_OPPOSITE_CONTRACTS}"
+        threshold = _hedge_threshold(bankroll)
+        if locked_total is None or locked_total < threshold:
+            locked_str = f"{locked_total:.2f}" if locked_total is not None else "n/a"
+            return False, f"[SKIP] hedge_below_threshold: {label} locked={locked_str}"
+        return True, ""
+
+    if policy == "allow":
+        if opp_cost is not None and locked_per is not None and locked_per > 0:
+            threshold = _hedge_threshold(bankroll)
+            if locked_total is not None and locked_total >= threshold:
+                return True, ""
+        if HEDGE_ALLOW_EXPOSURE_REDUCE and contracts <= opp_count:
+            return True, ""
+        return False, f"[SKIP] hedge_not_allowed: {label}"
+
+    return False, f"[SKIP] hedge_policy_unknown: {label}"
 
 
 def _order_price(item: dict) -> float | None:
@@ -1672,18 +1952,18 @@ def run():
                 matchup_key = _matchup_key_for_sport(g["away"], g["home"], sport_key)
                 kalshi = kalshi_by_series.get(series_expected, {})
                 p_home, p_away = _devig_probs(g["odds_home"], g["odds_away"])
-                for team, odds_val, book_prob in (
+                for team, odds_val, p_true in (
                     (g["home"], g["odds_home"], p_home),
                     (g["away"], g["odds_away"], p_away),
                 ):
                     if team == g["home"]:
                         opp_team = g["away"]
                         opp_odds_val = g["odds_away"]
-                        opp_book_prob = p_away
+                        opp_p_true = p_away
                     else:
                         opp_team = g["home"]
                         opp_odds_val = g["odds_home"]
-                        opp_book_prob = p_home
+                        opp_p_true = p_home
                     k = kalshi.get(team)
                     if not k:
                         unmatched_moneyline.append(team)
@@ -1730,7 +2010,7 @@ def run():
                                 "team": team,
                                 "side": "YES",
                                 "odds_val": odds_val,
-                                "book_prob": book_prob,
+                                "p_true": p_true,
                                 "kalshi_price": kalshi_yes,
                                 "volume": volume,
                                 "contracts_available": contracts_available,
@@ -1750,7 +2030,7 @@ def run():
                                 "team": team,
                                 "side": "NO",
                                 "odds_val": opp_odds_val,
-                                "book_prob": opp_book_prob,
+                                "p_true": opp_p_true,
                                 "kalshi_price": kalshi_no,
                                 "volume": volume,
                                 "contracts_available": contracts_available,
@@ -1788,11 +2068,9 @@ def run():
                 row["odds_opp"] = odds_opp
                 if side == "YES":
                     row["p_true"] = p_team
-                    row["book_prob"] = p_team
                     row["odds_val"] = odds_team
                 else:
                     row["p_true"] = p_opp
-                    row["book_prob"] = p_opp
                     row["odds_val"] = odds_opp
 
         if USE_CHEAPEST_IMPLIED_WINNER and moneyline_candidates:
@@ -1839,13 +2117,13 @@ def run():
                     or row.get("market_ticker")
                     or row.get("team")
                 )
-                book_prob = row.get("p_true")
-                if book_prob is None:
-                    book_prob = row.get("book_prob")
+                p_true = row.get("p_true")
+                if p_true is None:
+                    p_true = row.get("book_prob")
                 price = row.get("kalshi_price")
                 ev = (
-                    ev_per_dollar(book_prob, price)
-                    if isinstance(book_prob, (int, float)) and price is not None
+                    ev_per_dollar(p_true, price)
+                    if isinstance(p_true, (int, float)) and price is not None
                     else float("-inf")
                 )
                 cur = best_by_event.get(event_key)
@@ -1873,9 +2151,9 @@ def run():
             side = row.get("side")
             odds_val = row.get("odds_val")
             kalshi_price = row.get("kalshi_price")
-            book_prob = row.get("p_true")
-            if book_prob is None:
-                book_prob = row.get("book_prob")
+            p_true = row.get("p_true")
+            if p_true is None:
+                p_true = row.get("book_prob")
             volume = row.get("volume") or 0
             contracts_available = row.get("contracts_available") or 10**9
             market_ticker = row.get("market_ticker")
@@ -1887,23 +2165,23 @@ def run():
             if kalshi_price is None or kalshi_price > MAX_KALSHI_PRICE:
                 continue
             implied = american_to_prob(odds_val)
-            if not (0.01 <= book_prob <= 0.99):
+            if not (0.01 <= p_true <= 0.99):
                 not_entered.append(f"{team} {side} (p_true out of bounds)")
                 continue
-            if abs(implied - book_prob) > 0.35:
+            if abs(implied - p_true) > 0.35:
                 not_entered.append(f"{team} {side} (p_true mismatch)")
                 continue
             if volume < MIN_VOLUME:
                 not_entered.append(f"{team} {side} (vol<{MIN_VOLUME})")
                 continue
 
-            band = _prob_band(book_prob)
-            edge = calculate_edge(book_prob, kalshi_price, KALSHI_FEE)
-            ev_per_dollar_val = ev_per_dollar(book_prob, kalshi_price)
+            band = _prob_band(p_true)
+            edge = calculate_edge(p_true, kalshi_price, KALSHI_FEE)
+            ev_per_dollar_val = ev_per_dollar(p_true, kalshi_price)
             contracts = (
                 stake_size(
                     bankroll,
-                    book_prob,
+                    p_true,
                     kalshi_price,
                     contracts_available,
                     is_limit_order=ASSUME_LIMIT_ORDER,
@@ -1919,7 +2197,7 @@ def run():
                 contracts = int(contracts * 0.5)
             exp_profit = (
                 expected_profit_per_contract(
-                    book_prob, kalshi_price, ASSUME_LIMIT_ORDER
+                    p_true, kalshi_price, ASSUME_LIMIT_ORDER
                 )
                 * contracts
             )
@@ -1931,7 +2209,7 @@ def run():
                     kalshi_price,
                     edge,
                     volume,
-                    book_prob,
+                    p_true,
                     contracts,
                     exp_profit,
                     ev_per_dollar_val,
@@ -1958,7 +2236,7 @@ def run():
                 odds_over = g["over_odds"]
                 odds_under = g["under_odds"]
                 p_over, p_under = _devig_probs(odds_over, odds_under)
-                for side, odds_val, book_prob, opp_odds_val, opp_book_prob in (
+                for side, odds_val, p_true, opp_odds_val, opp_p_true in (
                     ("OVER", odds_over, p_over, odds_under, p_under),
                     ("UNDER", odds_under, p_under, odds_over, p_over),
                 ):
@@ -1983,31 +2261,31 @@ def run():
                     market_ticker = market.get("ticker")
                     event_ticker = market.get("event_ticker")
 
-                    for order_side, price, p_true, odds_for_p in (
-                        ("YES", yes_bid, book_prob, odds_val),
-                        ("NO", no_bid, opp_book_prob, opp_odds_val),
+                    for order_side, price, p_true_side, odds_for_p in (
+                        ("YES", yes_bid, p_true, odds_val),
+                        ("NO", no_bid, opp_p_true, opp_odds_val),
                     ):
                         if price is None:
                             continue
                         if price > MAX_KALSHI_PRICE:
                             continue
                         implied = american_to_prob(odds_for_p)
-                        if not (0.01 <= p_true <= 0.99):
+                        if not (0.01 <= p_true_side <= 0.99):
                             not_entered.append(f"{matchup_key} {side} {order_side} (p_true out of bounds)")
                             continue
-                        if abs(implied - p_true) > 0.35:
+                        if abs(implied - p_true_side) > 0.35:
                             not_entered.append(f"{matchup_key} {side} {order_side} (p_true mismatch)")
                             continue
                         if volume < MIN_VOLUME:
                             not_entered.append(f"{matchup_key} {side} {order_side} (vol<{MIN_VOLUME})")
                             continue
-                        band = _prob_band(p_true)
-                        edge = calculate_edge(p_true, price, KALSHI_FEE)
-                        ev_per_dollar_val = ev_per_dollar(p_true, price)
+                        band = _prob_band(p_true_side)
+                        edge = calculate_edge(p_true_side, price, KALSHI_FEE)
+                        ev_per_dollar_val = ev_per_dollar(p_true_side, price)
                         contracts = (
                             stake_size(
                                 bankroll,
-                                p_true,
+                                p_true_side,
                                 price,
                                 10**9,
                                 is_limit_order=ASSUME_LIMIT_ORDER,
@@ -2023,7 +2301,7 @@ def run():
                             contracts = int(contracts * 0.5)
                         exp_profit = (
                             expected_profit_per_contract(
-                                p_true, price, ASSUME_LIMIT_ORDER
+                                p_true_side, price, ASSUME_LIMIT_ORDER
                             )
                             * contracts
                         )
@@ -2036,7 +2314,7 @@ def run():
                                 price,
                                 edge,
                                 volume,
-                                p_true,
+                                p_true_side,
                                 contracts,
                                 exp_profit,
                                 ev_per_dollar_val,
@@ -2114,7 +2392,7 @@ def run():
                 kalshi_price,
                 edge,
                 volume,
-                book_prob,
+                p_true,
                 contracts,
                 exp_profit,
                 ev_per_dollar_val,
@@ -2127,12 +2405,12 @@ def run():
             ) in rows:
                 if edge <= 0 or contracts <= 0:
                     continue
-                min_edge_dyn = _min_edge_for_prob(book_prob)
+                min_edge_dyn = _min_edge_for_prob(p_true)
                 if market_type == "TOTAL":
                     min_edge_dyn = max(min_edge_dyn, TOTALS_MIN_EDGE)
                 if edge >= min_edge_dyn:
                     print(
-                        f"{team} | {side} | {_format_odds(odds_val)} | p={book_prob:.3f} {band} | "
+                        f"{team} | {side} | {_format_odds(odds_val)} | p={p_true:.3f} {band} | "
                         f"{kalshi_price:.3f} | {edge*100:.2f}% | {volume} | {contracts} | "
                         f"${exp_profit:,.2f} | {ev_per_dollar_val:.4f}"
                     )
@@ -2141,7 +2419,7 @@ def run():
                             "team": team,
                             "side": side,
                             "book_odds": odds_val,
-                            "p_true": round(book_prob, 6),
+                            "p_true": round(p_true, 6),
                             "prob_band": band,
                             "kalshi_price": round(kalshi_price, 6),
                             "edge": round(edge, 6),
@@ -2167,7 +2445,7 @@ def run():
                         if edge >= 0.01:
                             _EDGE_COUNTS["ge_1"] += 1
                     else:
-                        alert_edge(team, kalshi_price, book_prob, edge)
+                        alert_edge(team, kalshi_price, p_true, edge)
                 else:
                     reason = []
                     if edge < min_edge_dyn:
@@ -2351,6 +2629,7 @@ def run():
             positions_by_market = _positions_by_market(positions)
             positions_by_event = _positions_by_event(positions, market_map)
             orders_exposure = _orders_exposure(orders, market_map, ticker_to_team)
+            hedge_state = _build_hedge_state(positions, orders, market_map, ticker_to_team)
             print(f"[INFO] Resting order audit: {len(open_orders)} open orders")
             orders_submitted = 0
             event_implied = {}
@@ -2438,7 +2717,7 @@ def run():
                 for g in totals_games:
                     matchup_key = _matchup_key(g["away"], g["home"])
                     p_over, p_under = _devig_probs(g["over_odds"], g["under_odds"])
-                    for side, book_prob in (("OVER", p_over), ("UNDER", p_under)):
+                    for side, p_true in (("OVER", p_over), ("UNDER", p_under)):
                         market = _find_totals_market(
                             totals_by_matchup.get(matchup_key, []),
                             matchup_key,
@@ -2446,9 +2725,9 @@ def run():
                             g["total"],
                         )
                         if market and market.get("ticker"):
-                            totals_prob_by_ticker[market["ticker"]] = book_prob
+                            totals_prob_by_ticker[market["ticker"]] = p_true
             for (ticker, side), info in open_orders.items():
-                book_prob = None
+                p_true = None
                 team = ticker_to_team.get(ticker)
                 series_actual = _series_from_ticker(ticker)
                 market = market_cache.get(ticker)
@@ -2464,21 +2743,21 @@ def run():
                         implied = _implied_winner(team, side, market)
                         if implied:
                             lookup_team = implied
-                    book_prob = odds_map_by_series[series_actual].get(lookup_team)
+                    p_true = odds_map_by_series[series_actual].get(lookup_team)
                 elif ticker in totals_prob_by_ticker:
-                    book_prob = totals_prob_by_ticker[ticker]
-                if book_prob is None:
+                    p_true = totals_prob_by_ticker[ticker]
+                if p_true is None:
                     continue
                 if side == "NO" and team and lookup_team == normalize_team(team):
-                    book_prob = 1 - book_prob
+                    p_true = 1 - p_true
                 price = info["price"]
                 mid_price = _mid_price(market, side) if market else None
-                ev_mid = book_prob - (mid_price if mid_price is not None else price)
+                ev_mid = p_true - (mid_price if mid_price is not None else price)
                 current_odds = None
                 if lookup_team and series_actual in odds_raw_by_series:
                     current_odds = odds_raw_by_series[series_actual].get(lookup_team)
                 if current_odds is None:
-                    current_odds = _prob_to_american(book_prob)
+                    current_odds = _prob_to_american(p_true)
                 old_odds = None
                 order_meta = resting_state.get("order_book_odds", {})
                 order_id = info.get("order_id")
@@ -2852,6 +3131,13 @@ def run():
                     print(f"[SKIP] resting exposure (other order): {exposure_key}")
                     continue
                 existing_set = event_implied.get(event_key, set())
+                allowed, reason = _hedge_gate(
+                    row, best_bid, contracts, market, hedge_state, bankroll, existing_set
+                )
+                if not allowed:
+                    if reason:
+                        print(reason)
+                    continue
                 if implied_winner:
                     if USE_CHEAPEST_IMPLIED_WINNER:
                         key = (event_key, implied_winner)
@@ -2872,12 +3158,6 @@ def run():
                             f"implied_winner={implied_winner} from {side} {row.get('team')}"
                         )
                         continue
-                    if not ALLOW_TRUE_HEDGE and existing_set:
-                        print(
-                            f"[SKIP] hedge blocked: event={event_key} "
-                            f"implied_winner={implied_winner} from {side} {row.get('team')}"
-                        )
-                        continue
                     event_implied.setdefault(event_key, set()).add(implied_winner)
 
                 # EV check using best bid (per your rule)
@@ -2888,16 +3168,16 @@ def run():
                     print(f"[SKIP] missing p_true: {market_ticker} {side}")
                     continue
                 book_odds_val = row.get("book_odds")
-                p_book = None
+                p_implied = None
                 if book_odds_val is not None:
                     try:
-                        p_book = american_to_prob(float(book_odds_val))
+                        p_implied = american_to_prob(float(book_odds_val))
                     except Exception:
-                        p_book = None
-                if p_book is not None and abs(true_prob - p_book) > MAX_PROB_GAP:
+                        p_implied = None
+                if p_implied is not None and abs(true_prob - p_implied) > MAX_PROB_GAP:
                     print(
                         f"[SKIP] prob mismatch: {market_ticker} {side} "
-                        f"p_true={true_prob:.3f} p_book={p_book:.3f} gap={abs(true_prob - p_book):.3f}"
+                        f"p_true={true_prob:.3f} p_implied={p_implied:.3f} gap={abs(true_prob - p_implied):.3f}"
                     )
                     continue
                 edge_at_bid = calculate_edge(true_prob, best_bid, KALSHI_FEE)
@@ -3250,15 +3530,15 @@ def run():
                         book_odds_val = row.get("book_odds")
                         book_odds = _format_odds(book_odds_val)
                         p_true_str = f"{true_prob:.3f}" if true_prob is not None else "n/a"
-                        p_book = None
+                        p_implied = None
                         try:
-                            p_book = american_to_prob(float(book_odds_val))
-                            p_book_str = f"{p_book:.3f}"
+                            p_implied = american_to_prob(float(book_odds_val))
+                            p_implied_str = f"{p_implied:.3f}"
                         except Exception:
-                            p_book_str = "n/a"
+                            p_implied_str = "n/a"
                         gap_str = (
-                            f" | gap={abs(true_prob - p_book):.3f}"
-                            if true_prob is not None and p_book is not None
+                            f" | gap={abs(true_prob - p_implied):.3f}"
+                            if true_prob is not None and p_implied is not None
                             else ""
                         )
                         books_info = "" if QUIET_LOGS else _format_books_info(row)
@@ -3268,7 +3548,7 @@ def run():
                         print(
                             f"[INFO] Placed order: {market_ticker:<30} {side:<3} x{contracts:<3} "
                             f"| price {price:>5.2f} | edge {edge_after:>6.2f}% | exp {exp_profit_str:>8} | book {book_odds:>6}"
-                            f" | p_true={p_true_str} | p_book={p_book_str}{gap_str}{math_info}{books_info}{price_info}"
+                            f" | p_true={p_true_str} | p_implied={p_implied_str}{gap_str}{math_info}{books_info}{price_info}"
                         )
                     except Exception as exc:
                         print(f"[WARN] Order failed: {market_ticker} {side} x{contracts} -> {exc}")
@@ -3297,15 +3577,15 @@ def run():
                     book_odds_val = row.get("book_odds")
                     book_odds = _format_odds(book_odds_val)
                     p_true_str = f"{true_prob:.3f}" if true_prob is not None else "n/a"
-                    p_book = None
+                    p_implied = None
                     try:
-                        p_book = american_to_prob(float(book_odds_val))
-                        p_book_str = f"{p_book:.3f}"
+                        p_implied = american_to_prob(float(book_odds_val))
+                        p_implied_str = f"{p_implied:.3f}"
                     except Exception:
-                        p_book_str = "n/a"
+                        p_implied_str = "n/a"
                     gap_str = (
-                        f" | gap={abs(true_prob - p_book):.3f}"
-                        if true_prob is not None and p_book is not None
+                        f" | gap={abs(true_prob - p_implied):.3f}"
+                        if true_prob is not None and p_implied is not None
                         else ""
                     )
                     books_info = "" if QUIET_LOGS else _format_books_info(row)
@@ -3315,7 +3595,7 @@ def run():
                     print(
                         f"[INFO] DRY RUN order: {market_ticker:<30} {side:<3} x{contracts:<3} "
                         f"| price {price:>5.2f} | edge {edge_after:>6.2f}% | exp {exp_profit_str:>8} | book {book_odds:>6}"
-                        f" | p_true={p_true_str} | p_book={p_book_str}{gap_str}{math_info}{books_info}{price_info}"
+                        f" | p_true={p_true_str} | p_implied={p_implied_str}{gap_str}{math_info}{books_info}{price_info}"
                     )
                 orders_submitted += 1
                 time.sleep(ORDER_SLEEP_SEC)
