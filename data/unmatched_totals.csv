@@ -1,99 +1,148 @@
 matchup_key
-arkansas@texas am OVER 128.5
-arkansas@texas am UNDER 128.5
-boston@los angeles l OVER 229.0
-boston@los angeles l UNDER 229.0
-brooklyn@atlanta OVER 227.0
-brooklyn@atlanta UNDER 227.0
-california@miami oh OVER 131.5
-california@miami oh UNDER 131.5
-canisius@mount st marys OVER 116.5
-canisius@mount st marys UNDER 116.5
-charlotte@washington OVER 225.5
-charlotte@washington UNDER 225.5
-cleveland@oklahoma city thunder OVER 238.5
-cleveland@oklahoma city thunder UNDER 238.5
-dallas@indiana OVER 234.5
-dallas@indiana UNDER 234.5
-denver@state OVER 228.0
-denver@state UNDER 228.0
-duke@clemson OVER 97.5
-duke@clemson UNDER 97.5
-fairfield@quinnipiac OVER 156.5
-fairfield@quinnipiac UNDER 156.5
-florida atlantic@north texas OVER 141.5
-florida atlantic@north texas UNDER 141.5
-georgia tech@virginia tech OVER 116.5
-georgia tech@virginia tech UNDER 116.5
-houston christian@east texas am UNDER 134.5
-houston@kansas UNDER 136.5
-illinois@northwestern OVER 161.5
-illinois@northwestern UNDER 161.5
-incarnate word@northwestern state OVER 141.0
-incarnate word@northwestern state UNDER 141.0
-iowa state@tcu OVER 144.5
-iowa state@tcu UNDER 144.5
-iowa@wisconsin OVER 147.5
-iowa@wisconsin UNDER 147.5
-kentucky@vanderbilt OVER 145.5
-kentucky@vanderbilt UNDER 145.5
-la salle@richmond OVER 148.5
-la salle@richmond UNDER 148.5
-louisville@north carolina OVER 161.0
-louisville@north carolina UNDER 161.0
-marquette@villanova OVER 133.5
-marquette@villanova UNDER 133.5
-michigan state@minnesota OVER 139.5
-michigan state@minnesota UNDER 139.5
-milwaukee@oakland OVER 162.5
-milwaukee@oakland UNDER 162.5
-mississippi state@texas OVER 142.5
-mississippi state@texas UNDER 142.5
-mississippi valley state@grambling state UNDER 136.5
-missouri@lsu OVER 164.5
-missouri@lsu UNDER 164.5
-nebraska@washington OVER 135.5
-nebraska@washington UNDER 135.5
-new orleans@stephen f austin OVER 150.0
-new orleans@stephen f austin UNDER 150.0
-new york k@chicago OVER 233.5
-new york k@chicago UNDER 233.5
-nicholls state@lamar OVER 147.0
-nicholls state@lamar UNDER 147.0
-northern kentucky@youngstown state OVER 127.5
-northern kentucky@youngstown state UNDER 127.5
-notre dame@smu OVER 144.5
-notre dame@smu UNDER 144.5
-orlando@los angeles c OVER 215.5
-orlando@los angeles c UNDER 215.5
-philadelphia@minnesota OVER 239.0
-philadelphia@minnesota UNDER 239.0
-portland@ OVER 222.5
-portland@ UNDER 222.5
-purdue fort wayne@cleveland state OVER 176.5
-purdue fort wayne@cleveland state UNDER 176.5
-rice@tulane wave OVER 137.5
-rice@tulane wave UNDER 137.5
-robert morris@wright state OVER 145.0
-robert morris@wright state UNDER 145.0
-saint peters@siena OVER 129.5
-saint peters@siena UNDER 129.5
-stanford@florida state OVER 139.5
-stanford@florida state UNDER 139.5
-tennessee@oklahoma OVER 176.5
-tennessee@oklahoma UNDER 176.5
-texas am@louisiana OVER 132.0
-texas am@louisiana UNDER 132.0
-toronto@milwaukee OVER 218.5
-toronto@milwaukee UNDER 218.5
-towson@drexel OVER 125.0
-towson@drexel UNDER 125.0
-usc@ohio state OVER 163.5
-usc@ohio state UNDER 163.5
-ut rio grande valley@mcneese UNDER 143.5
-utsa@tulsa OVER 159.5
-utsa@tulsa UNDER 159.5
-wisconsin@ucla OVER 144.5
-wisconsin@ucla UNDER 144.5
-xavier musketeers@depaul OVER 143.5
-xavier musketeers@depaul UNDER 143.5
+arizona state@tcu OVER 149.0
+arizona state@tcu UNDER 149.0
+arizona@baylor OVER 153.5
+arizona@baylor UNDER 153.5
+auburn@oklahoma OVER 161.5
+auburn@oklahoma UNDER 161.5
+boston@ OVER 210.5
+boston@ UNDER 210.5
+bradley@uic OVER 142.0
+bradley@uic UNDER 142.0
+brooksby@bergs OVER 22.5
+brooksby@bergs UNDER 22.5
+bublik@struff OVER 23.5
+bublik@struff UNDER 23.5
+buffalo@akron OVER 159.0
+buffalo@akron UNDER 159.0
+central michigan@kent state OVER 156.0
+central michigan@kent state UNDER 156.0
+charlotte@chicago OVER 230.5
+charlotte@chicago UNDER 230.5
+cincinnati@texas tech OVER 141.0
+cincinnati@texas tech UNDER 141.0
+coastal carolina@georgia state OVER 139.0
+coastal carolina@georgia state UNDER 139.0
+duke@notre dame OVER 139.5
+duke@notre dame UNDER 139.5
+fresno state@colorado state OVER 146.5
+fresno state@colorado state UNDER 146.5
+george washington@la salle OVER 146.5
+george washington@la salle UNDER 146.5
+georgia@auburn OVER 122.5
+georgia@auburn UNDER 122.5
+griekspoor@virtanen OVER 23.5
+griekspoor@virtanen UNDER 23.5
+houston christian@east texas am OVER 138.5
+houston christian@east texas am UNDER 138.5
+houston@kansas OVER 138.0
+houston@kansas UNDER 138.0
+hurkacz@mensik OVER 23.5
+hurkacz@mensik UNDER 23.5
+incarnate word@northwestern state OVER 139.5
+incarnate word@northwestern state UNDER 139.5
+iowa state@utah OVER 144.5
+iowa state@utah UNDER 144.5
+kansas state@baylor OVER 133.5
+kansas state@baylor UNDER 133.5
+kentucky@south carolina OVER 149.0
+kentucky@south carolina UNDER 149.0
+khachanov@shevchenko OVER 21.5
+khachanov@shevchenko UNDER 21.5
+lehecka@fils OVER 22.5
+lehecka@fils UNDER 22.5
+louisiana@troy OVER 132.5
+louisiana@troy UNDER 132.5
+louisville@north carolina OVER 162.0
+louisville@north carolina UNDER 162.0
+majchrzak@popyrin OVER 23.5
+majchrzak@popyrin UNDER 23.5
+marquette@georgetown OVER 148.5
+marquette@georgetown UNDER 148.5
+massachusetts@ball state OVER 142.0
+massachusetts@ball state UNDER 142.0
+miami oh@eastern michigan OVER 152.5
+miami oh@eastern michigan OVER 153.0
+miami oh@eastern michigan UNDER 152.5
+miami oh@eastern michigan UNDER 153.0
+miami oh@florida state OVER 158.0
+miami oh@florida state UNDER 158.0
+miami oh@milwaukee OVER 228.5
+miami oh@milwaukee UNDER 228.5
+minnesota@michigan OVER 145.0
+minnesota@michigan UNDER 145.0
+minnesota@portland OVER 236.5
+minnesota@portland UNDER 236.5
+mississippi valley state@grambling state OVER 136.0
+mississippi valley state@grambling state UNDER 136.0
+new mexico@nevada OVER 152.5
+new mexico@nevada UNDER 152.5
+new orleans@stephen f austin OVER 151.5
+new orleans@stephen f austin UNDER 151.5
+new york k@cleveland OVER 229.5
+new york k@cleveland UNDER 229.5
+nicholls state@lamar OVER 144.0
+nicholls state@lamar UNDER 144.0
+north carolina state@virginia OVER 151.5
+north carolina state@virginia UNDER 151.5
+northern illinois@toledo OVER 149.0
+northern illinois@toledo UNDER 149.0
+northwestern@indiana OVER 145.5
+northwestern@indiana UNDER 145.5
+oklahoma city thunder@toronto OVER 217.5
+oklahoma city thunder@toronto UNDER 217.5
+old dominion@marshall OVER 161.0
+old dominion@marshall UNDER 161.0
+orlando@los angeles l OVER 229.5
+orlando@los angeles l UNDER 229.5
+philadelphia@indiana OVER 235.5
+philadelphia@indiana UNDER 235.5
+rinderknech@marozsan OVER 23.5
+rinderknech@marozsan UNDER 23.5
+royer@rublev OVER 21.5
+royer@rublev UNDER 21.5
+sacramento@memphis OVER 232.5
+sacramento@memphis UNDER 232.5
+saint louis@dayton OVER 154.5
+saint louis@dayton UNDER 154.5
+san antonio@detroit OVER 231.5
+san antonio@detroit UNDER 231.5
+san jose state@air force OVER 141.0
+san jose state@air force UNDER 141.0
+shang@medvedev OVER 21.5
+shang@medvedev UNDER 21.5
+shapovalov@busta OVER 22.5
+shapovalov@busta UNDER 22.5
+southern indiana@morehead state OVER 141.5
+southern indiana@morehead state UNDER 141.5
+southern miss@arkansas state OVER 157.0
+southern miss@arkansas state UNDER 157.0
+state@new orleans OVER 226.5
+state@new orleans UNDER 226.5
+tennessee@missouri OVER 144.5
+tennessee@missouri UNDER 144.5
+texas am@louisiana OVER 129.5
+texas am@louisiana UNDER 129.5
+tsitsipas@humbert OVER 23.5
+tsitsipas@humbert UNDER 23.5
+ucf@byu OVER 164.5
+ucf@byu UNDER 164.5
+usc@ucla OVER 150.5
+usc@ucla UNDER 150.5
+ut rio grande valley@mcneese UNDER 146.5
+utah@houston OVER 228.5
+utah@houston UNDER 228.5
+wake forest@boston college OVER 142.5
+wake forest@boston college UNDER 142.5
+washington@atlanta OVER 237.5
+washington@atlanta UNDER 237.5
+washington@rutgers OVER 142.5
+washington@rutgers UNDER 142.5
+west virginia@oklahoma state OVER 141.5
+west virginia@oklahoma state UNDER 141.5
+western michigan@bowling OVER 149.5
+western michigan@bowling UNDER 149.5
+wyoming@boise state OVER 148.5
+wyoming@boise state UNDER 148.5
+xavier musketeers@providence OVER 170.0
+xavier musketeers@providence UNDER 170.0
