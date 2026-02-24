@@ -50,6 +50,8 @@ from config.settings import (
     MAX_DOLLARS_PER_MARKET,
     MAX_DOLLARS_PER_EVENT,
     MAX_DOLLARS_PER_EVENT_TOTALS,
+    MAX_EVENT_PCT,
+    MAX_EVENT_PCT_TOTALS,
     MIN_EDGE_NEW,
     MIN_EDGE_ADD,
     MIN_PRICE_IMPROVEMENT_ADD,
@@ -70,6 +72,8 @@ from config.settings import (
     CANCEL_NOT_COMPETITIVE_GAP,
     CANCEL_NOT_COMPETITIVE_TIME_SEC,
     CANCEL_NOT_COMPETITIVE_EV,
+    NO_BID_CANCEL_TIME_SEC,
+    NO_BID_KEEP_EV,
     REPLACE_EDGE_BUFFER,
     MAX_REPLACE_DRIFT,
     ALLOW_TRUE_HEDGE,
@@ -2794,6 +2798,7 @@ def run():
                         if key not in odds_start_by_matchup:
                             print(f"[INFO] No Odds API start time for: {ticker} {side} ({key})")
                 best_bid = _post_only_price(market, side)
+                no_bid = best_bid is None
                 off_market = (
                     best_bid is not None
                     and (price - best_bid) >= OFF_MARKET_CENTS
@@ -2803,11 +2808,11 @@ def run():
                     best_bid is not None
                     and price is not None
                     and (best_bid - price) >= CANCEL_NOT_COMPETITIVE_GAP
-                    and ev_mid < CANCEL_NOT_COMPETITIVE_EV
                 )
                 wait_key = f"ev_below:{ticker}:{side}"
                 off_wait_key = f"off_market:{ticker}:{side}"
                 nc_wait_key = f"not_competitive:{ticker}:{side}"
+                nb_wait_key = f"no_bid:{ticker}:{side}"
                 now_ts = time.time()
                 if ev_mid < CANCEL_EV_BUFFER:
                     first_ts = resting_state.get(wait_key)
@@ -2860,7 +2865,26 @@ def run():
                         resting_state.pop(nc_wait_key, None)
                         save_resting_state(resting_state)
 
-                if ev_mid < CANCEL_EV_BUFFER or off_market or not_competitive:
+                no_bid_cancel = False
+                if no_bid:
+                    first_ts = resting_state.get(nb_wait_key)
+                    if first_ts is None:
+                        resting_state[nb_wait_key] = now_ts
+                        save_resting_state(resting_state)
+                        first_ts = now_ts
+                    if NO_BID_CANCEL_TIME_SEC and (now_ts - first_ts) < NO_BID_CANCEL_TIME_SEC:
+                        print(
+                            f"[SKIP] cancel (no-bid buffer): {ticker} {side} "
+                            f"ev_mid={ev_mid:.3f}"
+                        )
+                    else:
+                        no_bid_cancel = ev_mid < NO_BID_KEEP_EV
+                else:
+                    if nb_wait_key in resting_state:
+                        resting_state.pop(nb_wait_key, None)
+                        save_resting_state(resting_state)
+
+                if ev_mid < CANCEL_EV_BUFFER or off_market or not_competitive or no_bid_cancel:
                     if TRADE_MODE == "live":
                         try:
                             cancel_order(info["order_id"])
@@ -2870,6 +2894,8 @@ def run():
                                 reason = "ev"
                             elif off_market:
                                 reason = "off-market"
+                            elif no_bid_cancel:
+                                reason = "no-bid"
                             else:
                                 reason = "not-competitive"
                             print(
@@ -3221,6 +3247,7 @@ def run():
 
                     # Enforce minimum edge on resting orders; cancel if it no longer meets threshold
                     best_bid = _post_only_price(market, side)
+                    no_bid = best_bid is None
                     mid_price = _mid_price(market, side)
                     ev_mid = true_prob - (mid_price if mid_price is not None else current_price)
                     off_market = (
@@ -3231,11 +3258,11 @@ def run():
                     not_competitive = (
                         best_bid is not None
                         and (best_bid - current_price) >= CANCEL_NOT_COMPETITIVE_GAP
-                        and ev_mid < CANCEL_NOT_COMPETITIVE_EV
                     )
                     wait_key = f"ev_below:{market_ticker}:{side}"
                     off_wait_key = f"off_market:{market_ticker}:{side}"
                     nc_wait_key = f"not_competitive:{market_ticker}:{side}"
+                    nb_wait_key = f"no_bid:{market_ticker}:{side}"
                     now_ts = time.time()
                     if ev_mid < CANCEL_EV_BUFFER:
                         first_ts = resting_state.get(wait_key)
@@ -3288,7 +3315,26 @@ def run():
                             resting_state.pop(nc_wait_key, None)
                             save_resting_state(resting_state)
 
-                    if ev_mid < CANCEL_EV_BUFFER or off_market or not_competitive:
+                    no_bid_cancel = False
+                    if no_bid:
+                        first_ts = resting_state.get(nb_wait_key)
+                        if first_ts is None:
+                            resting_state[nb_wait_key] = now_ts
+                            save_resting_state(resting_state)
+                            first_ts = now_ts
+                        if NO_BID_CANCEL_TIME_SEC and (now_ts - first_ts) < NO_BID_CANCEL_TIME_SEC:
+                            print(
+                                f"[SKIP] cancel (no-bid buffer): {market_ticker} {side} "
+                                f"ev_mid={ev_mid:.3f}"
+                            )
+                        else:
+                            no_bid_cancel = ev_mid < NO_BID_KEEP_EV
+                    else:
+                        if nb_wait_key in resting_state:
+                            resting_state.pop(nb_wait_key, None)
+                            save_resting_state(resting_state)
+
+                    if ev_mid < CANCEL_EV_BUFFER or off_market or not_competitive or no_bid_cancel:
                         if TRADE_MODE == "live":
                             try:
                                 cancel_order(open_orders[(market_ticker, side)]["order_id"])
@@ -3299,6 +3345,8 @@ def run():
                                     reason = "ev"
                                 elif off_market:
                                     reason = "off-market"
+                                elif no_bid_cancel:
+                                    reason = "no-bid"
                                 else:
                                     reason = "not-competitive"
                                 print(
@@ -3427,11 +3475,18 @@ def run():
                 event_key = row.get("event_ticker") or market_ticker
                 event_dollars = positions_by_event.get(event_key, 0.0)
                 event_dollars += open_order_dollars_by_event.get(event_key, 0.0)
-                event_cap = (
-                    MAX_DOLLARS_PER_EVENT_TOTALS
-                    if row.get("market_type") == "TOTAL"
-                    else MAX_DOLLARS_PER_EVENT
-                )
+                if row.get("market_type") == "TOTAL":
+                    event_cap = (
+                        bankroll * MAX_EVENT_PCT_TOTALS
+                        if bankroll is not None
+                        else MAX_DOLLARS_PER_EVENT_TOTALS
+                    )
+                else:
+                    event_cap = (
+                        bankroll * MAX_EVENT_PCT
+                        if bankroll is not None
+                        else MAX_DOLLARS_PER_EVENT
+                    )
                 if event_dollars >= event_cap:
                     print(f"[SKIP] event cap ${event_cap:.2f}: {event_key}")
                     continue
