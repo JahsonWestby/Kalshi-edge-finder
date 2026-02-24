@@ -681,7 +681,13 @@ def _matchup_teams(market: dict) -> tuple[str | None, str | None]:
     clean = re.sub(r"^Will .*? win the ", "", clean, flags=re.IGNORECASE)
     # Strip totals suffix like ": Total Points"
     if ":" in clean:
-        clean = clean.split(":", 1)[0].strip()
+        left, right = clean.split(":", 1)
+        left = left.strip()
+        right = right.strip()
+        if " at " in right or " vs " in right:
+            clean = right
+        else:
+            clean = left
     series = _series_from_market(market)
     if " at " in clean:
         away, home = clean.split(" at ", 1)
