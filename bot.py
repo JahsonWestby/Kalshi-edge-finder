@@ -32,6 +32,8 @@ from config.settings import (
     POLL_INTERVAL,
     KALSHI_FEE,
     MIN_EDGE,
+    MIN_EDGE_NBA,
+    MIN_EDGE_MLB,
     MIN_VOLUME,
     AGGRESSIVE_EDGE,
     AGGRESSIVE_TICK,
@@ -87,6 +89,7 @@ from config.settings import (
     GAME_START_CANCEL_MIN,
     OPEN_ORDERS_STATUS,
     DATE_WINDOW_DAYS,
+    MLB_SERIES_TICKER,
     RESTING_CANCEL_GRACE_SEC,
     YES_NO_TIE_PREFERENCE,
     ENABLE_ARBS,
@@ -300,6 +303,7 @@ def _series_for_sport(sport_key: str | None) -> str | None:
         "basketball_ncaab": "KXNCAAMBGAME",
         "basketball_wncaab": "KXNCAAWBGAME",
         "basketball_nba": "KXNBAGAME",
+        "baseball_mlb": MLB_SERIES_TICKER,
     }
     if sport_key.startswith("tennis_atp_"):
         return "KXATPMATCH"
@@ -393,6 +397,14 @@ def _prob_band(p_true: float) -> str:
     if p_true < 0.40:
         return "dog"
     return "mid"
+
+
+def _min_edge_for_series(series: str | None, base: float) -> float:
+    if series == "KXNBAGAME":
+        return max(base, MIN_EDGE_NBA)
+    if series == MLB_SERIES_TICKER:
+        return max(base, MIN_EDGE_MLB)
+    return base
 
 
 def stake_size(
@@ -1881,12 +1893,15 @@ def run():
         ncaam_markets = len(kalshi_by_series.get("KXNCAAMBGAME", {}))
         ncaaw_markets = len(kalshi_by_series.get("KXNCAAWBGAME", {}))
         nba_markets = len(kalshi_by_series.get("KXNBAGAME", {}))
+        mlb_markets = len(kalshi_by_series.get(MLB_SERIES_TICKER, {}))
         odds_m = sum(1 for g in games if g.get("sport_key") == "basketball_ncaab")
         odds_w = sum(1 for g in games if g.get("sport_key") == "basketball_wncaab")
         odds_nba = sum(1 for g in games if g.get("sport_key") == "basketball_nba")
+        odds_mlb = sum(1 for g in games if g.get("sport_key") == "baseball_mlb")
         edges_m = 0
         edges_w = 0
         edges_nba = 0
+        edges_mlb = 0
         balance = parse_balance(get_balance())
         cash_available = balance["cash_available"]
         portfolio_value = balance["portfolio_value"]
@@ -2367,9 +2382,16 @@ def run():
                 if r[13] == "MONEYLINE"
                 and _series_from_ticker(r[10]) == "KXNBAGAME"
             }
+            matched_mlb_teams = {
+                normalize_team(r[0])
+                for r in rows
+                if r[13] == "MONEYLINE"
+                and _series_from_ticker(r[10]) == MLB_SERIES_TICKER
+            }
             print(
                 f"[INFO] Matched teams (moneyline): M={len(matched_m_teams)}, "
-                f"W={len(matched_w_teams)}, NBA={len(matched_nba_teams)}"
+                f"W={len(matched_w_teams)}, NBA={len(matched_nba_teams)}, "
+                f"MLB={len(matched_mlb_teams)}"
             )
             if not QUIET_LOGS:
                 matched_m = sum(
@@ -2390,9 +2412,15 @@ def run():
                     if r[13] == "MONEYLINE"
                     and _series_from_ticker(r[10]) == "KXNBAGAME"
                 )
+                matched_mlb = sum(
+                    1
+                    for r in rows
+                    if r[13] == "MONEYLINE"
+                    and _series_from_ticker(r[10]) == MLB_SERIES_TICKER
+                )
                 print(
                     f"[INFO] Matched moneyline games: M={matched_m}, W={matched_w}, "
-                    f"NBA={matched_nba}"
+                    f"NBA={matched_nba}, MLB={matched_mlb}"
                 )
             edges_found = []
             for (
@@ -2416,6 +2444,9 @@ def run():
                 if edge <= 0 or contracts <= 0:
                     continue
                 min_edge_dyn = _min_edge_for_prob(p_true)
+                min_edge_dyn = _min_edge_for_series(
+                    _series_from_ticker(market_ticker), min_edge_dyn
+                )
                 if market_type == "TOTAL":
                     min_edge_dyn = max(min_edge_dyn, TOTALS_MIN_EDGE)
                 if edge >= min_edge_dyn:
@@ -2553,6 +2584,12 @@ def run():
                 for r in edges_found
                 if r.get("market_type") == "MONEYLINE"
                 and _series_from_ticker(r.get("market_ticker")) == "KXNBAGAME"
+            )
+            edges_mlb = sum(
+                1
+                for r in edges_found
+                if r.get("market_type") == "MONEYLINE"
+                and _series_from_ticker(r.get("market_ticker")) == MLB_SERIES_TICKER
             )
 
             csv_path = "data/edges_found.csv"
@@ -3213,9 +3250,14 @@ def run():
                     )
                     continue
                 edge_at_bid = calculate_edge(true_prob, best_bid, KALSHI_FEE)
-                if edge_at_bid < MIN_EDGE:
+                min_edge_req = _min_edge_for_series(
+                    _series_from_ticker(market_ticker), MIN_EDGE
+                )
+                if row.get("market_type") == "TOTAL":
+                    min_edge_req = max(min_edge_req, TOTALS_MIN_EDGE)
+                if edge_at_bid < min_edge_req:
                     print(
-                        f"[SKIP] edge<{MIN_EDGE:.3f} at bid: {market_ticker} {side} "
+                        f"[SKIP] edge<{min_edge_req:.3f} at bid: {market_ticker} {side} "
                         f"edge={edge_at_bid:.3f} bid={best_bid:.2f}"
                     )
                     continue
@@ -3671,13 +3713,14 @@ def run():
         if QUIET_LOGS:
             print(
                 f"[INFO] Series counts: NCAAM markets={ncaam_markets}, "
-                f"NCAAW markets={ncaaw_markets}, NBA markets={nba_markets} "
-                f"| odds games: M={odds_m}, W={odds_w}, NBA={odds_nba} "
-                f"| edges: M={edges_m}, W={edges_w}, NBA={edges_nba}"
+                f"NCAAW markets={ncaaw_markets}, NBA markets={nba_markets}, MLB markets={mlb_markets} "
+                f"| odds games: M={odds_m}, W={odds_w}, NBA={odds_nba}, MLB={odds_mlb} "
+                f"| edges: M={edges_m}, W={edges_w}, NBA={edges_nba}, MLB={edges_mlb}"
             )
             print(
                 f"[INFO] Debug counts: odds_w={odds_w}, ncaaw_markets={ncaaw_markets}, "
-                f"odds_nba={odds_nba}, nba_markets={nba_markets}"
+                f"odds_nba={odds_nba}, nba_markets={nba_markets}, "
+                f"odds_mlb={odds_mlb}, mlb_markets={mlb_markets}"
             )
             print(_edge_summary_line())
             print(_skip_summary_line())
