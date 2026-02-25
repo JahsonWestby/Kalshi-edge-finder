@@ -76,6 +76,7 @@ from config.settings import (
     CANCEL_NOT_COMPETITIVE_EV,
     NO_BID_CANCEL_TIME_SEC,
     NO_BID_KEEP_EV,
+    NO_PROB_CANCEL_TIME_SEC,
     REPLACE_EDGE_BUFFER,
     MAX_REPLACE_DRIFT,
     ALLOW_TRUE_HEDGE,
@@ -1657,8 +1658,26 @@ def _post_only_price(market: dict, side: str) -> float | None:
     if not market:
         return None
     if side == "YES":
-        return _norm_price(market.get("yes_bid"))
-    return _norm_price(market.get("no_bid"))
+        bid = _norm_price(market.get("yes_bid"))
+        if bid is None:
+            no_ask = _norm_price(market.get("no_ask"))
+            if no_ask is not None:
+                bid = 1 - no_ask
+            else:
+                no_bid = _norm_price(market.get("no_bid"))
+                if no_bid is not None:
+                    bid = 1 - no_bid
+        return bid
+    bid = _norm_price(market.get("no_bid"))
+    if bid is None:
+        yes_ask = _norm_price(market.get("yes_ask"))
+        if yes_ask is not None:
+            bid = 1 - yes_ask
+        else:
+            yes_bid = _norm_price(market.get("yes_bid"))
+            if yes_bid is not None:
+                bid = 1 - yes_bid
+    return bid
 
 
 def _mid_price(market: dict, side: str) -> float | None:
@@ -2793,17 +2812,19 @@ def run():
                     p_true = odds_map_by_series[series_actual].get(lookup_team)
                 elif ticker in totals_prob_by_ticker:
                     p_true = totals_prob_by_ticker[ticker]
-                if p_true is None:
-                    continue
-                if side == "NO" and team and lookup_team == normalize_team(team):
+                    if side == "NO":
+                        p_true = 1 - p_true
+                if side == "NO" and team and lookup_team == normalize_team(team) and p_true is not None:
                     p_true = 1 - p_true
                 price = info["price"]
                 mid_price = _mid_price(market, side) if market else None
-                ev_mid = p_true - (mid_price if mid_price is not None else price)
+                ev_mid = None
+                if p_true is not None:
+                    ev_mid = p_true - (mid_price if mid_price is not None else price)
                 current_odds = None
                 if lookup_team and series_actual in odds_raw_by_series:
                     current_odds = odds_raw_by_series[series_actual].get(lookup_team)
-                if current_odds is None:
+                if current_odds is None and p_true is not None:
                     current_odds = _prob_to_american(p_true)
                 old_odds = None
                 order_meta = resting_state.get("order_book_odds", {})
@@ -2839,7 +2860,7 @@ def run():
                 off_market = (
                     best_bid is not None
                     and (price - best_bid) >= OFF_MARKET_CENTS
-                    and ev_mid <= CANCEL_EV_BUFFER
+                    and (ev_mid is None or ev_mid <= CANCEL_EV_BUFFER)
                 )
                 not_competitive = (
                     best_bid is not None
@@ -2850,8 +2871,9 @@ def run():
                 off_wait_key = f"off_market:{ticker}:{side}"
                 nc_wait_key = f"not_competitive:{ticker}:{side}"
                 nb_wait_key = f"no_bid:{ticker}:{side}"
+                np_wait_key = f"no_prob:{ticker}:{side}"
                 now_ts = time.time()
-                if ev_mid < CANCEL_EV_BUFFER:
+                if ev_mid is not None and ev_mid < CANCEL_EV_BUFFER:
                     first_ts = resting_state.get(wait_key)
                     if first_ts is None:
                         resting_state[wait_key] = now_ts
@@ -2903,6 +2925,7 @@ def run():
                         save_resting_state(resting_state)
 
                 no_bid_cancel = False
+                no_bid_stale = False
                 if no_bid:
                     first_ts = resting_state.get(nb_wait_key)
                     if first_ts is None:
@@ -2912,32 +2935,66 @@ def run():
                     if NO_BID_CANCEL_TIME_SEC and (now_ts - first_ts) < NO_BID_CANCEL_TIME_SEC:
                         print(
                             f"[SKIP] cancel (no-bid buffer): {ticker} {side} "
-                            f"ev_mid={ev_mid:.3f}"
+                            f"ev_mid={ev_mid:.3f}" if ev_mid is not None else f"[SKIP] cancel (no-bid buffer): {ticker} {side}"
                         )
                     else:
-                        no_bid_cancel = ev_mid < NO_BID_KEEP_EV
+                        no_bid_stale = True
+                        no_bid_cancel = ev_mid is None or ev_mid < NO_BID_KEEP_EV
                 else:
                     if nb_wait_key in resting_state:
                         resting_state.pop(nb_wait_key, None)
                         save_resting_state(resting_state)
 
-                if ev_mid < CANCEL_EV_BUFFER or off_market or not_competitive or no_bid_cancel:
+                no_prob_cancel = False
+                no_prob_reason = None
+                if p_true is None:
+                    stale_or_unfillable = not_competitive or no_bid_stale
+                    if stale_or_unfillable:
+                        first_ts = resting_state.get(np_wait_key)
+                        if first_ts is None:
+                            resting_state[np_wait_key] = now_ts
+                            save_resting_state(resting_state)
+                            first_ts = now_ts
+                        if NO_PROB_CANCEL_TIME_SEC and (now_ts - first_ts) < NO_PROB_CANCEL_TIME_SEC:
+                            print(
+                                f"[SKIP] cancel (no-prob buffer): {ticker} {side}"
+                            )
+                        else:
+                            no_prob_cancel = True
+                            if not_competitive:
+                                no_prob_reason = "not-competitive"
+                            elif no_bid_stale:
+                                no_prob_reason = "no-bid"
+                    else:
+                        if np_wait_key in resting_state:
+                            resting_state.pop(np_wait_key, None)
+                            save_resting_state(resting_state)
+                else:
+                    if np_wait_key in resting_state:
+                        resting_state.pop(np_wait_key, None)
+                        save_resting_state(resting_state)
+
+                if (ev_mid is not None and ev_mid < CANCEL_EV_BUFFER) or off_market or not_competitive or no_bid_cancel or no_prob_cancel:
                     if TRADE_MODE == "live":
                         try:
                             cancel_order(info["order_id"])
                             if info.get("order_id"):
                                 canceled_ids.add(str(info["order_id"]))
-                            if ev_mid < CANCEL_EV_BUFFER:
+                            if ev_mid is not None and ev_mid < CANCEL_EV_BUFFER:
                                 reason = "ev"
                             elif off_market:
                                 reason = "off-market"
                             elif no_bid_cancel:
                                 reason = "no-bid"
+                            elif no_prob_cancel:
+                                reason = f"no-prob:{no_prob_reason}" if no_prob_reason else "no-prob"
                             else:
                                 reason = "not-competitive"
                             print(
                                 f"[INFO] Canceled resting ({reason}): {ticker} {side} "
                                 f"ev_mid={ev_mid:.3f} bid={best_bid if best_bid is not None else 'n/a'}{odds_info}"
+                                if ev_mid is not None
+                                else f"[INFO] Canceled resting ({reason}): {ticker} {side} bid={best_bid if best_bid is not None else 'n/a'}{odds_info}"
                             )
                         except Exception as exc:
                             if "404" in str(exc):
