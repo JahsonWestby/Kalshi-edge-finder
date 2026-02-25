@@ -22,6 +22,7 @@ from APIs.kalshi_api import (
     cancel_order,
     _market_game_datetime,
     get_market_by_ticker,
+    get_all_events,
 )
 from logic.probability import american_to_prob
 from logic.normalize import normalize_team, normalize_player, normalize_nba_team
@@ -101,6 +102,7 @@ from config.settings import (
 )
 
 PROCESS_START_TS = time.time()
+_EVENT_START_CACHE = {}
 
 if QUIET_LOGS:
     import builtins as _builtins
@@ -1374,6 +1376,35 @@ def _order_price(item: dict, side: str | None = None) -> float | None:
                 if price is not None:
                     return price
     return None
+
+
+def _parse_iso_utc(ts: str | None) -> datetime | None:
+    if not ts:
+        return None
+    try:
+        return datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    except Exception:
+        return None
+
+
+def _event_start_time(event_ticker: str | None) -> datetime | None:
+    if not event_ticker:
+        return None
+    cached = _EVENT_START_CACHE.get(event_ticker)
+    if cached is not None:
+        return cached
+    try:
+        events = get_all_events(params={"ticker": event_ticker}, max_pages=1)
+    except Exception:
+        _EVENT_START_CACHE[event_ticker] = None
+        return None
+    if not events:
+        _EVENT_START_CACHE[event_ticker] = None
+        return None
+    start = events[0].get("event_start_time") or events[0].get("start_time")
+    dt = _parse_iso_utc(start)
+    _EVENT_START_CACHE[event_ticker] = dt
+    return dt
 
 
 def _open_orders_map(orders_json: dict) -> dict:
@@ -2836,7 +2867,16 @@ def run():
                     odds_info = (
                         f" odds {_format_odds(old_odds)} -> {_format_odds(current_odds)}"
                     )
-                if _market_started(market, odds_start_by_matchup):
+                started = _market_started(market, odds_start_by_matchup)
+                if not started and market:
+                    dt_utc, source = _market_game_datetime(market)
+                    if source == "ticker_date":
+                        event_start = _event_start_time(market.get("event_ticker"))
+                        if event_start:
+                            now_utc = datetime.utcnow().replace(tzinfo=event_start.tzinfo)
+                            cutoff = event_start - timedelta(minutes=GAME_START_CANCEL_MIN)
+                            started = now_utc >= cutoff
+                if started:
                     if TRADE_MODE == "live":
                         try:
                             cancel_order(info["order_id"])
