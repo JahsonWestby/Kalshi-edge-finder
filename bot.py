@@ -1352,26 +1352,26 @@ def _evaluate_hedge_decision(
     return False, f"[SKIP] hedge_policy_unknown: {label}"
 
 
-def _order_price(item: dict) -> float | None:
-    if "yes_price_fixed" in item:
-        try:
-            return float(item["yes_price_fixed"])
-        except Exception:
-            pass
-    if "no_price_fixed" in item:
-        try:
-            return float(item["no_price_fixed"])
-        except Exception:
-            pass
-    if "price" in item:
-        try:
-            return float(item["price"])
-        except Exception:
-            pass
-    if "yes_price" in item:
-        return _norm_price(item.get("yes_price"))
-    if "no_price" in item:
-        return _norm_price(item.get("no_price"))
+def _order_price(item: dict, side: str | None = None) -> float | None:
+    side = (side or "").upper()
+    if side == "YES":
+        for key in ("yes_price_fixed", "yes_price", "price", "no_price_fixed", "no_price"):
+            if key in item:
+                price = _norm_price(item.get(key))
+                if price is not None:
+                    return price
+    elif side == "NO":
+        for key in ("no_price_fixed", "no_price", "price", "yes_price_fixed", "yes_price"):
+            if key in item:
+                price = _norm_price(item.get(key))
+                if price is not None:
+                    return price
+    else:
+        for key in ("yes_price_fixed", "no_price_fixed", "price", "yes_price", "no_price"):
+            if key in item:
+                price = _norm_price(item.get(key))
+                if price is not None:
+                    return price
     return None
 
 
@@ -1392,7 +1392,7 @@ def _open_orders_map(orders_json: dict) -> dict:
         side = _extract_side(o)
         ticker = o.get("market_ticker") or o.get("ticker")
         order_id = o.get("order_id") or o.get("id")
-        price = _order_price(o)
+        price = _order_price(o, side)
         if not (side and ticker and order_id and price is not None):
             continue
         out[(ticker, side)] = {
@@ -1485,7 +1485,7 @@ def _holdings_from_orders(orders_json: dict, market_map: dict, ticker_to_team: d
         ticker = o.get("market_ticker") or o.get("ticker")
         if not side or not ticker:
             continue
-        price = _order_price(o)
+        price = _order_price(o, side)
         market = market_map.get(ticker)
         team = ticker_to_team.get(ticker)
         event_ticker = (market or {}).get("event_ticker") or _event_from_market_ticker(ticker)

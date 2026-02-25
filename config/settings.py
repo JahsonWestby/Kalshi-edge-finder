@@ -76,7 +76,7 @@ MAX_EVENT_PCT = 0.04
 MAX_EVENT_PCT_TOTALS = 0.03
 
 # order placement / updates
-TRADE_MODE = "dry-run"  # "dry-run" or "live"
+TRADE_MODE = "live"  # "dry-run" or "live"
 MAX_ORDERS_PER_RUN = 30
 ORDER_SLEEP_SEC = 0.12
 ORDER_UPDATE_COOLDOWN_SEC = 45
