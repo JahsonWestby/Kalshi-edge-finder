@@ -32,7 +32,7 @@ if _dotenv_path.exists():
             os.environ.pop(_k, None)
 
 # bankroll
-BANKROLL = 190.0
+BANKROLL = 230.0
 MAX_TRADE_SIZE = 15.0
 
 # market toggles
@@ -46,7 +46,7 @@ USE_CHEAPEST_IMPLIED_WINNER = True
 MIN_EDGE = 0.015
 MIN_EDGE_NBA = 0.025
 MIN_EDGE_MLB = 0.015
-TOTALS_MIN_EDGE = 0.04
+TOTALS_MIN_EDGE = 0.0325
 AGGRESSIVE_EDGE = 0.05  # 5%
 AGGRESSIVE_TICK = 0.01
 EDGE_FAV_MIN = 0.015
@@ -54,7 +54,7 @@ EDGE_MID_MIN = 0.02
 EDGE_DOG_MIN = 0.025
 MIN_EDGE_NEW = 0.02
 MIN_EDGE_ADD = 0.025
-MAX_PROB_GAP = 0.06
+MAX_PROB_GAP = 0.04
 
 # pricing / odds
 KALSHI_FEE = 0.00
@@ -87,7 +87,7 @@ MAX_ADDS_PER_MARKET_PER_DAY = 1
 ALLOW_POSITION_ADDS = True
 
 # arb limits
-ARB_MIN_PROFIT = 0.50
+ARB_MIN_PROFIT = 0.10
 ARB_MAX_CONTRACTS = 10
 ARB_MAX_ORDERS_PER_RUN = 4
 
@@ -122,7 +122,7 @@ TOTALS_LINE_TOLERANCE = 0.1
 
 # timing
 POLL_INTERVAL = 30
-ODDS_CACHE_TTL_SEC = 400
+ODDS_CACHE_TTL_SEC = 250
 ODDS_CACHE_LOG = False
 QUIET_LOGS = True
 DATE_WINDOW_DAYS = 2
@@ -138,10 +138,10 @@ ODDS_REGIONS = "us,uk,eu,fr,se,au"
 ODDS_SPORTS = [
     "basketball_ncaab",
     "basketball_wncaab",
-    "basketball_nba",
-    "baseball_mlb",
+   # "basketball_nba",
+    # "baseball_mlb",
 ]
-ODDS_BOOKMAKERS = "lowvig,pinnacle,fanduel,bookmaker,betonlineag"
+ODDS_BOOKMAKERS = "lowvig,pinnacle"
 
 # Kalshi series tickers
 MLB_SERIES_TICKER = "KXMLBSTGAME"
