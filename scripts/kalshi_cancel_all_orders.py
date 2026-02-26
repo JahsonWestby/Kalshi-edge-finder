@@ -27,17 +27,19 @@ def main():
             continue
         open_orders.append(o)
 
-    ncaa_prefix = "KXNCAAMBGAME"
-    ncaa_orders = [
-        o for o in open_orders
-        if (o.get("market_ticker") or o.get("ticker") or "").startswith(ncaa_prefix)
-    ]
+    ncaa_prefixes = ("KXNCAA",)
+    ncaa_orders = []
+    for o in open_orders:
+        ticker = (o.get("market_ticker") or o.get("ticker") or "")
+        if ticker.startswith(ncaa_prefixes):
+            ncaa_orders.append(o)
 
     print(
         json.dumps(
             {
                 "open_orders": len(open_orders),
                 "ncaa_orders": len(ncaa_orders),
+                "ncaa_prefixes": list(ncaa_prefixes),
             },
             indent=2,
         )
@@ -45,7 +47,7 @@ def main():
     if not open_orders:
         return
 
-    confirm = input("Type NCAA to cancel NCAA open orders only: ").strip()
+    confirm = input("Type NCAA to cancel all NCAA open orders: ").strip()
     if confirm != "NCAA":
         print("Aborted.")
         return
