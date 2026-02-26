@@ -331,6 +331,26 @@ def _matchup_key_for_sport(away: str, home: str, sport_key: str | None) -> str:
     return _matchup_key(away, home)
 
 
+def _market_matches_game(
+    market: dict, away: str, home: str, series: str | None
+) -> bool:
+    if not market:
+        return True
+    away_m, home_m = _matchup_teams(market)
+    if not away_m or not home_m:
+        return True
+    if series in {"KXATPMATCH", "KXATPGAME", "KXWTAMATCH", "KXWTAGAME"}:
+        away_g = normalize_player(away)
+        home_g = normalize_player(home)
+    elif series == "KXNBAGAME":
+        away_g = normalize_nba_team(away)
+        home_g = normalize_nba_team(home)
+    else:
+        away_g = normalize_team(away)
+        home_g = normalize_team(home)
+    return {away_m, home_m} == {away_g, home_g}
+
+
 def _odds_counts_by_sport(games: list[dict]) -> dict[str, int]:
     counts: dict[str, int] = {}
     for g in games:
@@ -2043,6 +2063,15 @@ def run():
                     if not k:
                         unmatched_moneyline.append(team)
                         continue
+                    if series_expected == "KXNBAGAME":
+                        if not _market_matches_game(
+                            k.get("raw_market"),
+                            g["away"],
+                            g["home"],
+                            series_expected,
+                        ):
+                            not_entered.append(f"{team} YES (opponent mismatch)")
+                            continue
 
                     market_ticker = k.get("ticker")
                     series_actual = _series_from_ticker(market_ticker)
