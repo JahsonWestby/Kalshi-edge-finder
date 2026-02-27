@@ -141,7 +141,7 @@ ODDS_SPORTS = [
    # "basketball_nba",
     # "baseball_mlb",
 ]
-ODDS_BOOKMAKERS = "lowvig,pinnacle"
+ODDS_BOOKMAKERS = "lowvig,pinnacle, fanduel"
 
 # Kalshi series tickers
 MLB_SERIES_TICKER = "KXMLBSTGAME"
