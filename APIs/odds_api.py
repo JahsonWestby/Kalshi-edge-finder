@@ -68,6 +68,23 @@ def _avg(values: list[float]) -> float | None:
     return sum(values) / len(values)
 
 
+def _select_books(
+    books: list[dict],
+    allowed_books: list[str],
+    preferred_keys: list[str] | None = None,
+    require_preferred: bool = False,
+) -> list[dict]:
+    if allowed_books:
+        books = [b for b in books if b.get("key") in allowed_books]
+    if preferred_keys:
+        preferred = [b for b in books if b.get("key") in preferred_keys]
+        if preferred:
+            return preferred
+        if require_preferred:
+            return []
+    return books
+
+
 def _fetch_odds_data(markets: str):
     if not ODDS_API_KEY:
         raise RuntimeError("ODDS_API_KEY is not set")
@@ -181,9 +198,8 @@ def get_moneyline_games(
         books = game.get("bookmakers", [])
         if allowed_books:
             books = [b for b in books if b.get("key") in allowed_books]
-        else:
-            # Prefer Pinnacle if present, otherwise fall back to first book.
-            books = [b for b in books if b.get("key") == "pinnacle"] or books[:1]
+        if not books:
+            continue
 
         for book in books:
             book_key = book.get("key") or "book"
@@ -292,8 +308,8 @@ def get_totals_games(
         books = game.get("bookmakers", [])
         if allowed_books:
             books = [b for b in books if b.get("key") in allowed_books]
-        else:
-            books = [b for b in books if b.get("key") == "pinnacle"] or books[:1]
+        if not books:
+            continue
 
         for book in books:
             book_key = book.get("key") or "book"

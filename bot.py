@@ -3770,7 +3770,7 @@ def run():
                             if true_prob is not None and p_implied is not None
                             else ""
                         )
-                        books_info = "" if QUIET_LOGS else _format_books_info(row)
+                        books_info = _format_books_info(row)
                         math_info = "" if QUIET_LOGS else _format_math_info(row)
                         if QUIET_LOGS:
                             gap_str = ""
@@ -3817,7 +3817,7 @@ def run():
                         if true_prob is not None and p_implied is not None
                         else ""
                     )
-                    books_info = "" if QUIET_LOGS else _format_books_info(row)
+                    books_info = _format_books_info(row)
                     math_info = "" if QUIET_LOGS else _format_math_info(row)
                     if QUIET_LOGS:
                         gap_str = ""
