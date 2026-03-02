@@ -8,9 +8,13 @@ KALSHI_KEY_ID=your_kalshi_key_id
 ODDS_API_KEY=your_odds_api_key
 ```
 2. Put your Kalshi private key here: `secrets/private_key.pem`
-3. Run the bot:
+3. Run the bot (single run):
 ```bash
 python3.11 bot.py
+```
+Or use the hourly runner to keep it running automatically (9am–1am by default):
+```bash
+python3.11 scripts/run_bot_hourly.py
 ```
 
 **Configuration**
@@ -27,6 +31,16 @@ python3.11 bot.py
 - `secrets/` — private keys (ignored by git)
 - `alerts.py` — alert hooks (optional)
 
+**Supported Sports**
+- NCAAB moneylines + totals
+- NBA moneylines
+- ATP / WTA tennis (Indian Wells)
+
+Pinnacle is the primary odds anchor. LowVig + BetOnlineAG are used as fallback when Pinnacle is absent. Betfair is fetched for divergence detection — games where Betfair and Pinnacle disagree by more than `BETFAIR_DIVERGENCE_THRESHOLD` (default 4¢) are skipped.
+
+**Odds API Usage**
+With 4 active sports and `ODDS_CACHE_TTL_SEC = 400`, running 16h/day uses ~17,280 requests/month (well within the 20k free tier). Adjust `ACTIVE_START_HOUR` / `ACTIVE_END_HOUR` in `scripts/run_bot_hourly.py` to change the active window.
+
 **Data Outputs**
 - `data/odds_cache.json` — cached Odds API responses
 - `data/kalshi_cache.json` — cached Kalshi data
@@ -42,6 +56,7 @@ python3.11 bot.py
 If you delete files in `data/`, the bot will regenerate most of them on the next run, but you will lose local history/state for those files.
 
 **Scripts**
+- `scripts/run_bot_hourly.py` — restarts `bot.py` every hour; only runs during the configured active window (default 9am–1am) to stay within Odds API monthly limits
 - `scripts/kalshi_cancel_all_orders.py` — cancel all open orders
 - `scripts/debug_unmatched.py` — dump unmatched teams/totals
 - `scripts/odds_api_list_bookmakers.py` — list available bookmakers

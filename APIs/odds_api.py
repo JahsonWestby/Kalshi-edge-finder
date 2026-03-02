@@ -68,6 +68,62 @@ def _avg(values: list[float]) -> float | None:
     return sum(values) / len(values)
 
 
+# ---------------------------------------------------------------------------
+# Tiered book anchoring
+#   Tier 1 anchor : Pinnacle (sharpest, always preferred)
+#   Tier 1 fallback: LowVig + BetOnlineAG (average when Pinnacle absent)
+#   Signal books  : Betfair exchanges (divergence detection only)
+# ---------------------------------------------------------------------------
+_PINNACLE = "pinnacle"
+_TIER1_FALLBACK = ("lowvig", "betonlineag")
+_BETFAIR_KEYS = ("betfair_ex_eu", "betfair_ex_uk")
+
+
+def _anchor_odds(odds_by_book: dict, team: str) -> float | None:
+    """Return Pinnacle odds if available, else average of tier-1 fallbacks."""
+    if _PINNACLE in odds_by_book and team in odds_by_book[_PINNACLE]:
+        return odds_by_book[_PINNACLE][team]
+    fallback = [
+        odds_by_book[b][team]
+        for b in _TIER1_FALLBACK
+        if b in odds_by_book and team in odds_by_book[b]
+    ]
+    return _avg(fallback)
+
+
+def _anchor_book_label(odds_by_book: dict, team: str) -> str:
+    if _PINNACLE in odds_by_book and team in odds_by_book[_PINNACLE]:
+        return "pinnacle"
+    used = [b for b in _TIER1_FALLBACK if b in odds_by_book and team in odds_by_book[b]]
+    return f"avg({','.join(used)})" if used else "none"
+
+
+def _betfair_team_odds(odds_by_book: dict, team: str) -> float | None:
+    for key in _BETFAIR_KEYS:
+        if key in odds_by_book and team in odds_by_book[key]:
+            return odds_by_book[key][team]
+    return None
+
+
+def _anchor_totals(by_book: dict, side: str) -> float | None:
+    """Tiered anchor for a single totals side (over/under)."""
+    if _PINNACLE in by_book and side in by_book[_PINNACLE]:
+        return by_book[_PINNACLE][side]
+    fallback = [
+        by_book[b][side]
+        for b in _TIER1_FALLBACK
+        if b in by_book and side in by_book[b]
+    ]
+    return _avg(fallback)
+
+
+def _betfair_totals_odds(by_book: dict, side: str) -> float | None:
+    for key in _BETFAIR_KEYS:
+        if key in by_book and side in by_book[key]:
+            return by_book[key][side]
+    return None
+
+
 def _select_books(
     books: list[dict],
     allowed_books: list[str],
@@ -172,7 +228,7 @@ def get_moneyline_games(
         }
     ]
     """
-    data = _fetch_odds_data(markets="h2h")
+    data = _fetch_odds_data(markets="h2h,totals")
 
     games = []
     seen = set()
@@ -201,6 +257,17 @@ def get_moneyline_games(
         if not books:
             continue
 
+        sport_key = game.get("sport_key") or ""
+        _is_tennis = sport_key.startswith("tennis_")
+        _is_nba = sport_key == "basketball_nba"
+
+        def _norm_name(raw: str) -> str:
+            if _is_tennis:
+                return normalize_player(raw)
+            if _is_nba:
+                return normalize_nba_team(raw)
+            return normalize_team(raw)
+
         for book in books:
             book_key = book.get("key") or "book"
             book_odds = {}
@@ -214,7 +281,7 @@ def get_moneyline_games(
                     # remove parentheticals like "(Chi)"
                     raw_name = re.sub(r"\(.*?\)", "", raw_name).strip()
 
-                    team = normalize_team(raw_name)
+                    team = _norm_name(raw_name)
 
                     price = outcome.get("price")
                     if price is None:
@@ -226,10 +293,12 @@ def get_moneyline_games(
 
         home_raw = game.get("home_team", "")
         away_raw = game.get("away_team", "")
-        home = normalize_team(home_raw)
-        away = normalize_team(away_raw)
-        odds_home = _avg(odds_by_team.get(home, []))
-        odds_away = _avg(odds_by_team.get(away, []))
+        home = _norm_name(home_raw)
+        away = _norm_name(away_raw)
+
+        # Tiered anchoring: Pinnacle first, then average of tier-1 fallbacks
+        odds_home = _anchor_odds(odds_by_book, home)
+        odds_away = _anchor_odds(odds_by_book, away)
 
         if home and away and odds_home is not None and odds_away is not None:
             key = (away, home, game.get("commence_time"))
@@ -242,6 +311,9 @@ def get_moneyline_games(
                     "away": away,
                     "odds_home": odds_home,
                     "odds_away": odds_away,
+                    "anchor_book": _anchor_book_label(odds_by_book, home),
+                    "betfair_odds_home": _betfair_team_odds(odds_by_book, home),
+                    "betfair_odds_away": _betfair_team_odds(odds_by_book, away),
                     "odds_by_book": odds_by_book,
                     "commence_time": game.get("commence_time"),
                     "sport_key": game.get("sport_key"),
@@ -282,7 +354,7 @@ def get_totals_games(
         }
     ]
     """
-    data = _fetch_odds_data(markets="totals")
+    data = _fetch_odds_data(markets="h2h,totals")
 
     games = []
     seen = set()
@@ -350,11 +422,12 @@ def get_totals_games(
                 best_line = line
         if best_line is None:
             continue
-        over_avg = _avg(totals_by_line[best_line]["over"])
-        under_avg = _avg(totals_by_line[best_line]["under"])
+        totals_by_book = totals_by_line_by_book.get(best_line, {})
+        # Tiered anchoring: Pinnacle first, then average of tier-1 fallbacks
+        over_avg = _anchor_totals(totals_by_book, "over")
+        under_avg = _anchor_totals(totals_by_book, "under")
         if over_avg is None or under_avg is None:
             continue
-        totals_by_book = totals_by_line_by_book.get(best_line, {})
 
         home_raw = game.get("home_team", "")
         away_raw = game.get("away_team", "")
@@ -380,6 +453,9 @@ def get_totals_games(
                     "total": best_line,
                     "over_odds": over_avg,
                     "under_odds": under_avg,
+                    "anchor_book": _anchor_book_label(totals_by_book, "over") if totals_by_book else "none",
+                    "betfair_over_odds": _betfair_totals_odds(totals_by_book, "over"),
+                    "betfair_under_odds": _betfair_totals_odds(totals_by_book, "under"),
                     "totals_by_book": totals_by_book,
                     "commence_time": game.get("commence_time"),
                     "sport_key": game.get("sport_key"),

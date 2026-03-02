@@ -43,18 +43,21 @@ ENABLE_ARBS = True
 USE_CHEAPEST_IMPLIED_WINNER = True
 
 # core edge thresholds
-MIN_EDGE = 0.015
+MIN_EDGE = 0.018
 MIN_EDGE_NBA = 0.025
 MIN_EDGE_MLB = 0.015
-TOTALS_MIN_EDGE = 0.03
+TOTALS_MIN_EDGE = 0.055          # raised: high-variance market, require stronger signal
 AGGRESSIVE_EDGE = 0.05  # 5%
 AGGRESSIVE_TICK = 0.01
-EDGE_FAV_MIN = 0.015
-EDGE_MID_MIN = 0.02
-EDGE_DOG_MIN = 0.025
+EDGE_FAV_MIN = 0.018
+EDGE_MID_MIN = 0.025
+EDGE_DOG_MIN = 0.02
 MIN_EDGE_NEW = 0.02
 MIN_EDGE_ADD = 0.025
 MAX_PROB_GAP = 0.04
+# Mid-price bucket: contracts near 50¢ are most efficient; require stronger edge
+EDGE_MID_PRICE_MIN = 0.035      # moneylines when 0.43 <= price <= 0.57
+TOTALS_MID_PRICE_MIN = 0.07     # totals when 0.43 <= price <= 0.57
 
 # pricing / odds
 KALSHI_FEE = 0.00
@@ -106,7 +109,6 @@ CANCEL_EV_BUFFER = -0.03
 CANCEL_TIME_SEC = 60
 OFF_MARKET_CENTS = 0.03        # 3¢
 OFF_MARKET_TIME_SEC = 60       # 60s
-CANCEL_OFFMARKET = OFF_MARKET_CENTS
 CANCEL_NOT_COMPETITIVE_GAP = 0.01   # 1¢ behind best bid
 CANCEL_NOT_COMPETITIVE_TIME_SEC = 30
 CANCEL_NOT_COMPETITIVE_EV = 1.0     # legacy; EV gate effectively disabled
@@ -124,10 +126,10 @@ TOTALS_LINE_TOLERANCE = 0.1
 
 # timing
 POLL_INTERVAL = 30
-ODDS_CACHE_TTL_SEC = 250
+ODDS_CACHE_TTL_SEC = 400
 ODDS_CACHE_LOG = False
 QUIET_LOGS = True
-DATE_WINDOW_DAYS = 2
+DATE_WINDOW_DAYS = 1
 
 # secrets
 KALSHI_KEY_ID = os.getenv("KALSHI_KEY_ID")  # e.g. your Kalshi API key id
@@ -139,11 +141,16 @@ ODDS_REGIONS = "us,uk,eu,fr,se,au"
 # Sport keys (Odds API): basketball_ncaab, basketball_wncaab, basketball_nba, baseball_mlb, tennis_atp_*
 ODDS_SPORTS = [
     "basketball_ncaab",
-    "basketball_wncaab",
-   # "basketball_nba",
+    # "basketball_wncaab",  # no sharp books cover WNCAAB — p_true unreliable
+    "tennis_atp_indian_wells",
+    "tennis_wta_indian_wells",
+   "basketball_nba",
     # "baseball_mlb",
 ]
-ODDS_BOOKMAKERS = "lowvig,pinnacle, fanduel"
+ODDS_BOOKMAKERS = "lowvig,pinnacle,betonlineag,betfair_ex_eu,betfair_ex_uk"
+# Pinnacle is always the primary anchor; Betfair is fetched for divergence detection only.
+# If Betfair's implied prob differs from Pinnacle's by more than this, the game is skipped.
+BETFAIR_DIVERGENCE_THRESHOLD = 0.04
 
 # Kalshi series tickers
 MLB_SERIES_TICKER = "KXMLBSTGAME"
@@ -153,5 +160,6 @@ KALSHI_SERIES_TICKERS = [
     "KXNBAGAME",
     MLB_SERIES_TICKER,
     "KXATPMATCH",
+    "KXWTAMATCH",
 ]
 KALSHI_TOTALS_SERIES_TICKERS = ["KXNCAAMBTOTAL"]

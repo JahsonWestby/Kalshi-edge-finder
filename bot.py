@@ -27,7 +27,6 @@ from APIs.kalshi_api import (
 from logic.probability import american_to_prob
 from logic.normalize import normalize_team, normalize_player, normalize_nba_team
 from logic.edge_calc import calculate_edge
-from strategy.entry import should_enter
 from alerts import alert_edge
 from config.settings import (
     POLL_INTERVAL,
@@ -63,6 +62,8 @@ from config.settings import (
     EDGE_FAV_MIN,
     EDGE_MID_MIN,
     EDGE_DOG_MIN,
+    EDGE_MID_PRICE_MIN,
+    TOTALS_MID_PRICE_MIN,
     ENABLE_MONEYLINE,
     ENABLE_TOTALS,
     MONEYLINE_SIDE_FILTER,
@@ -100,10 +101,41 @@ from config.settings import (
     ARB_MAX_CONTRACTS,
     ARB_MAX_ORDERS_PER_RUN,
     QUIET_LOGS,
+    BETFAIR_DIVERGENCE_THRESHOLD,
 )
 
 PROCESS_START_TS = time.time()
 _EVENT_START_CACHE = {}
+
+# Persistent matchup → start-time cache: survives across poll cycles AND
+# process restarts (written to disk) so that in-progress matches are always caught.
+_MATCHUP_START_CACHE_PATH = Path("data/matchup_start_cache.json")
+
+def _load_matchup_start_cache() -> dict:
+    """Load the on-disk matchup start cache, dropping entries older than 24 h."""
+    if not _MATCHUP_START_CACHE_PATH.exists():
+        return {}
+    try:
+        raw = json.loads(_MATCHUP_START_CACHE_PATH.read_text())
+        cutoff = datetime.utcnow().replace(tzinfo=__import__("datetime").timezone.utc) - timedelta(hours=24)
+        return {
+            k: datetime.fromisoformat(v)
+            for k, v in raw.items()
+            if datetime.fromisoformat(v) > cutoff
+        }
+    except Exception:
+        return {}
+
+def _save_matchup_start_cache(cache: dict) -> None:
+    try:
+        _MATCHUP_START_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        _MATCHUP_START_CACHE_PATH.write_text(
+            json.dumps({k: v.isoformat() for k, v in cache.items()}, indent=2)
+        )
+    except Exception:
+        pass
+
+_MATCHUP_START_CACHE: dict = _load_matchup_start_cache()
 
 if QUIET_LOGS:
     import builtins as _builtins
@@ -311,6 +343,8 @@ def _series_for_sport(sport_key: str | None) -> str | None:
     }
     if sport_key.startswith("tennis_atp_"):
         return "KXATPMATCH"
+    if sport_key.startswith("tennis_wta_"):
+        return "KXWTAMATCH"
     return mapping.get(sport_key)
 
 
@@ -1661,6 +1695,8 @@ def _report_arbs(holdings: list, market_map: dict | None = None):
     print(f"[INFO] Game-level hedges: {len(game_level)}")
     for ev, side, teams in game_level[:50]:
         pnl_info = ""
+        pnl1 = 0.0
+        pnl2 = 0.0
         teams_set = event_teams.get(ev) or set(normalize_team(t) for t in teams)
         teams_list = sorted(t for t in teams_set if t)
         if len(teams_list) >= 2 and ev in event_positions:
@@ -1853,7 +1889,12 @@ def _market_started(market: dict, odds_start_by_matchup: dict | None) -> bool:
     if market and odds_start_by_matchup:
         away, home = _matchup_teams(market)
         if away and home:
-            key = _matchup_key(away, home)
+            # _matchup_teams() already returns series-correct normalized names
+            # (normalize_player for tennis, normalize_nba_team for NBA, normalize_team
+            # for everything else). Re-running through _matchup_key() would apply
+            # normalize_team() on top, producing the wrong key for tennis/NBA markets
+            # and causing the start-time lookup to silently miss.
+            key = f"{away}@{home}"
             dt_utc = odds_start_by_matchup.get(key)
             if dt_utc:
                 now_utc = datetime.utcnow().replace(tzinfo=dt_utc.tzinfo)
@@ -1910,7 +1951,13 @@ def run():
                 f"{g['away']} at {g['home']} {g['total']}" for g in totals_games[:5]
             )
             print(f"[INFO] Odds totals sample: {sample_totals}")
-        odds_start_by_matchup = _odds_start_times(games + totals_games)
+        # Merge fresh Odds API start times into the persistent cache and save to
+        # disk so restarts don't lose in-progress matches that left the Odds API.
+        fresh = _odds_start_times(games + totals_games)
+        if fresh:
+            _MATCHUP_START_CACHE.update(fresh)
+            _save_matchup_start_cache(_MATCHUP_START_CACHE)
+        odds_start_by_matchup = _MATCHUP_START_CACHE
         kalshi_by_series = (
             get_kalshi_markets(
                 target_date=target_date,
@@ -2048,6 +2095,20 @@ def run():
                 matchup_key = _matchup_key_for_sport(g["away"], g["home"], sport_key)
                 kalshi = kalshi_by_series.get(series_expected, {})
                 p_home, p_away = _devig_probs(g["odds_home"], g["odds_away"])
+
+                # Betfair divergence check: if Betfair disagrees with anchor by
+                # more than threshold the line is moving or uncertain — skip game.
+                bf_h = g.get("betfair_odds_home")
+                bf_a = g.get("betfair_odds_away")
+                if bf_h is not None and bf_a is not None:
+                    bf_home, _ = _devig_probs(bf_h, bf_a)
+                    if abs(bf_home - p_home) > BETFAIR_DIVERGENCE_THRESHOLD:
+                        not_entered.append(
+                            f"{g['away']} @ {g['home']} "
+                            f"(betfair divergence {abs(bf_home - p_home):.3f})"
+                        )
+                        continue
+
                 for team, odds_val, p_true in (
                     (g["home"], g["odds_home"], p_home),
                     (g["away"], g["odds_away"], p_away),
@@ -2064,15 +2125,14 @@ def run():
                     if not k:
                         unmatched_moneyline.append(team)
                         continue
-                    if series_expected == "KXNBAGAME":
-                        if not _market_matches_game(
-                            k.get("raw_market"),
-                            g["away"],
-                            g["home"],
-                            series_expected,
-                        ):
-                            not_entered.append(f"{team} YES (opponent mismatch)")
-                            continue
+                    if not _market_matches_game(
+                        k.get("raw_market"),
+                        g["away"],
+                        g["home"],
+                        series_expected,
+                    ):
+                        not_entered.append(f"{team} YES (opponent mismatch)")
+                        continue
 
                     market_ticker = k.get("ticker")
                     series_actual = _series_from_ticker(market_ticker)
@@ -2523,6 +2583,10 @@ def run():
                 )
                 if market_type == "TOTAL":
                     min_edge_dyn = max(min_edge_dyn, TOTALS_MIN_EDGE)
+                    if 0.43 <= kalshi_price <= 0.57:
+                        min_edge_dyn = max(min_edge_dyn, TOTALS_MID_PRICE_MIN)
+                elif 0.43 <= kalshi_price <= 0.57:
+                    min_edge_dyn = max(min_edge_dyn, EDGE_MID_PRICE_MIN)
                 if edge >= min_edge_dyn:
                     print(
                         f"{team} | {side} | {_format_odds(odds_val)} | p={p_true:.3f} {band} | "

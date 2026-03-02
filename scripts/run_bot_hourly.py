@@ -1,10 +1,15 @@
 import subprocess
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
 INTERVAL_SEC = 60 * 60  # 1 hour
 COOLDOWN_SEC = 5
+
+# Only run the bot during this local hour window (24h clock, inclusive start, exclusive end)
+ACTIVE_START_HOUR = 9   # 9am
+ACTIVE_END_HOUR = 25    # 1am next day (9 + 16 = 25)
 
 
 def _bot_path() -> Path:
@@ -18,6 +23,14 @@ def main() -> None:
     print(f"[INFO] Bot: {bot_path}")
 
     while True:
+        hour = datetime.now().hour
+        # Treat hours past midnight (0-8) as 24-32 for easy comparison
+        adjusted = hour if hour >= ACTIVE_START_HOUR else hour + 24
+        if not (ACTIVE_START_HOUR <= adjusted < ACTIVE_END_HOUR):
+            print(f"[INFO] Outside active window ({ACTIVE_START_HOUR}:00–{ACTIVE_END_HOUR % 24:02d}:00), sleeping 5min.")
+            time.sleep(300)
+            continue
+
         start = time.time()
         try:
             print("[INFO] Starting bot...")
