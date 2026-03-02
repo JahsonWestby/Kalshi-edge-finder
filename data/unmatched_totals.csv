@@ -1,40 +1,134 @@
 matchup_key
-akron@kent state OVER 165.0
-akron@kent state UNDER 165.0
-appalachian state@texas state OVER 135.0
-appalachian state@texas state UNDER 135.0
-brown@columbia UNDER 140.5
-coastal carolina@james madison OVER 140.0
-coastal carolina@james madison UNDER 140.0
-dartmouth@pennsylvania OVER 153.0
-dartmouth@pennsylvania UNDER 153.0
-dayton@george washington OVER 152.0
-dayton@george washington UNDER 152.0
-georgia southern@marshall UNDER 168.5
-harvard@princeton OVER 131.0
-harvard@princeton UNDER 131.0
-le moyne@troy OVER 156.0
-le moyne@troy UNDER 156.0
-louisiana@arkansas state OVER 146.0
-louisiana@arkansas state UNDER 146.0
-manhattan@saint peters OVER 145.0
-manhattan@saint peters UNDER 145.0
-merrimack@canisius OVER 132.0
-merrimack@canisius UNDER 132.0
-miami oh@western michigan UNDER 161.5
-michigan@illinois OVER 158.5
-michigan@illinois UNDER 158.5
-mount st marys@sacred heart OVER 149.0
-mount st marys@sacred heart UNDER 149.0
-old dominion@georgia state OVER 149.5
-old dominion@georgia state UNDER 149.5
-quinnipiac@niagara OVER 135.5
-quinnipiac@niagara UNDER 135.5
-rider@iona OVER 141.5
-rider@iona UNDER 141.5
-siena@fairfield UNDER 144.5
-southern miss@south alabama OVER 144.0
-southern miss@south alabama UNDER 144.0
-wichita state@memphis OVER 154.5
-wichita state@memphis UNDER 154.5
-yale@cornell UNDER 165.5
+akron@central michigan OVER 161.0
+akron@central michigan UNDER 161.0
+alabama@georgia OVER 178.0
+alabama@georgia UNDER 178.0
+albany@vermont OVER 142.0
+albany@vermont UNDER 142.0
+arkansas pine bluff@jackson state OVER 153.5
+arkansas pine bluff@jackson state UNDER 153.5
+army@bucknell OVER 146.0
+army@bucknell UNDER 146.0
+ball state@western michigan OVER 138.5
+ball state@western michigan UNDER 138.5
+boston college@virginia tech OVER 140.5
+boston college@virginia tech UNDER 140.5
+bryant@new hampshire OVER 134.5
+bryant@new hampshire UNDER 134.5
+byu@cincinnati OVER 152.5
+byu@cincinnati UNDER 152.5
+clemson@north carolina OVER 142.0
+clemson@north carolina UNDER 142.0
+colorado@utah OVER 150.0
+colorado@utah UNDER 150.0
+coppin state@howard OVER 139.5
+coppin state@howard UNDER 139.5
+dayton@richmond OVER 146.0
+dayton@richmond UNDER 146.0
+drexel@hofstra OVER 131.5
+drexel@hofstra UNDER 131.5
+duke@north carolina state OVER 150.5
+duke@north carolina state UNDER 150.5
+east texas am@texas am OVER 137.0
+east texas am@texas am UNDER 137.0
+eastern michigan@buffalo OVER 144.0
+eastern michigan@buffalo UNDER 144.0
+george mason@vcu OVER 146.0
+george mason@vcu UNDER 146.0
+georgetown@st johns OVER 148.0
+georgetown@st johns UNDER 148.0
+georgia state@louisiana OVER 132.0
+georgia state@louisiana UNDER 132.0
+grambling state@alabama am OVER 139.0
+grambling state@alabama am UNDER 139.0
+grand canyon@air force OVER 139.0
+grand canyon@air force UNDER 139.0
+hampton@william mary OVER 153.5
+hampton@william mary UNDER 153.5
+holy cross@lafayette OVER 141.5
+holy cross@lafayette UNDER 141.5
+idaho state@sacramento state UNDER 160.5
+idaho@eastern washington OVER 151.0
+idaho@eastern washington UNDER 151.0
+iowa state@arizona OVER 149.5
+iowa state@arizona UNDER 149.5
+iu indy@cleveland state OVER 169.5
+iu indy@cleveland state UNDER 169.5
+kansas@arizona state OVER 150.0
+kansas@arizona state UNDER 150.0
+kent state@northern illinois OVER 148.0
+kent state@northern illinois UNDER 148.0
+kentucky@texas am OVER 159.0
+kentucky@texas am UNDER 159.0
+lamar@houston christian UNDER 132.5
+le moyne@old dominion OVER 160.5
+le moyne@old dominion UNDER 160.5
+louisiana@new orleans OVER 144.0
+louisiana@new orleans UNDER 144.0
+lsu@auburn OVER 157.5
+lsu@auburn UNDER 157.5
+mcneese@nicholls state UNDER 145.5
+mississippi state@florida OVER 160.0
+mississippi state@florida UNDER 160.0
+mississippi valley state@alcorn state OVER 139.0
+mississippi valley state@alcorn state UNDER 139.0
+missouri@oklahoma OVER 154.5
+missouri@oklahoma UNDER 154.5
+monmouth@northeastern OVER 148.5
+monmouth@northeastern UNDER 148.5
+montana state@northern arizona OVER 144.0
+montana state@northern arizona UNDER 144.0
+montana@northern colorado UNDER 154.5
+nebraska@ucla OVER 142.0
+nebraska@ucla UNDER 142.0
+nevada@wyoming OVER 144.5
+nevada@wyoming UNDER 144.5
+norfolk state@morgan state UNDER 157.5
+north carolina at@campbell OVER 157.0
+north carolina at@campbell UNDER 157.0
+north carolina central@maryland eastern shore UNDER 133.5
+northwestern state@ut rio grande valley UNDER 139.5
+ohio@massachusetts OVER 155.5
+ohio@massachusetts UNDER 155.5
+oklahoma state@ucf OVER 170.0
+oklahoma state@ucf UNDER 170.0
+oregon@illinois OVER 146.5
+oregon@illinois UNDER 146.5
+san diego state@boise state OVER 144.5
+san diego state@boise state UNDER 144.5
+san jose state@fresno state OVER 150.0
+san jose state@fresno state UNDER 150.0
+seton hall@xavier musketeers OVER 144.0
+seton hall@xavier musketeers UNDER 144.0
+south carolina state@delaware state OVER 136.0
+south carolina state@delaware state UNDER 136.0
+southern utah@alabama state OVER 154.5
+southern utah@alabama state UNDER 154.5
+stephen f austin@incarnate word OVER 143.5
+stephen f austin@incarnate word UNDER 143.5
+syracuse@louisville OVER 159.5
+syracuse@louisville UNDER 159.5
+tcu@texas tech OVER 147.0
+tcu@texas tech UNDER 147.0
+tennessee@south carolina OVER 143.5
+tennessee@south carolina UNDER 143.5
+toledo@miami oh OVER 162.5
+toledo@miami oh UNDER 162.5
+towson@stony brook OVER 134.0
+towson@stony brook UNDER 134.0
+umass lowell@maine OVER 139.5
+umass lowell@maine UNDER 139.5
+umbc@njit OVER 140.0
+umbc@njit UNDER 140.0
+unc wilmington@elon OVER 148.0
+unc wilmington@elon UNDER 148.0
+utah state@unlv OVER 159.5
+utah state@unlv UNDER 159.5
+vanderbilt@ole miss OVER 154.5
+vanderbilt@ole miss UNDER 154.5
+wake forest@virginia OVER 147.5
+wake forest@virginia UNDER 147.5
+weber state@portland state OVER 144.5
+weber state@portland state UNDER 144.5
+west virginia@kansas state OVER 143.0
+west virginia@kansas state UNDER 143.0

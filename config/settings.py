@@ -74,6 +74,8 @@ MAX_DOLLARS_PER_EVENT = 7.0
 MAX_DOLLARS_PER_EVENT_TOTALS = 5.0
 MAX_EVENT_PCT = 0.04
 MAX_EVENT_PCT_TOTALS = 0.03
+# Totals use flat betting instead of Kelly (high variance, small edge regime)
+TOTALS_FLAT_BET = 1.50  # dollars per totals play
 
 # order placement / updates
 TRADE_MODE = "live"  # "dry-run" or "live"

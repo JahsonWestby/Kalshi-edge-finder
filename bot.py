@@ -41,6 +41,7 @@ from config.settings import (
     KELLY_FRAC,
     KELLY_CAP,
     MAX_TRADE_PCT,
+    TOTALS_FLAT_BET,
     ASSUME_LIMIT_ORDER,
     MAX_KALSHI_PRICE,
     TRADE_MODE,
@@ -2386,16 +2387,10 @@ def run():
                         band = _prob_band(p_true_side)
                         edge = calculate_edge(p_true_side, price, KALSHI_FEE)
                         ev_per_dollar_val = ev_per_dollar(p_true_side, price)
+                        # Totals: flat bet instead of Kelly — edge is small & noisy,
+                        # Kelly amplifies drawdowns without meaningful long-term gain.
                         contracts = (
-                            stake_size(
-                                bankroll,
-                                p_true_side,
-                                price,
-                                10**9,
-                                is_limit_order=ASSUME_LIMIT_ORDER,
-                                kelly_frac=KELLY_FRAC,
-                                max_pct=MAX_TRADE_PCT,
-                            )
+                            max(1, int(TOTALS_FLAT_BET / price))
                             if bankroll is not None
                             else 0
                         )
