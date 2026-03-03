@@ -1,16 +1,30 @@
+# Secrets & credentials
 .env
-secrets/private_key.pem
-secrets/*.pem
-data/bets_ledger.json
+secrets/
+*.pem
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Runtime data / caches (auto-generated each run)
+data/bets_ledger*.json
 data/edges_found.csv
+data/kalshi_cache.json
+data/matchup_start_cache.json
 data/odds_cache.json
 data/orders_log.csv
 data/positions_snapshot.json
-data/resting_orders_snapshot.json
 data/resting_orders.json
+data/resting_orders_snapshot.json
 data/unmatched_teams.csv
+data/unmatched_teams_debug.csv
 data/unmatched_totals.csv
-data/edges_found.csv
-data/odds_cache.json
-data/unmatched_totals.csv
+data/unmatched_totals_debug.csv
+
+# Local editor / OS
 .DS_Store
+.vscode/
+.claude/

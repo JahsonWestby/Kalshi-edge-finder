@@ -34,6 +34,7 @@ from config.settings import (
     MIN_EDGE,
     MIN_EDGE_NBA,
     MIN_EDGE_MLB,
+    MIN_EDGE_TENNIS,
     MIN_VOLUME,
     AGGRESSIVE_EDGE,
     AGGRESSIVE_TICK,
@@ -93,6 +94,7 @@ from config.settings import (
     TOTALS_LINE_TOLERANCE,
     TOTALS_MIN_EDGE,
     GAME_START_CANCEL_MIN,
+    GAME_START_CANCEL_MIN_TENNIS,
     OPEN_ORDERS_STATUS,
     DATE_WINDOW_DAYS,
     MLB_SERIES_TICKER,
@@ -240,11 +242,13 @@ if QUIET_LOGS:
         "[INFO] Summary",
         "[INFO] Canceled",
         "[INFO] Cancel not found",
+        "[INFO] Active tennis",
         "[INFO] Cash available",
         "[INFO] Portfolio value",
         "[INFO] Bankroll used",
         "[INFO] Caps:",
         "[INFO] Clamp:",
+        "[INFO] Loose totals",
         "[WARN]",
         "[ERROR]",
     )
@@ -419,27 +423,32 @@ def _find_totals_market(
     side: str,
     total_line: float,
     tolerance: float = TOTALS_LINE_TOLERANCE,
-) -> dict | None:
+) -> tuple[dict | None, float]:
+    """Return (market, line_diff). market is None if no match within tolerance."""
     candidates = [
         m
         for m in totals_list
         if m.get("matchup_key") == matchup_key and m.get("side") == side
     ]
     if not candidates:
-        return None
+        return None, float("inf")
     best = None
-    best_diff = 10**9
+    best_diff = float("inf")
+    best_volume = -1
     for m in candidates:
         line = m.get("total")
         if line is None:
             continue
         diff = abs(float(line) - float(total_line))
-        if diff < best_diff:
+        volume = m.get("volume") or 0
+        # Prefer closest line; break ties by volume
+        if diff < best_diff or (diff == best_diff and volume > best_volume):
             best = m
             best_diff = diff
+            best_volume = volume
     if best and best_diff <= tolerance:
-        return best
-    return None
+        return best, best_diff
+    return None, float("inf")
 
 
 def _parse_commence_time(ts: str | None) -> datetime | None:
@@ -477,6 +486,8 @@ def _min_edge_for_series(series: str | None, base: float) -> float:
         return max(base, MIN_EDGE_NBA)
     if series == MLB_SERIES_TICKER:
         return max(base, MIN_EDGE_MLB)
+    if series in {"KXATPMATCH", "KXWTAMATCH"}:
+        return max(base, MIN_EDGE_TENNIS)
     return base
 
 
@@ -1901,6 +1912,13 @@ def _market_started(market: dict, odds_start_by_matchup: dict | None) -> bool:
         status = (market.get("status") or "").lower()
         if status in ("live", "in_play", "inplay", "closed", "settled"):
             return True
+
+    _series = _series_from_market(market) if market else None
+    _is_tennis = _series in {"KXATPMATCH", "KXWTAMATCH"}
+    # Tennis matches often start 30-90 min before their scheduled time (prior match
+    # finishing early). Use a larger pre-start buffer to avoid entering live markets.
+    _cancel_min = GAME_START_CANCEL_MIN_TENNIS if _is_tennis else GAME_START_CANCEL_MIN
+
     if market and odds_start_by_matchup:
         away, home = _matchup_teams(market)
         if away and home:
@@ -1913,18 +1931,26 @@ def _market_started(market: dict, odds_start_by_matchup: dict | None) -> bool:
             dt_utc = odds_start_by_matchup.get(key)
             if dt_utc:
                 now_utc = datetime.utcnow().replace(tzinfo=dt_utc.tzinfo)
-                cutoff = dt_utc - timedelta(minutes=GAME_START_CANCEL_MIN)
+                cutoff = dt_utc - timedelta(minutes=_cancel_min)
                 return now_utc >= cutoff
+        if _is_tennis and (not away or not home):
+            # Could not extract player names from market title — fail safe: block entry.
+            return True
 
     if not market:
         return False
     dt_utc, source = _market_game_datetime(market)
     if not dt_utc:
-        return False
+        # Tennis with no date info — fail safe: block entry.
+        return _is_tennis
     now_utc = datetime.utcnow().replace(tzinfo=dt_utc.tzinfo)
     if source == "ticker_date":
+        # ticker_date is day-resolution only. For tennis, also block if the date
+        # is today and we're already past the pre-start buffer (using close_time proxy).
+        if _is_tennis and dt_utc.date() == now_utc.date():
+            return True  # conservative: don't enter same-day tennis without a real start time
         return dt_utc.date() < now_utc.date()
-    cutoff = dt_utc - timedelta(minutes=GAME_START_CANCEL_MIN)
+    cutoff = dt_utc - timedelta(minutes=_cancel_min)
     return now_utc >= cutoff
 
 
@@ -2161,7 +2187,13 @@ def run():
                         g["home"],
                         series_expected,
                     ):
-                        not_entered.append(f"{team} YES (opponent mismatch)")
+                        _km_away, _km_home = _matchup_teams(k.get("raw_market") or {})
+                        not_entered.append(
+                            f"{team} YES (opponent mismatch) | "
+                            f"kalshi=({_km_away!r}, {_km_home!r}) "
+                            f"odds=({g['away']!r}, {g['home']!r}) "
+                            f"key={_matchup_key_for_sport(g['away'], g['home'], g.get('sport_key'))!r}"
+                        )
                         continue
 
                     market_ticker = k.get("ticker")
@@ -2421,6 +2453,7 @@ def run():
 
         if ENABLE_TOTALS:
             totals_by_matchup = {}
+            totals_line_diffs: dict[str, float] = {}
             for m in kalshi_totals:
                 key = m.get("matchup_key")
                 if not key:
@@ -2437,7 +2470,7 @@ def run():
                     ("OVER", odds_over, p_over, odds_under, p_under),
                     ("UNDER", odds_under, p_under, odds_over, p_over),
                 ):
-                    market = _find_totals_market(
+                    market, line_diff = _find_totals_market(
                         totals_by_matchup.get(matchup_key, []),
                         matchup_key,
                         side,
@@ -2446,6 +2479,12 @@ def run():
                     if not market:
                         unmatched_totals.append(f"{matchup_key} {side} {g['total']}")
                         continue
+                    if line_diff >= 0.5:
+                        print(
+                            f"[INFO] Loose totals match: {matchup_key} {side} "
+                            f"book={g['total']} kalshi={market.get('total')} "
+                            f"ticker={market.get('ticker')} diff={line_diff:.2f}"
+                        )
                     if _market_started(market.get("raw_market"), odds_start_by_matchup):
                         continue
                     totals_possible += 1
@@ -2457,6 +2496,7 @@ def run():
                     volume = market.get("volume") or 0
                     market_ticker = market.get("ticker")
                     event_ticker = market.get("event_ticker")
+                    totals_line_diffs[market_ticker] = line_diff
 
                     for order_side, price, p_true_side, odds_for_p in (
                         ("YES", yes_bid, p_true, odds_val),
@@ -2615,6 +2655,8 @@ def run():
                 )
                 if market_type == "TOTAL":
                     min_edge_dyn = max(min_edge_dyn, TOTALS_MIN_EDGE)
+                    if totals_line_diffs.get(market_ticker, 0.0) >= 0.5:
+                        min_edge_dyn = max(min_edge_dyn, TOTALS_MIN_EDGE + 0.02)
                     if 0.43 <= kalshi_price <= 0.57:
                         min_edge_dyn = max(min_edge_dyn, TOTALS_MID_PRICE_MIN)
                 elif 0.43 <= kalshi_price <= 0.57:
@@ -2935,7 +2977,7 @@ def run():
                     matchup_key = _matchup_key(g["away"], g["home"])
                     p_over, p_under = _devig_probs(g["over_odds"], g["under_odds"])
                     for side, p_true in (("OVER", p_over), ("UNDER", p_under)):
-                        market = _find_totals_market(
+                        market, _ = _find_totals_market(
                             totals_by_matchup.get(matchup_key, []),
                             matchup_key,
                             side,
@@ -3012,7 +3054,9 @@ def run():
                 elif market:
                     away, home = _matchup_teams(market)
                     if away and home:
-                        key = _matchup_key(away, home)
+                        # _matchup_teams() already returns series-normalized names;
+                        # use raw f-string (not _matchup_key) to match _market_started() exactly.
+                        key = f"{away}@{home}"
                         if key not in odds_start_by_matchup:
                             print(f"[INFO] No Odds API start time for: {ticker} {side} ({key})")
                 best_bid = _post_only_price(market, side)

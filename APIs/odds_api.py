@@ -14,12 +14,52 @@ from config.settings import (
     ODDS_REGIONS,
     ODDS_CACHE_TTL_SEC,
     ODDS_CACHE_LOG,
+    AUTO_DETECT_TENNIS,
 )
 import re
 
 ODDS_API_URL = "https://api.the-odds-api.com/v4/sports/{sport}/odds"
+SPORTS_API_URL = "https://api.the-odds-api.com/v4/sports"
 CACHE_PATH = Path("data/odds_cache.json")
 ODDS_TIMEOUT = (5, 20)
+TENNIS_SPORTS_CACHE_TTL_SEC = 4 * 3600  # re-fetch active tennis list every 4 hours
+
+_tennis_cache: list[str] = []
+_tennis_cache_ts: float = 0.0
+
+
+def _get_active_tennis_sports() -> list[str]:
+    """Fetch active ATP/WTA tournament keys from the Odds API /v4/sports endpoint.
+    Results are cached in-process for 4 hours."""
+    global _tennis_cache, _tennis_cache_ts
+    if _tennis_cache and (time.time() - _tennis_cache_ts) < TENNIS_SPORTS_CACHE_TTL_SEC:
+        return _tennis_cache
+    if not ODDS_API_KEY:
+        return _tennis_cache
+    try:
+        r = SESSION.get(SPORTS_API_URL, params={"apiKey": ODDS_API_KEY}, timeout=ODDS_TIMEOUT)
+        r.raise_for_status()
+        sports = r.json()
+        tennis = [
+            s["key"] for s in sports
+            if s.get("key", "").startswith(("tennis_atp_", "tennis_wta_"))
+            and not s.get("has_outrights", False)
+        ]
+        _tennis_cache = tennis
+        _tennis_cache_ts = time.time()
+        print(f"[INFO] Active tennis sports detected: {tennis}")
+        return tennis
+    except Exception as exc:
+        print(f"[WARN] Failed to fetch active tennis sports: {exc}")
+        return _tennis_cache  # return last known list on error
+
+
+def _resolve_sports() -> list[str]:
+    """Return the effective sports list: ODDS_SPORTS (non-tennis) + auto-detected tennis."""
+    if not AUTO_DETECT_TENNIS:
+        return ODDS_SPORTS
+    base = [s for s in ODDS_SPORTS if not s.startswith("tennis_")]
+    return base + _get_active_tennis_sports()
 
 _odds_retry = Retry(
     total=3,
@@ -34,13 +74,13 @@ SESSION.mount("https://", HTTPAdapter(max_retries=_odds_retry))
 SESSION.mount("http://", HTTPAdapter(max_retries=_odds_retry))
 
 
-def _cache_key(markets: str) -> str:
+def _cache_key(markets: str, sports: list[str] | None = None) -> str:
     return json.dumps(
         {
             "markets": markets,
             "regions": ODDS_REGIONS,
             "bookmakers": ODDS_BOOKMAKERS,
-            "sports": ODDS_SPORTS,
+            "sports": sports if sports is not None else ODDS_SPORTS,
         },
         sort_keys=True,
     )
@@ -145,7 +185,8 @@ def _fetch_odds_data(markets: str):
     if not ODDS_API_KEY:
         raise RuntimeError("ODDS_API_KEY is not set")
 
-    cache_key = _cache_key(markets)
+    sports = _resolve_sports()
+    cache_key = _cache_key(markets, sports)
 
     if ODDS_CACHE_TTL_SEC and ODDS_CACHE_TTL_SEC > 0 and CACHE_PATH.exists():
         try:
@@ -170,7 +211,7 @@ def _fetch_odds_data(markets: str):
         params["bookmakers"] = ODDS_BOOKMAKERS
 
     data = []
-    for sport in ODDS_SPORTS:
+    for sport in sports:
         url = ODDS_API_URL.format(sport=sport)
         try:
             r = SESSION.get(url, params=params, timeout=ODDS_TIMEOUT)

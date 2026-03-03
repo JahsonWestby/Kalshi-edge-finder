@@ -44,8 +44,9 @@ USE_CHEAPEST_IMPLIED_WINNER = True
 
 # core edge thresholds
 MIN_EDGE = 0.018
-MIN_EDGE_NBA = 0.025
+MIN_EDGE_NBA = 0.03
 MIN_EDGE_MLB = 0.015
+MIN_EDGE_TENNIS = 0.03
 TOTALS_MIN_EDGE = 0.055          # raised: high-variance market, require stronger signal
 AGGRESSIVE_EDGE = 0.05  # 5%
 AGGRESSIVE_TICK = 0.01
@@ -124,17 +125,20 @@ NO_PROB_CANCEL_TIME_SEC = 120
 REPLACE_EDGE_BUFFER = 0.005
 MAX_REPLACE_DRIFT = 0.05
 GAME_START_CANCEL_MIN = 5
+# Tennis: matches often start 30-90 min before scheduled time (prior match finishes early).
+# Use a larger buffer so we stop entering well before the scheduled start.
+GAME_START_CANCEL_MIN_TENNIS = 60
 OPEN_ORDERS_STATUS = "open,resting,active"
 RESTING_CANCEL_GRACE_SEC = 0
 
 # totals matching
-TOTALS_LINE_TOLERANCE = 0.1
+TOTALS_LINE_TOLERANCE = 0.5
 
 # timing
 POLL_INTERVAL = 30
 ODDS_CACHE_TTL_SEC = 400
 ODDS_CACHE_LOG = False
-QUIET_LOGS = True
+QUIET_LOGS = False
 DATE_WINDOW_DAYS = 1
 
 # secrets
@@ -145,14 +149,17 @@ KALSHI_PEM_PATH = BASE_DIR / "secrets" / "private_key.pem"
 ODDS_API_KEY = os.getenv("ODDS_API_KEY")
 ODDS_REGIONS = "us,uk,eu,fr,se,au"
 # Sport keys (Odds API): basketball_ncaab, basketball_wncaab, basketball_nba, baseball_mlb, tennis_atp_*
+# Tennis is auto-detected when AUTO_DETECT_TENNIS = True — no manual edits needed.
 ODDS_SPORTS = [
     "basketball_ncaab",
     # "basketball_wncaab",  # no sharp books cover WNCAAB — p_true unreliable
-    "tennis_atp_indian_wells",
-    "tennis_wta_indian_wells",
-   "basketball_nba",
+    "basketball_nba",
     # "baseball_mlb",
 ]
+# When True, the Odds API module fetches /v4/sports and automatically adds any
+# active ATP/WTA tennis tournaments each run. Set False to disable tennis or to
+# manually add specific tournament keys to ODDS_SPORTS above.
+AUTO_DETECT_TENNIS = True
 ODDS_BOOKMAKERS = "lowvig,pinnacle,betonlineag,betfair_ex_eu,betfair_ex_uk"
 # Pinnacle is always the primary anchor; Betfair is fetched for divergence detection only.
 # If Betfair's implied prob differs from Pinnacle's by more than this, the game is skipped.
