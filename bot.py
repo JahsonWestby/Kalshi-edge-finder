@@ -248,7 +248,6 @@ if QUIET_LOGS:
         "[INFO] Bankroll used",
         "[INFO] Caps:",
         "[INFO] Clamp:",
-        "[INFO] Loose totals",
         "[WARN]",
         "[ERROR]",
     )
