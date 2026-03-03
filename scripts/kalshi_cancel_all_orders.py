@@ -1,8 +1,8 @@
+import argparse
 import os
 import sys
-import json
 
-# Ensure repo root is on path when running from scripts/NCA
+# Ensure repo root is on path when running from scripts/
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
@@ -10,7 +10,7 @@ if ROOT not in sys.path:
 from APIs.kalshi_api import get_orders, cancel_order
 
 
-def main():
+def _get_open_orders():
     orders = get_orders()
     items = orders.get("orders") or []
     open_orders = []
@@ -26,34 +26,22 @@ def main():
         if remaining <= 0:
             continue
         open_orders.append(o)
+    return open_orders
 
-    ncaa_prefixes = ("KXNCAA",)
-    ncaa_orders = []
-    for o in open_orders:
-        ticker = (o.get("market_ticker") or o.get("ticker") or "")
-        if ticker.startswith(ncaa_prefixes):
-            ncaa_orders.append(o)
 
-    print(
-        json.dumps(
-            {
-                "open_orders": len(open_orders),
-                "ncaa_orders": len(ncaa_orders),
-                "ncaa_prefixes": list(ncaa_prefixes),
-            },
-            indent=2,
+def _filter_by_prefixes(open_orders, prefixes):
+    return [
+        o for o in open_orders
+        if any(
+            (o.get("market_ticker") or o.get("ticker") or "").startswith(p)
+            for p in prefixes
         )
-    )
-    if not open_orders:
-        return
+    ]
 
-    confirm = input("Type NCAA to cancel all NCAA open orders: ").strip()
-    if confirm != "NCAA":
-        print("Aborted.")
-        return
 
+def _cancel_orders(matched):
     canceled = 0
-    for o in ncaa_orders:
+    for o in matched:
         order_id = o.get("order_id") or o.get("id")
         if not order_id:
             continue
@@ -61,9 +49,49 @@ def main():
             cancel_order(order_id)
             canceled += 1
         except Exception as exc:
-            print(f"Failed to cancel {order_id}: {exc}")
+            print(f"[WARN] Failed to cancel {order_id}: {exc}")
+    return canceled
 
-    print(f"Canceled {canceled} orders.")
+
+def main():
+    parser = argparse.ArgumentParser(description="Cancel Kalshi open orders by ticker prefix.")
+    parser.add_argument(
+        "--prefixes", nargs="+", default=None,
+        help="Ticker prefixes to cancel (e.g. KXNBAGAME KXNCAAMBGAME). "
+             "Defaults to KXNCAA for interactive mode.",
+    )
+    parser.add_argument(
+        "--yes", action="store_true",
+        help="Skip confirmation prompt (non-interactive / shutdown mode).",
+    )
+    args = parser.parse_args()
+
+    open_orders = _get_open_orders()
+
+    if args.yes:
+        # Non-interactive mode — called by shutdown runner
+        prefixes = args.prefixes or []
+        if not prefixes:
+            print("[WARN] --yes passed but no --prefixes given; nothing to cancel.")
+            return
+        matched = _filter_by_prefixes(open_orders, prefixes)
+        canceled = _cancel_orders(matched)
+        print(f"[INFO] Shutdown cancel: {canceled}/{len(matched)} orders canceled "
+              f"(prefixes: {prefixes})")
+        return
+
+    # Interactive mode (manual use)
+    prefixes = args.prefixes or ["KXNCAA"]
+    matched = _filter_by_prefixes(open_orders, prefixes)
+    print(f"Open orders total: {len(open_orders)} | matching {prefixes}: {len(matched)}")
+    if not matched:
+        return
+    confirm = input(f"Type YES to cancel {len(matched)} matching orders: ").strip()
+    if confirm != "YES":
+        print("Aborted.")
+        return
+    canceled = _cancel_orders(matched)
+    print(f"Canceled {canceled}/{len(matched)} orders.")
 
 
 if __name__ == "__main__":

@@ -51,10 +51,12 @@ from config.settings import (
     MAX_UPDATES_PER_MARKET,
     ORDER_IMPROVE_MIN,
     MAX_DOLLARS_PER_MARKET,
+    MAX_MARKET_PCT,
     MAX_DOLLARS_PER_EVENT,
     MAX_DOLLARS_PER_EVENT_TOTALS,
     MAX_EVENT_PCT,
     MAX_EVENT_PCT_TOTALS,
+    EDGE_SIZE_TIERS,
     MIN_EDGE_NEW,
     MIN_EDGE_ADD,
     MIN_PRICE_IMPROVEMENT_ADD,
@@ -238,6 +240,11 @@ if QUIET_LOGS:
         "[INFO] Summary",
         "[INFO] Canceled",
         "[INFO] Cancel not found",
+        "[INFO] Cash available",
+        "[INFO] Portfolio value",
+        "[INFO] Bankroll used",
+        "[INFO] Caps:",
+        "[INFO] Clamp:",
         "[WARN]",
         "[ERROR]",
     )
@@ -285,6 +292,14 @@ def _min_edge_for_prob(p_true: float) -> float:
     if p_true < 0.40:
         return EDGE_DOG_MIN
     return EDGE_MID_MIN
+
+
+def _edge_size_mult(edge: float) -> float:
+    """Return a size multiplier based on edge strength (moneylines only)."""
+    for threshold, mult in EDGE_SIZE_TIERS:
+        if edge >= threshold:
+            return mult
+    return 1.0
 
 
 def _moneyline_side_allowed(side: str) -> bool:
@@ -2042,6 +2057,9 @@ def run():
             print(f"[INFO] Portfolio value: ${portfolio_value:,.2f}")
         if bankroll is None:
             print("[WARN] Cash available missing; skipping stake sizing.")
+        if bankroll is not None:
+            print(f"[INFO] Bankroll used for sizing: cash=${bankroll:,.2f} (portfolio_value excluded)")
+            print(f"[INFO] Caps: market=${bankroll * MAX_MARKET_PCT:.2f} ({MAX_MARKET_PCT:.1%}) | event=${bankroll * MAX_EVENT_PCT:.2f} ({MAX_EVENT_PCT:.1%}) | totals_event=${bankroll * MAX_EVENT_PCT_TOTALS:.2f} ({MAX_EVENT_PCT_TOTALS:.1%})")
         if not ASSUME_LIMIT_ORDER:
             print("[WARN] ASSUME_LIMIT_ORDER is False; skipping order placement.")
         odds_teams = set()
@@ -2368,6 +2386,8 @@ def run():
                 if bankroll is not None
                 else 0
             )
+            if contracts > 0 and bankroll is not None:
+                contracts = min(int(contracts * _edge_size_mult(edge)), contracts_available)
             if kalshi_price < 0.08:
                 contracts = min(contracts, 5)
             if ev_per_dollar_val > 0.25:
@@ -3172,7 +3192,8 @@ def run():
                     market_dollars = open_order_dollars_by_market.get(ticker, 0.0)
                     if existing_pos and existing_pos.get("count", 0) > 0:
                         market_dollars += (existing_pos.get("avg_price") or 0) * existing_pos.get("count", 0)
-                    remaining_dollars = MAX_DOLLARS_PER_MARKET - market_dollars
+                    _arb_market_cap = bankroll * MAX_MARKET_PCT if bankroll is not None else MAX_DOLLARS_PER_MARKET
+                    remaining_dollars = _arb_market_cap - market_dollars
                     if remaining_dollars <= 0:
                         continue
                     per_contract_cost = yes_ask + no_ask + fee_yes + fee_no
@@ -3729,6 +3750,14 @@ def run():
                 if event_dollars >= event_cap:
                     print(f"[SKIP] event cap ${event_cap:.2f}: {event_key}")
                     continue
+                if event_dollars + (price * contracts) > event_cap:
+                    _clamped = int((event_cap - event_dollars) / price) if price > 0 else 0
+                    if _clamped > 0:
+                        print(f"[INFO] Clamp: event_cap old={contracts} new={_clamped} (${event_dollars + price * contracts:.2f} > ${event_cap:.2f})")
+                        contracts = _clamped
+                    else:
+                        print(f"[SKIP] event cap ${event_cap:.2f}: {event_key}")
+                        continue
 
                 if existing_pos and existing_pos.get("count", 0) > 0:
                     if not ALLOW_POSITION_ADDS:
@@ -3756,8 +3785,19 @@ def run():
                 if existing_pos and existing_pos.get("count", 0) > 0:
                     market_dollars = (existing_pos.get("avg_price") or 0) * existing_pos.get("count", 0)
                 market_dollars += open_order_dollars_by_market.get(market_ticker, 0.0)
-                if (market_dollars + (price * contracts)) > MAX_DOLLARS_PER_MARKET:
-                    print(f"[SKIP] market cap ${MAX_DOLLARS_PER_MARKET:.2f}: {market_ticker}")
+                _market_cap = bankroll * MAX_MARKET_PCT if bankroll is not None else MAX_DOLLARS_PER_MARKET
+                if (market_dollars + (price * contracts)) > _market_cap:
+                    _clamped = int((_market_cap - market_dollars) / price) if price > 0 else 0
+                    if _clamped > 0:
+                        print(f"[INFO] Clamp: market_cap old={contracts} new={_clamped} (${market_dollars + price * contracts:.2f} > ${_market_cap:.2f})")
+                        contracts = _clamped
+                    else:
+                        print(f"[SKIP] market cap ${_market_cap:.2f}: {market_ticker}")
+                        continue
+
+                _min_contracts = 3 if row.get("market_type") == "TOTAL" else 2
+                if contracts < _min_contracts:
+                    print(f"[SKIP] post-clamp too small ({contracts} < {_min_contracts}): {market_ticker}")
                     continue
 
                 payload = {

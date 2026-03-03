@@ -72,13 +72,19 @@ MIN_VOLUME = 50
 KELLY_FRAC = 0.2
 KELLY_CAP = 0.25
 MAX_TRADE_PCT = 0.10
-MAX_DOLLARS_PER_MARKET = 7.0
-MAX_DOLLARS_PER_EVENT = 7.0
-MAX_DOLLARS_PER_EVENT_TOTALS = 5.0
+MAX_DOLLARS_PER_MARKET = 7.0   # fallback only (used when bankroll unavailable)
+MAX_MARKET_PCT = 0.035          # 3.5% of bankroll per market (primary cap)
+MAX_DOLLARS_PER_EVENT = 7.0    # fallback only
+MAX_DOLLARS_PER_EVENT_TOTALS = 5.0  # fallback only
 MAX_EVENT_PCT = 0.04
 MAX_EVENT_PCT_TOTALS = 0.03
 # Totals use flat betting instead of Kelly (high variance, small edge regime)
 TOTALS_FLAT_BET = 1.50  # dollars per totals play
+# Edge-tiered sizing multipliers for moneylines (edge_min, multiplier)
+EDGE_SIZE_TIERS: list[tuple[float, float]] = [
+    (0.06, 1.35),  # edge >= 6%: 1.35x
+    (0.04, 1.15),  # edge >= 4%: 1.15x
+]
 
 # order placement / updates
 TRADE_MODE = "live"  # "dry-run" or "live"
