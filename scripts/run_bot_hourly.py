@@ -6,6 +6,8 @@ from pathlib import Path
 
 INTERVAL_SEC = 60 * 60  # 1 hour
 COOLDOWN_SEC = 5
+CRASH_THRESHOLD_SEC = 300  # if bot exits in < 5 min, treat as crash
+CRASH_RETRY_SEC = 60       # wait 60s before retrying after a crash
 
 # Only run the bot during this local hour window (24h clock, inclusive start, exclusive end)
 ACTIVE_START_HOUR = 9   # 9am
@@ -42,10 +44,14 @@ def main() -> None:
             print(f"[WARN] Bot runner error: {exc}")
 
         elapsed = time.time() - start
-        sleep_for = max(0, INTERVAL_SEC - elapsed)
-        if sleep_for > 0:
-            print(f"[INFO] Sleeping {int(sleep_for)}s before restart.")
-            time.sleep(sleep_for)
+        if elapsed < CRASH_THRESHOLD_SEC:
+            print(f"[WARN] Bot exited after {int(elapsed)}s (possible crash), retrying in {CRASH_RETRY_SEC}s.")
+            time.sleep(CRASH_RETRY_SEC)
+        else:
+            sleep_for = max(0, INTERVAL_SEC - elapsed)
+            if sleep_for > 0:
+                print(f"[INFO] Sleeping {int(sleep_for)}s before restart.")
+                time.sleep(sleep_for)
         time.sleep(COOLDOWN_SEC)
 
 
