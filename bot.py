@@ -7,7 +7,7 @@ import json
 import uuid
 from collections import Counter
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from APIs.odds_api import get_moneyline_games, get_totals_games, odds_cache_remaining
 from APIs.kalshi_api import (
@@ -117,7 +117,7 @@ def _load_matchup_start_cache() -> dict:
         return {}
     try:
         raw = json.loads(_MATCHUP_START_CACHE_PATH.read_text())
-        cutoff = datetime.utcnow().replace(tzinfo=__import__("datetime").timezone.utc) - timedelta(hours=24)
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=24)
         return {
             k: datetime.fromisoformat(v)
             for k, v in raw.items()
@@ -1956,7 +1956,19 @@ def run():
         fresh = _odds_start_times(games + totals_games)
         if fresh:
             _MATCHUP_START_CACHE.update(fresh)
-            _save_matchup_start_cache(_MATCHUP_START_CACHE)
+        # If Odds API returned data and a previously-cached matchup is now absent,
+        # the match was likely removed because it went live. Backdate its start time
+        # so _market_started() blocks it on the next check.
+        if games or totals_games:
+            now_utc = datetime.now(timezone.utc)
+            for key, cached_dt in list(_MATCHUP_START_CACHE.items()):
+                if key not in fresh:
+                    dt_utc = cached_dt if cached_dt.tzinfo else cached_dt.replace(tzinfo=timezone.utc)
+                    # Only backdate matches whose scheduled start is within the next 30 min
+                    # or already past — avoids falsely expiring tomorrow's matches.
+                    if dt_utc <= now_utc + timedelta(minutes=30):
+                        _MATCHUP_START_CACHE[key] = now_utc - timedelta(hours=1)
+        _save_matchup_start_cache(_MATCHUP_START_CACHE)
         odds_start_by_matchup = _MATCHUP_START_CACHE
         kalshi_by_series = (
             get_kalshi_markets(
@@ -2922,18 +2934,18 @@ def run():
                         market_cache[ticker] = fetched
                         market = fetched
 
-                lookup_team = normalize_team(team) if team else None
+                lookup_team = _normalize_name_for_series(team, series_actual) if team else None
                 if team and series_actual in odds_map_by_series:
                     if side == "NO" and market:
                         implied = _implied_winner(team, side, market)
                         if implied:
-                            lookup_team = implied
+                            lookup_team = _normalize_name_for_series(implied, series_actual)
                     p_true = odds_map_by_series[series_actual].get(lookup_team)
                 elif ticker in totals_prob_by_ticker:
                     p_true = totals_prob_by_ticker[ticker]
                     if side == "NO":
                         p_true = 1 - p_true
-                if side == "NO" and team and lookup_team == normalize_team(team) and p_true is not None:
+                if side == "NO" and team and lookup_team == _normalize_name_for_series(team, series_actual) and p_true is not None:
                     p_true = 1 - p_true
                 price = info["price"]
                 mid_price = _mid_price(market, side) if market else None
