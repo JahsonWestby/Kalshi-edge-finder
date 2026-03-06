@@ -505,6 +505,52 @@
       }
     }
   },
+  "38067eee-527e-4328-afa9-a024e66e309f": {
+    "payload": {
+      "action": "buy",
+      "client_order_id": "ce8a7f00-cf5a-4598-aaae-98fcbfc176cc",
+      "count": 14,
+      "post_only": true,
+      "side": "yes",
+      "ticker": "KXNCAAMBGAME-26MAR07NDBC-ND",
+      "type": "limit",
+      "yes_price_dollars": "0.4900"
+    },
+    "response": {
+      "order": {
+        "action": "buy",
+        "client_order_id": "ce8a7f00-cf5a-4598-aaae-98fcbfc176cc",
+        "created_time": "2026-03-06T19:10:16.900264Z",
+        "expiration_time": null,
+        "fill_count": 0,
+        "fill_count_fp": "0.00",
+        "initial_count": 14,
+        "initial_count_fp": "14.00",
+        "last_update_time": "2026-03-06T19:10:16.900264Z",
+        "maker_fees": 0,
+        "maker_fill_cost": 0,
+        "maker_fill_cost_dollars": "",
+        "no_price": 51,
+        "no_price_dollars": "0.5100",
+        "order_group_id": null,
+        "order_id": "38067eee-527e-4328-afa9-a024e66e309f",
+        "queue_position": 0,
+        "remaining_count": 14,
+        "remaining_count_fp": "14.00",
+        "side": "yes",
+        "status": "resting",
+        "subaccount_number": 0,
+        "taker_fees": 0,
+        "taker_fill_cost": 0,
+        "taker_fill_cost_dollars": "",
+        "ticker": "KXNCAAMBGAME-26MAR07NDBC-ND",
+        "type": "limit",
+        "user_id": "fd194b62-2ac4-452b-8d69-74f98a80cea6",
+        "yes_price": 49,
+        "yes_price_dollars": "0.4900"
+      }
+    }
+  },
   "3f8485ef-504e-4a03-be76-b1c1c9192074": {
     "payload": {
       "action": "buy",

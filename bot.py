@@ -589,7 +589,7 @@ def _append_csv_rows(path: Path, fieldnames: list[str], rows: list[dict]) -> Non
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     write_header = not path.exists()
-    with path.open("a", newline="") as f:
+    with path.open("a", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         if write_header:
             writer.writeheader()
@@ -600,7 +600,7 @@ def _load_csv_ids(path: Path, id_field: str) -> set[str]:
     if not path.exists():
         return set()
     try:
-        with path.open("r", newline="") as f:
+        with path.open("r", newline="", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             return {row.get(id_field, "") for row in reader if row.get(id_field)}
     except Exception:
@@ -611,7 +611,7 @@ def _load_orders_log_by_id() -> dict[str, dict]:
     if not ORDERS_LOG_PATH.exists():
         return {}
     try:
-        with ORDERS_LOG_PATH.open("r", newline="") as f:
+        with ORDERS_LOG_PATH.open("r", newline="", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             return {row.get("order_id", ""): row for row in reader if row.get("order_id")}
     except Exception:
@@ -2733,7 +2733,7 @@ def run():
                 # Write full unmatched list + closest Kalshi keys for fast mapping
                 unmatched_path = "data/unmatched_teams.csv"
                 kalshi_keys = sorted(kalshi_keys_all)
-                with open(unmatched_path, "w", newline="") as f:
+                with open(unmatched_path, "w", newline="", encoding="utf-8") as f:
                     writer = csv.writer(f)
                     writer.writerow(
                         [
@@ -2755,7 +2755,7 @@ def run():
                     print(f"[INFO] Unmatched totals: {len(unmatched_totals)}")
                 if unmatched_totals:
                     unmatched_totals_path = "data/unmatched_totals.csv"
-                    with open(unmatched_totals_path, "w", newline="") as f:
+                    with open(unmatched_totals_path, "w", newline="", encoding="utf-8") as f:
                         writer = csv.writer(f)
                         writer.writerow(["matchup_key"])
                         for t in sorted(set(unmatched_totals)):
@@ -2826,7 +2826,7 @@ def run():
             )
 
             csv_path = "data/edges_found.csv"
-            with open(csv_path, "w", newline="") as f:
+            with open(csv_path, "w", newline="", encoding="utf-8") as f:
                 writer = csv.DictWriter(
                     f,
                     fieldnames=[
