@@ -138,8 +138,9 @@ TOTALS_LINE_TOLERANCE = 0.5
 POLL_INTERVAL = 30
 ODDS_CACHE_TTL_SEC = 400
 ODDS_CACHE_LOG = False
-QUIET_LOGS = False
-DATE_WINDOW_DAYS = 1
+QUIET_LOGS = True
+DATE_WINDOW_DAYS = 1        # default lookahead: NBA, tennis
+DATE_WINDOW_DAYS_NCAAB = 2  # NCAAB lookahead (bet up to 2 days in advance)
 
 # secrets
 KALSHI_KEY_ID = os.getenv("KALSHI_KEY_ID")  # e.g. your Kalshi API key id
@@ -160,10 +161,15 @@ ODDS_SPORTS = [
 # active ATP/WTA tennis tournaments each run. Set False to disable tennis or to
 # manually add specific tournament keys to ODDS_SPORTS above.
 AUTO_DETECT_TENNIS = True
-ODDS_BOOKMAKERS = "lowvig,pinnacle,betonlineag,betfair_ex_eu,betfair_ex_uk"
+ODDS_BOOKMAKERS = "lowvig,pinnacle,betonlineag,betfair_ex_eu,betfair_ex_uk,fanduel"
 # Pinnacle is always the primary anchor; Betfair is fetched for divergence detection only.
 # If Betfair's implied prob differs from Pinnacle's by more than this, the game is skipped.
 BETFAIR_DIVERGENCE_THRESHOLD = 0.04
+# Tier-1 fallback books (used when Pinnacle is absent), per sport.
+# NCAAB: include FanDuel for broader market coverage.
+# Tennis: empty — require Pinnacle; other books' lines are unreliable for ATP/WTA.
+NCAAB_TIER1_BOOKS = ("lowvig", "betonlineag", "fanduel")
+TENNIS_TIER1_BOOKS = ()  # Pinnacle only
 
 # Kalshi series tickers
 MLB_SERIES_TICKER = "KXMLBSTGAME"

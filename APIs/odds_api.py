@@ -15,6 +15,8 @@ from config.settings import (
     ODDS_CACHE_TTL_SEC,
     ODDS_CACHE_LOG,
     AUTO_DETECT_TENNIS,
+    NCAAB_TIER1_BOOKS,
+    TENNIS_TIER1_BOOKS,
 )
 import re
 
@@ -119,22 +121,22 @@ _TIER1_FALLBACK = ("lowvig", "betonlineag")
 _BETFAIR_KEYS = ("betfair_ex_eu", "betfair_ex_uk")
 
 
-def _anchor_odds(odds_by_book: dict, team: str) -> float | None:
+def _anchor_odds(odds_by_book: dict, team: str, tier1: tuple = _TIER1_FALLBACK) -> float | None:
     """Return Pinnacle odds if available, else average of tier-1 fallbacks."""
     if _PINNACLE in odds_by_book and team in odds_by_book[_PINNACLE]:
         return odds_by_book[_PINNACLE][team]
     fallback = [
         odds_by_book[b][team]
-        for b in _TIER1_FALLBACK
+        for b in tier1
         if b in odds_by_book and team in odds_by_book[b]
     ]
     return _avg(fallback)
 
 
-def _anchor_book_label(odds_by_book: dict, team: str) -> str:
+def _anchor_book_label(odds_by_book: dict, team: str, tier1: tuple = _TIER1_FALLBACK) -> str:
     if _PINNACLE in odds_by_book and team in odds_by_book[_PINNACLE]:
         return "pinnacle"
-    used = [b for b in _TIER1_FALLBACK if b in odds_by_book and team in odds_by_book[b]]
+    used = [b for b in tier1 if b in odds_by_book and team in odds_by_book[b]]
     return f"avg({','.join(used)})" if used else "none"
 
 
@@ -301,6 +303,8 @@ def get_moneyline_games(
         sport_key = game.get("sport_key") or ""
         _is_tennis = sport_key.startswith("tennis_")
         _is_nba = sport_key == "basketball_nba"
+        _is_ncaab = sport_key in ("basketball_ncaab", "basketball_wncaab")
+        _tier1 = TENNIS_TIER1_BOOKS if _is_tennis else (NCAAB_TIER1_BOOKS if _is_ncaab else _TIER1_FALLBACK)
 
         def _norm_name(raw: str) -> str:
             if _is_tennis:
@@ -337,9 +341,9 @@ def get_moneyline_games(
         home = _norm_name(home_raw)
         away = _norm_name(away_raw)
 
-        # Tiered anchoring: Pinnacle first, then average of tier-1 fallbacks
-        odds_home = _anchor_odds(odds_by_book, home)
-        odds_away = _anchor_odds(odds_by_book, away)
+        # Tiered anchoring: Pinnacle first, then average of sport-specific tier-1 fallbacks
+        odds_home = _anchor_odds(odds_by_book, home, _tier1)
+        odds_away = _anchor_odds(odds_by_book, away, _tier1)
 
         if home and away and odds_home is not None and odds_away is not None:
             key = (away, home, game.get("commence_time"))
@@ -352,7 +356,7 @@ def get_moneyline_games(
                     "away": away,
                     "odds_home": odds_home,
                     "odds_away": odds_away,
-                    "anchor_book": _anchor_book_label(odds_by_book, home),
+                    "anchor_book": _anchor_book_label(odds_by_book, home, _tier1),
                     "betfair_odds_home": _betfair_team_odds(odds_by_book, home),
                     "betfair_odds_away": _betfair_team_odds(odds_by_book, away),
                     "odds_by_book": odds_by_book,

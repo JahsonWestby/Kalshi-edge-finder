@@ -97,6 +97,7 @@ from config.settings import (
     GAME_START_CANCEL_MIN_TENNIS,
     OPEN_ORDERS_STATUS,
     DATE_WINDOW_DAYS,
+    DATE_WINDOW_DAYS_NCAAB,
     MLB_SERIES_TICKER,
     RESTING_CANCEL_GRACE_SEC,
     YES_NO_TIE_PREFERENCE,
@@ -470,6 +471,25 @@ def _odds_start_times(games: list[dict]) -> dict:
             rev_key = _matchup_key_for_sport(g["home"], g["away"], g.get("sport_key"))
             out[rev_key] = dt
     return out
+
+
+def _sport_window(sport_key: str | None) -> int:
+    """Return the lookahead window in days for a given Odds API sport key."""
+    if (sport_key or "").startswith("basketball_ncaa"):
+        return DATE_WINDOW_DAYS_NCAAB
+    return DATE_WINDOW_DAYS
+
+
+def _game_in_window(g: dict, target_date) -> bool:
+    """Return True if the game falls within its sport-specific date window."""
+    ct = g.get("commence_time")
+    if not ct:
+        return True
+    try:
+        gdate = datetime.fromisoformat(ct.replace("Z", "+00:00")).astimezone().date()
+        return gdate <= target_date + timedelta(days=_sport_window(g.get("sport_key")))
+    except Exception:
+        return True
 
 
 def _prob_band(p_true: float) -> str:
@@ -1970,14 +1990,16 @@ def run():
             games = get_moneyline_games(
                 target_date=target_date,
                 tz_name="US/Central",
-                date_window_days=DATE_WINDOW_DAYS,
+                date_window_days=DATE_WINDOW_DAYS_NCAAB,
             )
+            games = [g for g in games if _game_in_window(g, target_date)]
         if ENABLE_TOTALS:
             totals_games = get_totals_games(
                 target_date=target_date,
                 tz_name="US/Central",
-                date_window_days=DATE_WINDOW_DAYS,
+                date_window_days=DATE_WINDOW_DAYS_NCAAB,
             )
+            totals_games = [g for g in totals_games if _game_in_window(g, target_date)]
         if games:
             sample_games = ", ".join(
                 f"{g['away']} at {g['home']}" for g in games[:5]
@@ -2014,7 +2036,7 @@ def run():
             get_kalshi_markets(
                 target_date=target_date,
                 tz_name="US/Central",
-                date_window_days=DATE_WINDOW_DAYS,
+                date_window_days=DATE_WINDOW_DAYS_NCAAB,
             )
             if ENABLE_MONEYLINE
             else {}
@@ -2023,7 +2045,7 @@ def run():
             get_kalshi_totals_markets(
                 target_date=target_date,
                 tz_name="US/Central",
-                date_window_days=DATE_WINDOW_DAYS,
+                date_window_days=DATE_WINDOW_DAYS_NCAAB,
             )
             if ENABLE_TOTALS
             else []
